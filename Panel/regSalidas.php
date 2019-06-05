@@ -12,6 +12,7 @@ $operacion = $_POST["operacion"];
 $cliente = $_POST["cliente"];
 $codProd = $_POST["codProd"];
 $unidad = $_POST["unidad"];
+$unidad1 = $_POST["unidad1"];
 $op = $_POST["op"];
 $kg =  $_POST["kg"];
 $um = $_POST["um"];
@@ -39,7 +40,7 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO `salidas`(`noOperacion`, `cliente`, `codProducto`, `unidad`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma`) VALUES ('$operacion', '$cliente', '$codProd', '$unidad', $op, $kg, $um, $precioVenta, $calidad, '$origen', '$destino', $flete, $maniobra, $costoUnitario, $costo, $total, $utViaje, $merma)";
+    $sql = "INSERT INTO `salidas`(`noOperacion`, `cliente`, `codProducto`, `unidad`,`unidad1`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma`) VALUES ('$operacion', '$cliente', '$codProd', '$unidad','$unidad1', $op, $kg, $um, $precioVenta, $calidad, '$origen', '$destino', $flete, $maniobra, $costoUnitario, $costo, $total, $utViaje, $merma)";
 
     $conn->exec($sql);
     echo'<script type="text/javascript">

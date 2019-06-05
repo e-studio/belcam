@@ -107,6 +107,7 @@
                   <th>Cliente</th>
                   <th>Cod.Prod.</th>
                   <th>Unidad</th>
+                  <th>Unidad 1</th>
                   <th>OP</th>
                   <th>Kg</th>
                   <th>U.M.</th>
@@ -154,7 +155,7 @@ $dbname = "rickurbi_belcam";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT * FROM salidas");
+    $stmt = $conn->prepare("SELECT `cons`, `noOperacion`, `cliente`, `codProducto`, `unidad`, `unidad1`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma` FROM `salidas`");
     $stmt->execute();
 
     // set the resulting array to associative
