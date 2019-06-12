@@ -69,18 +69,16 @@
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">PANEL DE CONTROL</li>
         <li><a href="index.html"><i class="fa fa-book"></i> <span>Entradas</span></a></li>
-        <li><a href="salidas.html"><i class="fa fa-book"></i> <span>salidas</span></a></li>
+        <li><a href="salidas.php"><i class="fa fa-book"></i> <span>salidas</span></a></li>
         <li><a href="listaEntradas.php"><i class="fa fa-list-ol"></i> <span>Lista de Entradas</span></a></li>
         <li><a href="listaSalidas.php"><i class="fa fa-list-ol"></i> <span>Lista de Salidas</span></a></li>
 
       </ul>
     </section>
-    <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -107,7 +105,7 @@
                   <th>Cliente</th>
                   <th>Cod.Prod.</th>
                   <th>Unidad</th>
-                  <th>Unidad 1</th>
+                  <th>Remolque</th>
                   <th>OP</th>
                   <th>Kg</th>
                   <th>U.M.</th>
@@ -155,7 +153,7 @@ $dbname = "rickurbi_belcam";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT `cons`, `noOperacion`, `cliente`, `codProducto`, `unidad`, `unidad1`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma` FROM `salidas`");
+    $stmt = $conn->prepare("SELECT `cons`, `noOperacion`, `cliente`, `codProducto`, `unidad`, `remolque`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma` FROM `salidas`");
     $stmt->execute();
 
     // set the resulting array to associative

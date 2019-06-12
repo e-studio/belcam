@@ -1,3 +1,8 @@
+<?php
+require_once "includes/controller.php";
+require_once "includes/crud.php";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +40,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+  <!-- Formateo de moneda para numeros en las ordenes  -->
+    <script src="formato/numeral.js"></script>
+
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -63,13 +72,13 @@
           <!-- Tasks: style can be found in dropdown.less -->
 
           <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
+          <!-- <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Bienvenido Usuario</span>
             </a>
             <ul class="dropdown-menu">
-              <!-- User image -->
+              User image
               <li class="user-header">
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
@@ -78,7 +87,7 @@
                   <small>Departamento de Compras</small>
                 </p>
               </li>
-              <!-- Menu Footer-->
+               Menu Footer
               <li class="user-footer">
                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
@@ -88,7 +97,7 @@
                 </div>
               </li>
             </ul>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -97,75 +106,12 @@
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">PANEL DE CONTROL</li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Inicio</span>
-            <span class="pull-right-container">
-              <!-- <i class="fa fa-angle-left pull-right"></i> -->
-            </span>
-          </a>
-
-        </li>
-
-        <li class="treeview">
-          <a href="google.com">
-            <i class="fa  fa-database"></i> <span>Clientes y Proveedores</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-user-plus"></i> Agregar Cliente</a></li>
-            <li><a href="#"><i class="fa fa-user-plus"></i> Agregar Proveedor</a></li>
-            <li><a href="#"><i class="fa fa-group"></i> Lista Clientes</a></li>
-            <li><a href="#"><i class="fa fa-truck"></i> Lista Proveedores</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa  fa-usd"></i> <span>Ventas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-plus-square"></i> Nueva Venta</a></li>
-            <li><a href="#"><i class="fa fa-list-ol"></i> Listado de Ventas</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa  fa-money"></i> <span>Compras</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-plus-square"></i> Nueva Compra</a></li>
-            <li><a href="#"><i class="fa fa-list-ol"></i> Listado de Ventas</a></li>
-          </ul>
-        </li>
-
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-list-alt"></i> <span>Reportes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-list-ol"></i> - </a></li>
-            <li><a href="#"><i class="fa fa-list-ol"></i> - </a></li>
-          </ul>
-        </li>
+        <li><a href="index.html"><i class="fa fa-book"></i> <span>Entradas</span></a></li>
+        <li><a href="salidas.php"><i class="fa fa-book"></i> <span>salidas</span></a></li>
+        <li><a href="listaEntradas.php"><i class="fa fa-list-ol"></i> <span>Lista de Entradas</span></a></li>
+        <li><a href="listaSalidas.php"><i class="fa fa-list-ol"></i> <span>Lista de Salidas</span></a></li>
 
       </ul>
     </section>
@@ -184,6 +130,7 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
+      <form role="form" action="regSalidas.php" method="post">
       <div class="row">
           <div class="col-md-12">
               <div class="box box-primary">
@@ -198,11 +145,19 @@
                       </div>
                       <div class="col-xs-3">
                         <label>Cliente</label>
-                        <input type="text" required name="cliente" class="form-control">
+                        <!-- <input type="text" required name="cliente" class="form-control"> -->
+                        <select class="form-control" required name="cliente" >
+                          <option>Selecione</option>
+                          <?php $clientes = new MvcController(); $clientes -> ctlBuscaClientes();?>
+                        </select>
                       </div>
                       <div class="col-xs-3">
-                        <label>Cod. Prod.</label>
-                        <input type="text" required name="codProd" class="form-control">
+                        <label>Producto</label>
+                        <!-- <input type="text" required name="codProd" class="form-control"> -->
+                        <select class="form-control" required name="producto" onblur="buscaProducto(this.value)">
+                          <option>Selecione</option>
+                          <?php $productos = new MvcController(); $productos -> ctlBuscaProductos();?>
+                        </select>
                       </div>
                       <div class="col-xs-3">
                         <label>Unidad</label>
@@ -213,7 +168,7 @@
                     <div class="row">
                       <div class="col-xs-3">
                         <label>Remolque</label>
-                        <input type="text" required name="unidad1" class="form-control">
+                        <input type="text" required name="remolque" class="form-control">
                       </div>
                       <div class="col-xs-3">
                         <label>Op</label>
@@ -221,12 +176,75 @@
                       </div>
                       <div class="col-xs-3">
                         <label>Kg.</label>
-                        <input type="text" required name="kg" class="form-control">
+                        <input type="text" required id="kg" name="kg" class="form-control">
                       </div>
                       <div class="col-xs-3">
                         <label>U.M.</label>
                         <input type="text" required name="um" class="form-control">
                       </div>
+                    </div>
+
+                    <br><br>
+
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <label>Precio de Venta</label>
+                        <input type="text" required id="precio" name="precio" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Calidad</label>
+                        <input type="text" required name="calidad" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Origen</label>
+                        <select class="form-control" required name="origen">
+                          <option>Selecione</option>
+                          <?php $clientes = new MvcController();
+                                $clientes -> ctlBuscaMisBodegas();?>
+                        </select>
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Destino</label>
+                        <input type="text" required name="destino" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-3">
+                      <label>Flete</label>
+                      <input type="text" required id="flete" name="flete" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Maniobra</label>
+                        <input type="text" required id="maniobra" name="maniobra" class="form-control">
+                      </div>
+
+                      <div class="col-xs-3">
+                        <label>Costo Unitario</label>
+                        <input type="text" required id="costoUnitario" name="costoUnitario" class="form-control">
+                      </div>
+
+                      <div class="col-xs-3">
+                        <label>Costo</label>
+                        <input type="text" required id="costo" name="costo" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Total Venta</label>
+                        <input type="text" required id="total" name="total" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <br><br>
+                        <div class="col-xs-3">
+                          <label>Utilidad Viaje</label>
+                          <input type="text" required id="utViaje" name="utViaje" class="form-control">
+                        </div>
+
+                        <div class="col-xs-3">
+                          <label>Merma</label>
+                          <input type="text" required id="merma" name="merma" class="form-control">
+                        </div>
                     </div>
                   </div>
                   <!-- /.box-body -->
@@ -235,21 +253,24 @@
       </div>  <!-- row -->
 
 
+
+
+
       <div class="row">
 
           <div class="col-md-9">
             <div class="box box-primary">
               <div class="box-header with-border">
-                  <h3 class="box-title">Seleccione almacen y peso</h3>
+                  <h3 class="box-title">Disponibilidad en almacen</h3>
               </div>
 
               <div class="box-body">
-                <form role="form">
+                 <form role="form">
                  <div class="row">
                       <div class="col-xs-6">
 
                         <div class="form-group">
-                          <select class="form-control">
+                          <select class="form-control" id="bodega">
                             <option>BODEGA</option>
                             <option>CAMARGO</option>
                             <option>TORREON</option>
@@ -258,54 +279,27 @@
                       </div>
 
                       <div class="col-xs-3">
-                        <input type="text" required name="kg" placeholder="Kilogramos" class="form-control">
+                        <input type="text" required name="kg" id="kg" placeholder="Kilogramos" class="form-control">
                       </div>
 
                     <div class="col-xs-3">
-                        <button type="button" class="btn btn-primary">Agregar</button>
+                        <button type="button" id='btnAgregar' class="btn btn-primary">Agregar</button>
                     </div>
                   </div>
                 </form>
 
-                <table class="table table-condensed">
-                  <tr>
-                    <th style="width: 10px">#</th>
-                    <th style="width: 40%">Bodega</th>
-                    <th style="width: 20%px">Peso</th>
-                    <th style="width: 10px">Borrar</th>
-                  </tr>
-                  <tr>
-                    <td>1.</td>
-                    <td>Update software</td>
-                    <td>
-                      10,000
-                    </td>
-                    <td><a href="http://www.google.com"><span class="badge bg-red">X</span></a></td>
-                  </tr>
-                  <tr>
-                    <td>2.</td>
-                    <td>Clean database</td>
-                    <td>
-                      10,000
-                    </td>
-                    <td><a href="http://www.google.com"><span class="badge bg-red">X</span></a></td>
-                  </tr>
-                  <tr>
-                    <td>3.</td>
-                    <td>Cron job running</td>
-                    <td>
-                      5,000
-                    </td>
-                    <td><a href="http://www.google.com"><span class="badge bg-red">X</span></a></td>
-                  </tr>
-                  <tr>
-                    <td>4.</td>
-                    <td>Fix and squish bugs</td>
-                    <td>
-                      3,000
-                    </td>
-                    <td><a href="http://www.google.com"><span class="badge bg-red">X</span></a></td>
-                  </tr>
+                <table class="table table-condensed" id="lista-productos">
+                  <thead>
+                    <tr>
+                      <th style="width: 50%">Origen</th>
+                      <th style="width: 40%px">kg disponibles</th>
+                      <th style="width: 10%">Precio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+
                 </table>
 
               </div> <!-- box-body -->
@@ -317,25 +311,26 @@
           <div class="col-md-3">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Guardar Cambios</h3>
+                <h3 class="box-title">Guardar Venta</h3>
                 <div class="box-footer" align="right">
                   <br><br>
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
               </div>
 
-            </div>  <!-- Caja de Guardar -->
-          </div>
+            </div>
+          </div><!-- Caja de Guardar -->
       </div>  <!-- Row -->
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-3">
         </div>
         <div class="col-md-3">
           <div class="box box-primary">
           <div class="mailbox-attachment-info">
                   <span class="mailbox-attachment-size">
-                    <h3 align="center" >Total:   10,000 Kg</h3>
+                    <h4 align="center">Total:</h4>
+                    <input type="text" class="form-control" id="totalKg" placeholder="Kgs" disabled="">
 
                   </span>
                 </div>
@@ -344,13 +339,14 @@
       <div class="col-md-1">
 
         </div>
-      </div>
+      </div> -->
 
 
       <div>
         <p><strong> NOTA: ingrese todos los valores numericos SIN signo de pesos y comas ($ , ) </strong></p>
       </div>
 
+    </form>
     </section>
     <!-- /.content -->
   </div>
@@ -364,6 +360,9 @@
 
 </div>
 <!-- ./wrapper -->
+
+<!-- Mi app JS -->
+<script src="includes/app.js"></script>
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
