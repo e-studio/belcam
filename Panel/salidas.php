@@ -44,6 +44,7 @@ require_once "includes/crud.php";
     <script src="formato/numeral.js"></script>
 
 
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -145,7 +146,7 @@ require_once "includes/crud.php";
                       </div>
                       <div class="col-xs-3">
                         <label>Cliente</label>
-                        <!-- <input type="text" required name="cliente" class="form-control"> -->
+
                         <select class="form-control" required name="cliente" >
                           <option>Selecione</option>
                           <?php $clientes = new MvcController(); $clientes -> ctlBuscaClientes();?>
@@ -153,48 +154,24 @@ require_once "includes/crud.php";
                       </div>
                       <div class="col-xs-3">
                         <label>Producto</label>
-                        <!-- <input type="text" required name="codProd" class="form-control"> -->
-                        <select class="form-control" required name="producto" onblur="buscaProducto(this.value)">
+                        <select class="form-control" required name="producto" onblur="buscaCompras(this.value)">
+
                           <option>Selecione</option>
-                          <?php $productos = new MvcController(); $productos -> ctlBuscaProductos();?>
+                          <?php
+                            $productos = new MvcController();
+                            $productos -> ctlBuscaProductos();
+                          ?>
                         </select>
                       </div>
+
                       <div class="col-xs-3">
-                        <label>Unidad</label>
-                        <input type="text" required name="unidad" class="form-control">
+                        <label>Destino</label>
+                        <input type="text" required name="destino" class="form-control">
                       </div>
                     </div>
 
                     <div class="row">
-                      <div class="col-xs-3">
-                        <label>Remolque</label>
-                        <input type="text" required name="remolque" class="form-control">
-                      </div>
-                      <div class="col-xs-3">
-                        <label>Op</label>
-                        <input type="text" required name="op" class="form-control">
-                      </div>
-                      <div class="col-xs-3">
-                        <label>Kg.</label>
-                        <input type="text" required id="kg" name="kg" class="form-control">
-                      </div>
-                      <div class="col-xs-3">
-                        <label>U.M.</label>
-                        <input type="text" required name="um" class="form-control">
-                      </div>
-                    </div>
-
-                    <br><br>
-
-                    <div class="row">
-                      <div class="col-xs-3">
-                        <label>Precio de Venta</label>
-                        <input type="text" required id="precio" name="precio" class="form-control">
-                      </div>
-                      <div class="col-xs-3">
-                        <label>Calidad</label>
-                        <input type="text" required name="calidad" class="form-control">
-                      </div>
+                      <br><br>
                       <div class="col-xs-3">
                         <label>Origen</label>
                         <select class="form-control" required name="origen">
@@ -203,14 +180,30 @@ require_once "includes/crud.php";
                                 $clientes -> ctlBuscaMisBodegas();?>
                         </select>
                       </div>
-                      <div class="col-xs-3">
-                        <label>Destino</label>
-                        <input type="text" required name="destino" class="form-control">
-                      </div>
-                    </div>
 
-                    <div class="row">
                       <div class="col-xs-3">
+                        <label>Unidad</label>
+                        <input type="text" name="unidad" class="form-control">
+                      </div>
+
+                      <div class="col-xs-3">
+                        <label>Remolque</label>
+                        <input type="text" name="remolque" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Op</label>
+                        <input type="text" name="op" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>U.M.</label>
+                        <input type="text" required name="um" class="form-control">
+                      </div>
+
+                    <div class="col-xs-3">
+                      <label>Calidad</label>
+                      <input type="text" required name="calidad" class="form-control">
+                    </div>
+                    <div class="col-xs-3">
                       <label>Flete</label>
                       <input type="text" required id="flete" name="flete" class="form-control">
                       </div>
@@ -219,33 +212,61 @@ require_once "includes/crud.php";
                         <input type="text" required id="maniobra" name="maniobra" class="form-control">
                       </div>
 
+                      </div> <!-- row -->
+
+
+                    <br><br>
+
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <label>Precio de Venta</label>
+                        <input type="text" required id="precioVenta" name="precio" class="form-control">
+                      </div>
+
+                    <div class="col-xs-3">
+                        <label>Kg.</label>
+                        <input type="text" readonly="true" id="kgVenta" name="kgVenta" class="form-control" value="0">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Total Venta</label>
+                        <input type="text" readonly="true" id="totalVenta" name="total" class="form-control">
+                      </div>
+
+                   </div>
+
+                    <div class="row">
+
+
                       <div class="col-xs-3">
                         <label>Costo Unitario</label>
-                        <input type="text" required id="costoUnitario" name="costoUnitario" class="form-control">
+                        <input type="text" readonly="true" id="costoUnitario" name="costoUnitario" class="form-control">
+                      </div>
+                      <div class="col-xs-3">
                       </div>
 
                       <div class="col-xs-3">
                         <label>Costo</label>
-                        <input type="text" required id="costo" name="costo" class="form-control">
-                      </div>
-                      <div class="col-xs-3">
-                        <label>Total Venta</label>
-                        <input type="text" required id="total" name="total" class="form-control">
+                        <input type="text" readonly="true" id="costo" name="costo" class="form-control">
                       </div>
                     </div>
 
                     <div class="row">
-                        <br><br>
-                        <div class="col-xs-3">
-                          <label>Utilidad Viaje</label>
-                          <input type="text" required id="utViaje" name="utViaje" class="form-control">
-                        </div>
-
+                      <div class="col-xs-3">
+                      </div>
+                      <div class="col-xs-3">
+                      </div>
+                      <div class="col-xs-3">
+                        <label>Utilidad Viaje</label>
+                        <input type="text" readonly="true" id="utViaje" name="utViaje" class="form-control">
+                      </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-3">
                           <label>Merma</label>
-                          <input type="text" required id="merma" name="merma" class="form-control">
+                          <input type="text" id="merma" name="merma" class="form-control" value="0">
                         </div>
                     </div>
+
                   </div>
                   <!-- /.box-body -->
                 </div>
@@ -270,22 +291,22 @@ require_once "includes/crud.php";
                       <div class="col-xs-6">
 
                         <div class="form-group">
-                          <select class="form-control" id="bodega">
-                            <option>BODEGA</option>
-                            <option>CAMARGO</option>
-                            <option>TORREON</option>
+                          <select class="form-control" id="operacionCompra">
+                            <option>Selecione</option>
                           </select>
                         </div>
                       </div>
 
                       <div class="col-xs-3">
-                        <input type="text" required name="kg" id="kg" placeholder="Kilogramos" class="form-control">
+                        <input type="text" required name="kilos" id="kilos" placeholder="Kilogramos" class="form-control">
                       </div>
 
                     <div class="col-xs-3">
-                        <button type="button" id='btnAgregar' class="btn btn-primary">Agregar</button>
+                        <button type="button" disabled="true" id='btnAgregar' class="btn btn-primary">Agregar</button>
                     </div>
                   </div>
+
+                  <input type="hidden" name="listaCompras" id="listaCompras" class="form-control">
                 </form>
 
                 <table class="table table-condensed" id="lista-productos">
@@ -319,28 +340,8 @@ require_once "includes/crud.php";
               </div>
 
             </div>
-          </div><!-- Caja de Guardar -->
+          </div> <!-- Caja de Guardar-->
       </div>  <!-- Row -->
-
-      <!-- <div class="row">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-3">
-          <div class="box box-primary">
-          <div class="mailbox-attachment-info">
-                  <span class="mailbox-attachment-size">
-                    <h4 align="center">Total:</h4>
-                    <input type="text" class="form-control" id="totalKg" placeholder="Kgs" disabled="">
-
-                  </span>
-                </div>
-        </div>
-      </div>
-      <div class="col-md-1">
-
-        </div>
-      </div> -->
-
 
       <div>
         <p><strong> NOTA: ingrese todos los valores numericos SIN signo de pesos y comas ($ , ) </strong></p>

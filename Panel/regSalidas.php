@@ -14,7 +14,7 @@ $codProd = $_POST["producto"];
 $unidad = $_POST["unidad"];
 $remolque = $_POST["remolque"];
 $op = $_POST["op"];
-$kg =  $_POST["kg"];
+$kg =  $_POST["kgVenta"];
 $um = $_POST["um"];
 $precioVenta = $_POST["precio"];
 $calidad = $_POST["calidad"];
@@ -31,7 +31,7 @@ $fecha =  $_POST["fecha"];
 $referencia =  $_POST["referencia"];
 $monto =  $_POST["monto"];
 $saldo =  $_POST["saldo"];
-
+$listaCompras = $_POST["listaCompras"];
 
 
 
@@ -40,9 +40,20 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO `salidas`(`noOperacion`, `cliente`, `codProducto`, `unidad`,`remolque`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma`) VALUES ('$operacion', '$cliente', '$codProd', '$unidad','$remolque', $op, $kg, $um, $precioVenta, $calidad, '$origen', '$destino', $flete, $maniobra, $costoUnitario, $costo, $total, $utViaje, $merma)";
-
+    $sql = "INSERT INTO `salidas`(`noOperacion`, `cliente`, `codProducto`, `unidad`,`remolque`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma`, `listaCompras`) VALUES ('$operacion', '$cliente', '$codProd', '$unidad','$remolque', $op, $kg, $um, $precioVenta, $calidad, '$origen', '$destino', $flete, $maniobra, $costoUnitario, $costo, $total, $utViaje, $merma, '$listaCompras')";
     $conn->exec($sql);
+
+    $array = json_decode($listaCompras);
+    foreach($array as $obj){
+            $operacion = $obj->operacion;
+            $kilos = $obj->kilos;
+            $precio = $obj->precio;
+
+            $sql = "UPDATE `entradas` SET `inventario`= `inventario` - $kilos WHERE `noOperacion`='$operacion'";
+            $conn->exec($sql);
+    }
+
+
     echo'<script type="text/javascript">
     alert("Registro Guardado");
     window.location.href="salidas.php";
@@ -50,6 +61,7 @@ try {
     }
 catch(PDOException $e)
     {
+    //echo $listaCompras ."<br>";
     echo $sql. "<br>" . $e->getMessage();
     }
 

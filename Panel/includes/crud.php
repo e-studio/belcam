@@ -46,6 +46,19 @@ class Datos extends Conexion{
 
 	}
 
+	# LISTA DE compras de un producto en especifico
+	#-------------------------------------
+
+	public function mdlComprasAjax($tabla, $codigo){
+
+		$stmt = Conexion::conectar()->prepare("SELECT noOperacion, proveedor, inventario, precio FROM $tabla WHERE codProducto=:codigo ORDER BY proveedor");
+		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+
+	}
+
 
 	# LISTA DE MIS DEPOSITOS O BODEGAS DISPONIBLES
 	#-------------------------------------
