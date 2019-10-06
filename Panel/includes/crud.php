@@ -4,6 +4,23 @@ require_once "conexion.php";
 
 class Datos extends Conexion{
 
+	#VERIFICA SI EL USUARIO EXISTE PARA INGRESAR AL SISTEMA
+	#--------------------------------------------------------
+	public function ingresoModel($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE email = :usuario AND password = :password");
+
+		$stmt -> bindParam(":usuario", $datosModel["usuario"], PDO::PARAM_STR);
+		$stmt -> bindParam(":password", $datosModel["password"], PDO::PARAM_STR);
+
+		$stmt -> execute();
+
+		return $stmt -> fetch();
+
+		$stmt -> close();
+
+	}
+
 
 
 	#LISTA USUARIOS
@@ -11,7 +28,7 @@ class Datos extends Conexion{
 
 	public function mdlListaUsuarios($tabla){
 
-		$stmt = Conexion::conectar()->prepare("SELECT id, nombre, password, email, titulo, foto, telefono FROM $tabla");
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 
 		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement.
@@ -22,12 +39,87 @@ class Datos extends Conexion{
 	}
 
 
+	#LISTA PRODUCTOS
+	#-------------------------------------
+
+	public function mdlListaProductos($tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement.
+		return $stmt->fetchAll();
+
+		$stmt->close();
+
+	}
+
+
+
+	#LISTA CHOFERES
+	#-------------------------------------
+	public function mdlListaChoferes($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
+	#LISTA CLIENTES
+	#-------------------------------------
+	public function mdlListaClientes($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
+	#LISTA COMPRAS
+	#-------------------------------------
+	public function mdlListaCompras($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
+	#LISTA VENTAS
+	#-------------------------------------
+	public function mdlListaVentas($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
+	#LISTA PROVEEDORES
+	#-------------------------------------
+	public function mdlListaProvedores($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
+
 	# LISTA DE CLIENTES
 	#-------------------------------------
 
 	public function mdlClientes($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT idCliente, nombre FROM $tabla ORDER BY nombre");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+
+	}
+
+	# LISTA DE PROVEEDORES
+	#-------------------------------------
+
+	public function mdlProveedores(){
+
+		$stmt = Conexion::conectar()->prepare("SELECT codProveedor, nombre FROM proveedores ORDER BY nombre");
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt->close();
@@ -51,10 +143,24 @@ class Datos extends Conexion{
 
 	public function mdlComprasAjax($tabla, $codigo){
 
-		$stmt = Conexion::conectar()->prepare("SELECT noOperacion, proveedor, inventario, precio FROM $tabla WHERE codProducto=:codigo ORDER BY proveedor");
+		$stmt = Conexion::conectar()->prepare("SELECT noOperacion, proveedor, inventario, precio FROM $tabla WHERE codProducto=:codigo AND inventario > 0 ORDER BY proveedor");
 		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
 		$stmt->execute();
 		return $stmt->fetchAll();
+		$stmt->close();
+
+	}
+
+
+	# BUSCA SI UNA OPERACION ESTA REGISTRADA EN LA TABLA DE ENTRADAS
+	#-------------------------------------
+
+	public function mdlEntradasAjax($tabla, $codigo){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE noOperacion = :codigo");
+		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetch();
 		$stmt->close();
 
 	}
@@ -135,9 +241,469 @@ class Datos extends Conexion{
 
     }
 
+    #REGISTRO DE USUARIO
+	#-------------------------------------
+	public function registroUsuario($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (nombre, password, email, rol, activo) VALUES (:nombre,:password,:email,:rol,:activo)");
+
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":password", $datosModel["password"], PDO::PARAM_STR);
+		$stmt->bindParam(":email", $datosModel["email"], PDO::PARAM_STR);
+		$stmt->bindParam(":rol", $datosModel["rol"], PDO::PARAM_INT);
+		$stmt->bindParam(":activo", $datosModel["activo"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+	#REGISTRO DE PRODUCTO
+	#-------------------------------------
+	public function registroProducto($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (nombre, codProducto) VALUES (:nombre,:codProducto)");
+
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":codProducto", $datosModel["codProducto"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+
+	#REGISTRO DE CHOFER
+	#-------------------------------------
+	public function mdlRegistroChofer($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`idChofer`, `codChofer`, `nombre`, `alias`, `rfc`, `direccion`, `ine`, `licencia`, `telefono`, `telefono2`, `telefono3`, `contacto`, `fechaIngreso`) VALUES (NULL, NULL, 'Nelson', :alias, 'rfc', 'direcc', 'ine', 'licencia', 'telef', 'telef2', 'telef3', '0', NULL)");
+
+		$stmt->bindParam(':nombre', $datosModel['nombre'], PDO::PARAM_STR,50);
+		$stmt->bindParam(':alias', $datosModel["alias"], PDO::PARAM_STR);
+		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ine", $datosModel["ine"], PDO::PARAM_STR);
+		$stmt->bindParam(":licencia", $datosModel["licencia"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono2", $datosModel["telefono2"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono3", $datosModel["telefono3"], PDO::PARAM_STR);
+		$stmt->bindParam(":fechaIngreso", $datosModel["fechaIngreso"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+
+	#REGISTRO DE CLIENTE
+	#-------------------------------------
+	public function mdlRegistroCliente($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`idCliente`, `codCliente`, `nombre`, `razonSocial`, `rfc`, `direccion`, `ubicacion`, `ubicacion2`, `ubicacion3`, `telefono`, `celular`, `celular2`, `contacto`, `contacto2`, `contacto3`, `lineaCredito`) VALUES (NULL, NULL, :nombre, :razonSocial,:rfc, :direccion, :ubicacion, :ubicacion2, :ubicacion3, :telefono, :celular, :celular2, :contacto, :contacto2, :contacto3, :lineaCredito)");
+
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":razonSocial", $datosModel["razonSocial"], PDO::PARAM_STR);
+		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion", $datosModel["ubicacion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion2", $datosModel["ubicacion2"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion3", $datosModel["ubicacion3"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular", $datosModel["celular"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular2", $datosModel["celular2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto", $datosModel["contacto"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto2", $datosModel["contacto2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto3", $datosModel["contacto3"], PDO::PARAM_STR);
+		$stmt->bindParam(":lineaCredito", $datosModel["lineaCredito"], PDO::PARAM_STR);
 
 
 
+		if($stmt->execute()){
 
+			return "success";
+
+		}
+
+		else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+
+	}
+
+	#REGISTRO DE CLIENTE
+	#-------------------------------------
+	public function mdlRegistroProveedor($datosModel, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`id`, `codProveedor`, `nombre`, `razonSocial`, `rfc`, `direccion`, `ubicacion`, `ubicacion2`, `ubicacion3`, `telefono`, `celular`, `celular2`, `contacto`, `contacto2`, `contacto3`, `lineaCredito`) VALUES (NULL, :codProveedor, :nombre, :razonSocial,:rfc, :direccion, :ubicacion, :ubicacion2, :ubicacion3, :telefono, :celular, :celular2, :contacto, :contacto2, :contacto3, :lineaCredito)");
+
+		$stmt->bindParam(":codProveedor", $datosModel["codProveedor"], PDO::PARAM_STR);
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":razonSocial", $datosModel["razonSocial"], PDO::PARAM_STR);
+		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion", $datosModel["ubicacion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion2", $datosModel["ubicacion2"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion3", $datosModel["ubicacion3"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular", $datosModel["celular"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular2", $datosModel["celular2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto", $datosModel["contacto"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto2", $datosModel["contacto2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto3", $datosModel["contacto3"], PDO::PARAM_STR);
+		$stmt->bindParam(":lineaCredito", $datosModel["lineaCredito"], PDO::PARAM_INT);
+
+
+
+		if($stmt->execute()){
+
+			return "success";
+
+		}
+
+		else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+
+	}
+
+
+	#ACTUALIZA USUARIO
+	#-------------------------------------
+	public function mdlActualizaUsuario($datosModel, $tabla){
+
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, password = :password, email = :email, rol = :rol, activo = :activo WHERE id = :id");
+
+		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":password", $datosModel["password"], PDO::PARAM_STR);
+		$stmt->bindParam(":email", $datosModel["email"], PDO::PARAM_STR);
+		$stmt->bindParam(":rol", $datosModel["rol"], PDO::PARAM_INT);
+		$stmt->bindParam(":activo", $datosModel["activo"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+	#ACTUALIZA USUARIO
+	#-------------------------------------
+	public function mdlActualizaProducto($datosModel, $tabla){
+
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, codProducto = :codProducto WHERE idProducto = :id");
+
+		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":codProducto", $datosModel["codProducto"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+
+	#ACTUALIZA CHOFER
+	#-------------------------------------
+	public function mdlActualizaChofer($datosModel, $tabla){
+
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, alias = :alias, rfc = :rfc, direccion = :direccion, ine = :ine, licencia = :licencia, telefono = :telefono, telefono2 = :telefono2, telefono3 = :telefono3, fechaIngreso = '2019-06-25' WHERE idChofer = :id");
+
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":alias", $datosModel["alias"], PDO::PARAM_STR);
+		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ine", $datosModel["ine"], PDO::PARAM_STR);
+		$stmt->bindParam(":licencia", $datosModel["licencia"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono2", $datosModel["telefono2"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono3", $datosModel["telefono3"], PDO::PARAM_STR);
+		$stmt->bindParam(":fechaIngreso", $datosModel["fechaIngreso"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+
+
+	#ACTUALIZA CLIENTE
+	#-------------------------------------
+	public function mdlActualizaCliente($datosModel, $tabla){
+
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, razonSocial = :razonSocial, rfc = :rfc, direccion = :direccion, ubicacion = :ubicacion, ubicacion2 = :ubicacion2, ubicacion3 = :ubicacion3, telefono = :telefono, celular = :celular, celular2 = :celular2, contacto = :contacto, contacto2 = :contacto2, contacto3 = :contacto3, lineaCredito = :lineaCredito WHERE idCliente = :id");
+
+		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":razonSocial", $datosModel["razonSocial"], PDO::PARAM_STR);
+		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion", $datosModel["ubicacion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion2", $datosModel["ubicacion2"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion3", $datosModel["ubicacion3"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular", $datosModel["celular"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular2", $datosModel["celular2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto", $datosModel["contacto"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto2", $datosModel["contacto2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto3", $datosModel["contacto3"], PDO::PARAM_STR);
+		$stmt->bindParam(":lineaCredito", $datosModel["lineaCredito"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+
+	#ACTUALIZA PROVEEDOR
+	#-------------------------------------
+	public function mdlActualizaProveedor($datosModel, $tabla){
+
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET codProveedor = :codProveedor, nombre = :nombre, razonSocial = :razonSocial, rfc = :rfc, direccion = :direccion, ubicacion = :ubicacion, ubicacion2 = :ubicacion2, ubicacion3 = :ubicacion3, telefono = :telefono, celular = :celular, celular2 = :celular2, contacto = :contacto, contacto2 = :contacto2, contacto3 = :contacto3, lineaCredito = :lineaCredito WHERE id = :id");
+
+		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":codProveedor", $datosModel["codProveedor"], PDO::PARAM_STR);
+		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":razonSocial", $datosModel["razonSocial"], PDO::PARAM_STR);
+		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion", $datosModel["ubicacion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion2", $datosModel["ubicacion2"], PDO::PARAM_STR);
+		$stmt->bindParam(":ubicacion3", $datosModel["ubicacion3"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular", $datosModel["celular"], PDO::PARAM_STR);
+		$stmt->bindParam(":celular2", $datosModel["celular2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto", $datosModel["contacto"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto2", $datosModel["contacto2"], PDO::PARAM_STR);
+		$stmt->bindParam(":contacto3", $datosModel["contacto3"], PDO::PARAM_STR);
+		$stmt->bindParam(":lineaCredito", $datosModel["lineaCredito"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+			return "success";
+		}
+
+		else{
+			return "error";
+		}
+		$stmt->close();
+	}
+
+	#BORRAR USUARIO
+	#-------------------------------------
+	public function mdlborrarUsuario($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+
+	#BORRAR PRODUCTO
+	#-------------------------------------
+	public function mdlborrarProducto($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idProducto = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+
+	#BORRAR CHOFER
+	#-------------------------------------
+	public function mdlborrarChofer($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idChofer = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+	#BORRAR CLIENTE
+	#-------------------------------------
+	public function mdlborrarCliente($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idCliente = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+
+	#BORRAR COMPRA
+	#-------------------------------------
+	public function mdlborrarCompra($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE cons = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+
+	#BORRAR VENTA
+	#-------------------------------------
+	public function mdlborrarVenta($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE cons = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+	#BORRAR PROVEEDOR
+	#-------------------------------------
+	public function mdlborrarProveedor($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+	#BUSCA UN USUARIO
+	#-------------------------------------
+
+	public function mdlBuscaUsuario($tabla, $usuario){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
+
+		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		$stmt->close();
+	}
+
+
+	#BUSCA UN PRODUCTO
+	#-------------------------------------
+
+	public function mdlBuscaProducto($tabla, $producto){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idProducto = :id");
+
+		$stmt->bindParam(":id", $producto, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		$stmt->close();
+	}
+
+
+
+	#BUSCA UN USUARIO
+	#-------------------------------------
+
+	public function mdlBuscaChofer($tabla, $usuario){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idChofer = :id");
+
+		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		$stmt->close();
+	}
+
+	#BUSCA UN USUARIO
+	#-------------------------------------
+
+	public function mdlBuscaCliente($tabla, $usuario){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idCliente = :id");
+
+		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		$stmt->close();
+	}
+
+
+	#BUSCA UN PROVEEDOR
+	#-------------------------------------
+
+	public function mdlBuscaProveedor($tabla, $usuario){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
+
+		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		$stmt->close();
+	}
 
 } // conexion

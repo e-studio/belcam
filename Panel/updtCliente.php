@@ -109,8 +109,15 @@
               <br>
 
               <div class="row">
-                <div class="col-xs-11" align="right">
-                  <br>
+                <br>
+                <div class="col-xs-8" align="right">
+                </div>
+                <div class="col-xs-1" align="right">
+
+                  <button class="btn btn-default"><a href="listaClientes.php" >Cancelar</a></button>
+                </div>
+
+                <div class="col-xs-1" align="right">
                   <button type="submit" class="btn btn-warning">Actualizar</button>
                 </div>
               </div>

@@ -70,10 +70,20 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-xs-11" align="right">
-                  <br>
+
+                <br>
+                <div class="col-xs-7" align="right">
+                </div>
+                <div class="col-xs-1" align="right">
+                  <button class="btn btn-default"><a href="listaUsuarios.php" >Cancelar</a></button>
+                </div>
+                <div class="col-xs-1" align="right">
+                </div>
+
+                <div class="col-xs-1" align="right">
                   <button type="submit" class="btn btn-warning">Actualizar</button>
                 </div>
+
               </div>
 
             </div>

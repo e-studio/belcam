@@ -4,16 +4,16 @@ class Conexion{
 
 	public function conectar(){
 		// conexion local
-		// $servername = "127.0.0.1";
-		// $username = "root";
-		// $password = "";
-		// $dbname = "belcam";
+		$servername = "127.0.0.1";
+		$username = "root";
+		$password = "";
+		$dbname = "belcam";
 
 		//conexion Server
-		$servername = "mysql1007.mochahost.com";
-		$username = "rickurbi_belcam";
-		$password = "8gqMy;BQz@Om";
-		$dbname = "rickurbi_belcam";
+		// $servername = "mysql1007.mochahost.com";
+		// $username = "rickurbi_belcam";
+		// $password = "8gqMy;BQz@Om";
+		// $dbname = "rickurbi_belcam";
 
 		try {
 		    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

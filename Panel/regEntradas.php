@@ -10,6 +10,7 @@ $dbname = "rickurbi_belcam";
 
 $operacion = $_POST["operacion"];
 $proveedor = $_POST["proveedor"];
+$cliente = $_POST["cliente"];
 $codProd = $_POST["codProd"];
 $unidad = $_POST["unidad"];
 $unidad1 = $_POST["unidad1"];
@@ -20,10 +21,11 @@ $precio = $_POST["precio"];
 $calidad = $_POST["calidad"];
 $origen = $_POST["origen"];
 $destino = $_POST["destino"];
+$comision = $_POST["comision"];
 $flete = $_POST["flete"];
 $maniobra = $_POST["maniobra"];
 $costoTotal = $_POST["costoTotal"];
-$totalCosto = $_POST["totalCosto"];
+$totalCompra = $_POST["totalCompra"];
 $fecha =  $_POST["fecha"];
 $referencia =  $_POST["referencia"];
 $monto =  $_POST["monto"];
@@ -34,12 +36,12 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO entradas (noOperacion, proveedor, codProducto, unidad, unidad1, operador, kg, um, precio, calidad, origen, destino, flete, maniobra, costoTotal, total) VALUES ($operacion, '$proveedor', '$codProd', '$unidad','$unidad1', $op, $kg, $um, $precio, $calidad, '$origen', '$destino', $flete, $maniobra, $costoTotal, $totalCosto)";
+    $sql = "INSERT INTO entradas (noOperacion, proveedor, cliente, codProducto, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, costoTotal, total, `fecha`) VALUES ($operacion, '$proveedor', '$cliente', '$codProd', '$unidad','$unidad1', $op, $kg, $kg, $um, $precio, $calidad, '$origen', '$destino', $comision, $flete, $maniobra, $costoTotal, $totalCompra, CURDATE())";
 
     $conn->exec($sql);
     echo'<script type="text/javascript">
     alert("Registro Guardado");
-    window.location.href="index.html";
+    window.location.href="entradas.php";
     </script>';
     }
 catch(PDOException $e)

@@ -15,6 +15,18 @@ class MvcController{
 	}
 
 	#-------------------------------------
+	#Busca los proveedores registrados
+	#------------------------------------
+	public function ctlBuscaProveedores(){
+
+		$respuesta = Datos::mdlProveedores();
+
+		foreach ($respuesta as $row => $item){
+			echo  '<option value="'.$item["nombre"].'">'.$item["nombre"].'</option>';
+		}
+	}
+
+	#-------------------------------------
 	#Busca los productos de la tabla productos
 	#------------------------------------
 	public function ctlBuscaProductos(){
@@ -88,6 +100,806 @@ class MvcController{
 
     }
 
+    // BUSCA SI UNA OPERACION YA EXISTE EN LA TABLA DE ENTRADAS
+    public function buscaEntradaAjax($tabla, $codigo){
+
+        $res = Datos::mdlEntradasAjax($tabla, $codigo);
+        //echo $res["noOperacion"];
+        if ($res==""){
+        	//echo $res["noOperacion"];
+            echo "no";
+        }
+        else {
+        	// echo $res["noOperacion"];
+            echo "si";
+        }
+
+    }
+
+	#REGISTRO DE USUARIOS
+	#------------------------------------
+	public function registroUsuario(){
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "nombre"=>$_POST["nombre"],
+								      "password"=>$_POST["password"],
+								      "email"=>$_POST["email"],
+								      "rol"=>$_POST["rol"],
+								      "activo"=>"S");
+
+			$respuesta = Datos::registroUsuario($datosController, "usuarios");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Guardado");
+				    window.location.href="regUsuario.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error! Registro NO Guardado");
+				    window.location.href="regUsuario.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#REGISTRO DE PRODUCOS
+	#------------------------------------
+	public function registroProducto(){
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "nombre"=>$_POST["nombre"],
+								      "codProducto"=>$_POST["codProducto"]);
+
+			$respuesta = Datos::registroProducto($datosController, "productos");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Guardado");
+				    window.location.href="regProducto.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error! Registro NO Guardado");
+				    window.location.href="regProducto.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#REGISTRO DE CHOFERES
+	#------------------------------------
+	public function ctlRegistroChofer(){
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "nombre" =>$_POST["nombre"],
+									  "alias" => $_POST["alias"],
+									  "rfc" => $_POST["rfc"],
+								      "direccion" => $_POST["direccion"],
+								      "ine" => $_POST["ine"],
+								      "licencia" => $_POST["licencia"],
+								      "telefono" => $_POST["telefono"],
+								   	  "telefono2" => $_POST["telefono2"],
+								   	  "telefono3" => $_POST["telefono3"],
+								   	  "fechaIngreso" => $_POST["fechaIngreso"]);
+
+
+			//echo'<script type="text/javascript">alert("'.$_POST["fechaIngreso"].'");</script>';
+
+			$respuesta = Datos::mdlRegistroChofer($datosController, "choferes");
+
+			echo $respuesta;
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Guardado");
+				    window.location.href="regChofer.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error! Registro NO Guardado");
+				    window.location.href="regChofer.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#REGISTRO DE CLIENTE
+	#------------------------------------
+	public function ctlRegistroCliente(){
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "nombre"=>$_POST["nombre"],
+									  "razonSocial"=>$_POST["razonSocial"],
+									  "rfc"=>$_POST["rfc"],
+								      "direccion"=>$_POST["direccion"],
+								      "ubicacion"=>$_POST["ubicacion"],
+								      "ubicacion2"=>$_POST["ubicacion2"],
+								      "ubicacion3"=>$_POST["ubicacion3"],
+								      "telefono"=>$_POST["telefono"],
+								      "celular"=>$_POST["celular"],
+								      "celular2"=>$_POST["celular2"],
+								   	  "contacto"=>$_POST["contacto"],
+								   	  "contacto2"=>$_POST["contacto2"],
+								   	  "contacto3"=>$_POST["contacto3"],
+								   	  "lineaCredito"=>$_POST["lineaCredito"]);
+
+
+			//echo'<script type="text/javascript">alert("'.$_POST["fechaIngreso"].'");</script>';
+
+			$respuesta = Datos::mdlRegistroCliente($datosController, "clientes");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Guardado");
+				    window.location.href="regCliente.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error! Registro NO Guardado");
+				    window.location.href="regChofer.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+
+	#REGISTRO DE CLIENTE
+	#------------------------------------
+	public function ctlRegistroProveedor(){
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "codProveedor"=>$_POST["codProveedor"],
+									  "nombre"=>$_POST["nombre"],
+									  "razonSocial"=>$_POST["razonSocial"],
+									  "rfc"=>$_POST["rfc"],
+								      "direccion"=>$_POST["direccion"],
+								      "ubicacion"=>$_POST["ubicacion"],
+								      "ubicacion2"=>$_POST["ubicacion2"],
+								      "ubicacion3"=>$_POST["ubicacion3"],
+								      "telefono"=>$_POST["telefono"],
+								      "celular"=>$_POST["celular"],
+								      "celular2"=>$_POST["celular2"],
+								   	  "contacto"=>$_POST["contacto"],
+								   	  "contacto2"=>$_POST["contacto2"],
+								   	  "contacto3"=>$_POST["contacto3"],
+								   	  "lineaCredito"=>$_POST["lineaCredito"]);
+
+
+			//echo'<script type="text/javascript">alert("'.$_POST["fechaIngreso"].'");</script>';
+
+			$respuesta = Datos::mdlRegistroProveedor($datosController, "proveedores");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Guardado");
+				    window.location.href="regCliente.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error! Registro NO Guardado");
+				    window.location.href="regChofer.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+	#ACTUALIZA DE USUARIO
+	#------------------------------------
+	public function actualizaUsuario(){
+
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "id"=>$_POST["id"],
+									  "nombre"=>$_POST["nombre"],
+								      "password"=>$_POST["password"],
+								      "email"=>$_POST["email"],
+								      "rol"=>$_POST["rol"],
+								      "activo"=>"S");
+
+			$respuesta = Datos::mdlActualizaUsuario($datosController, "usuarios");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Actualizado");
+				    window.location.href="listaUsuarios.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error!");
+				    window.location.href="listaUsuarios.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#ACTUALIZA DE PRODUCTO
+	#------------------------------------
+	public function actualizaProducto(){
+
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "id"=>$_POST["id"],
+									  "nombre"=>$_POST["nombre"],
+								      "codProducto"=>$_POST["codProducto"]);
+
+			$respuesta = Datos::mdlActualizaProducto($datosController, "productos");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Actualizado");
+				    window.location.href="listaProductos.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error!");
+				    window.location.href="listaProductos.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#ACTUALIZA DE CHOFER
+	#------------------------------------
+	public function actualizaChofer(){
+
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "nombre"=>$_POST["nombre"],
+									  "alias"=>$_POST["alias"],
+									  "rfc"=>$_POST["rfc"],
+								      "direccion"=>$_POST["direccion"],
+								      "ine"=>$_POST["ine"],
+								      "licencia"=>$_POST["licencia"],
+								      "telefono1"=>$_POST["telefono"],
+								   	  "telefono2"=>$_POST["telefono2"],
+								   	  "telefono3"=>$_POST["telefono3"],
+								   	  "fechaIngreso"=>$_POST["fechaIngreso"]);
+
+			$respuesta = Datos::mdlActualizaChofer($datosController, "choferes");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Actualizado");
+				    window.location.href="listaChoferes.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error!");
+				    window.location.href="listaChoferes.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#ACTUALIZA DE CLIENTE
+	#------------------------------------
+	public function actualizaCliente(){
+
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "id"=>$_POST["id"],
+									  "nombre"=>$_POST["nombre"],
+									  "razonSocial"=>$_POST["razonSocial"],
+									  "rfc"=>$_POST["rfc"],
+								      "direccion"=>$_POST["direccion"],
+								      "ubicacion"=>$_POST["ubicacion"],
+								      "ubicacion2"=>$_POST["ubicacion2"],
+								      "ubicacion3"=>$_POST["ubicacion3"],
+								      "telefono"=>$_POST["telefono"],
+								      "celular"=>$_POST["celular"],
+								      "celular2"=>$_POST["celular2"],
+								   	  "contacto"=>$_POST["contacto"],
+								   	  "contacto2"=>$_POST["contacto2"],
+								   	  "contacto3"=>$_POST["contacto3"],
+								   	  "lineaCredito"=>$_POST["lineaCredito"]);
+
+			$respuesta = Datos::mdlActualizaCliente($datosController, "clientes");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Actualizado");
+				    window.location.href="listaClientes.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error!");
+				    window.location.href="listaChoferes.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+	#ACTUALIZA DE PROVEEDOR
+	#------------------------------------
+	public function actualizaProveedor(){
+
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosController = array( "id"=>$_POST["id"],
+									  "codProveedor"=>$_POST["codProveedor"],
+									  "nombre"=>$_POST["nombre"],
+									  "razonSocial"=>$_POST["razonSocial"],
+									  "rfc"=>$_POST["rfc"],
+								      "direccion"=>$_POST["direccion"],
+								      "ubicacion"=>$_POST["ubicacion"],
+								      "ubicacion2"=>$_POST["ubicacion2"],
+								      "ubicacion3"=>$_POST["ubicacion3"],
+								      "telefono"=>$_POST["telefono"],
+								      "celular"=>$_POST["celular"],
+								      "celular2"=>$_POST["celular2"],
+								   	  "contacto"=>$_POST["contacto"],
+								   	  "contacto2"=>$_POST["contacto2"],
+								   	  "contacto3"=>$_POST["contacto3"],
+								   	  "lineaCredito"=>$_POST["lineaCredito"]);
+
+			$respuesta = Datos::mdlActualizaProveedor($datosController, "proveedores");
+
+
+
+			if($respuesta == "success"){
+				echo'<script type="text/javascript">
+				    alert("Registro Actualizado");
+				    window.location.href="listaProveedores.php";
+				    </script>';
+
+			}
+
+			else{
+				echo'<script type="text/javascript">
+				    alert("Error!");
+				    window.location.href="listaProveedores.php";
+				    </script>';
+
+
+			}
+
+		}
+
+	}
+
+
+	#BORRAR USUARIO
+    #------------------------------------
+    public function borrarUsuario(){
+    	//echo'<script type="text/javascript">alert('.var_dump(isset($_GET["idBorrar"])).');</script>';
+
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarUsuario($datosController,"usuarios");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>window.location.href='listaUsuarios.php';alert('Registro Eliminado!');</script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+
+    #BORRAR PRODUCTO
+    #------------------------------------
+    public function borrarProducto(){
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarProducto($datosController,"productos");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>window.location.href='listaProductos.php';alert('Registro Eliminado!');</script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+    #BORRAR CHOFER
+    #------------------------------------
+    public function borrarChofer(){
+    	//echo'<script type="text/javascript">alert('.var_dump(isset($_GET["idBorrar"])).');</script>';
+
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarChofer($datosController,"choferes");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>window.location.href='listaChoferes.php'</script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+    #BORRAR CLIENTE
+    #------------------------------------
+    public function borrarCliente(){
+
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarCliente($datosController,"clientes");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>
+                		alert('Registro Eliminado');
+                		window.location.href='listaClientes.php'
+                	 </script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+
+    #BORRAR COMPRA
+    #------------------------------------
+    public function borrarCompra(){
+
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarCompra($datosController,"entradas");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>
+                		alert('Registro Eliminado');
+                		window.location.href='listaCompras.php'
+                	 </script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+
+    #BORRAR VENTAS
+    #------------------------------------
+    public function borrarVentas(){
+
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarVenta($datosController,"salidas");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>
+                		alert('Registro Eliminado');
+                		window.location.href='listaVentas.php'
+                	 </script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+
+
+    #BORRAR PROVEEDOR
+    #------------------------------------
+    public function borrarProveedor(){
+
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarProveedor($datosController,"proveedores");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>
+                		alert('Registro Eliminado');
+                		window.location.href='listaProveedores.php'
+                	 </script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
+    }
+
+
+	#LISTADO DE TODOS LOS USUARIOS
+    #------------------------------------
+    public function listaUsuarios(){
+
+        $respuesta = Datos::mdlListaUsuarios("usuarios");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+            if ($item["rol"] == 0) $tipoAcceso = "Administrator";
+            if ($item["rol"] == 1 ) $tipoAcceso = "Usuario";
+            if ($item["rol"] == 2 ) $tipoAcceso = "Engineer";
+            if ($item["rol"] == 3 ) $tipoAcceso = "Accountant";
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["nombre"].'</td>
+                  <td>'.$tipoAcceso.'</td>
+                  <td><a href="updtUsuario.php?idEditar='.$item["id"].'"><button class="btn btn-warning">Editar</button></a></td>
+                  <td><a href="listaUsuarios.php?idBorrar='.$item["id"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+        }
+
+    }
+
+
+    #LISTADO DE TODOS LOS PRODUCTOS
+    #------------------------------------
+    public function listaProductos(){
+
+        $respuesta = Datos::mdlListaProductos("productos");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["codProducto"].'</td>
+                  <td>'.$item["nombre"].'</td>
+                  <td><a href="updtProducto.php?idEditar='.$item["idProducto"].'"><button class="btn btn-warning">Editar</button></a></td>
+                  <td><a href="listaProductos.php?idBorrar='.$item["idProducto"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+        }
+
+    }
+
+
+	#LISTADO DE TODOS LOS CHOFERES
+    #------------------------------------
+    public function listaChoferes(){
+
+        $respuesta = Datos::mdlListaChoferes("choferes");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+            // if ($item["rol"] == 0) $tipoAcceso = "Administrator";
+            // if ($item["rol"] == 1 ) $tipoAcceso = "Usuario";
+            // if ($item["rol"] == 2 ) $tipoAcceso = "Engineer";
+            // if ($item["rol"] == 3 ) $tipoAcceso = "Accountant";
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["nombre"].'</td>
+                  <td>'.$item["rfc"].'</td>
+                  <td>'.$item["ine"].'</td>
+                  <td>'.$item["licencia"].'</td>
+                  <td>'.$item["telefono"].'</td>
+                  <td>'.$item["telefono2"].'</td>
+                  <td style="text-align: center">'.$item["fechaIngreso"].'</td>
+                  <td><a href="updtChofer.php?idEditar='.$item["idChofer"].'"><button class="btn btn-warning">Editar</button></a></td>
+                  <td><a href="listaChoferes.php?idBorrar='.$item["idChofer"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+        }
+
+    }
+
+
+    #LISTADO DE TODOS LOS CLIENTES
+    #------------------------------------
+    public function listaClientes(){
+
+        $respuesta = Datos::mdlListaClientes("clientes");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["nombre"].'</td>
+                  <td>'.$item["razonSocial"].'</td>
+                  <td>'.$item["rfc"].'</td>
+                  <td>'.$item["direccion"].'</td>
+                  <td>'.$item["ubicacion"].'</td>
+                  <td>'.$item["telefono"].'</td>
+                  <td>'.$item["celular"].'</td>
+                  <td>'.$item["contacto"].'</td>
+                  <td>'.$item["lineaCredito"].'</td>
+                  <td><a href="updtCliente.php?idEditar='.$item["idCliente"].'"><button class="btn btn-warning">Editar</button></a></td>
+                  <td><a href="listaClientes.php?idBorrar='.$item["idCliente"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+        }
+
+    }
+
+
+
+   #LISTADO DE TODOS LAS COMPRAS
+    #------------------------------------
+    public function listaCompras(){
+
+        $respuesta = Datos::mdlListaCompras("entradas");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["noOperacion"].'</td>
+                  <td>'.$item["proveedor"].'</td>
+                  <td>'.$item["codProducto"].'</td>
+                  <td>'.$item["kg"].'</td>
+                  <td>'.$item["precio"].'</td>
+                  <td>'.$item["costoTotal"].'</td>
+                  <td>'.$item["total"].'</td>
+                  <td>'.$item["fecha"].'</td>
+                  <td><a href="listaCompras.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+                //<td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
+        }
+
+    }
+
+
+   #LISTADO DE TODOS LAS VENTAS
+    #------------------------------------
+    public function listaVentas(){
+
+        $respuesta = Datos::mdlListaVentas("salidas");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["noOperacion"].'</td>
+                  <td>'.$item["cliente"].'</td>
+                  <td>'.$item["codProducto"].'</td>
+                  <td>'.$item["kg"].'</td>
+                  <td>'.$item["origen"].'</td>
+                  <td>'.$item["destino"].'</td>
+                  <td>'.$item["precioVenta"].'</td>
+                  <td>'.$item["costo"].'</td>
+                  <td>'.$item["total"].'</td>
+                  <td>'.$item["fecha"].'</td>
+
+                  <td><a href="listaVentas.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+                //<td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
+        }
+
+    }
+
+
+
+
+
+    #LISTADO DE TODOS LOS PROVEDDORES
+    #------------------------------------
+    public function listaProveedores(){
+
+        $respuesta = Datos::mdlListaProvedores("proveedores");
+        $cont =0;
+
+        foreach ($respuesta as $row => $item){
+        	$cont ++;
+
+
+        echo '<tr>
+                  <td>'.$cont.'</td>
+                  <td>'.$item["codProveedor"].'</td>
+                  <td>'.$item["nombre"].'</td>
+                  <td>'.$item["razonSocial"].'</td>
+                  <td>'.$item["rfc"].'</td>
+                  <td>'.$item["direccion"].'</td>
+                  <td>'.$item["ubicacion"].'</td>
+                  <td>'.$item["telefono"].'</td>
+                  <td>'.$item["celular"].'</td>
+                  <td>'.$item["contacto"].'</td>
+                  <td><a href="updtProveedor.php?idEditar='.$item["id"].'"><button class="btn btn-warning">Editar</button></a></td>
+                  <td><a href="listaProveedores.php?idBorrar='.$item["id"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+                </tr>';
+        }
+
+    }
 
 }//Clase principal
 
