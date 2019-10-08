@@ -42,7 +42,7 @@ function validarIngreso(){
 
 function obtenerEvento(e) {
 	e.preventDefault();
-  cont+=1;
+
 
   var datosJson, costoMerma = 0, utTotal=0, kgVenta=0;
 
@@ -54,54 +54,55 @@ function obtenerEvento(e) {
   var maniobra = parseFloat(document.querySelector("#maniobra").value);
   var merma = parseFloat(document.querySelector("#merma").value);
 
+if (isNaN(precioVenta) || precioVenta == 0){
+    alert("escriba el Precio de Venta");
+    document.getElementById("precioVenta").focus();
+  }
+  else{
+      cont+=1;
+      if (isNaN(merma)) merma = 0;
+      if (isNaN(flete)) flete = 0;
+      if (isNaN(maniobra)) maniobra = 0;
+      kgVenta = totalKgs + kilos;
 
-  if (isNaN(merma)) merma = 0;
-  if (isNaN(flete)) flete = 0;
-  if (isNaN(maniobra)) maniobra = 0;
-  kgVenta = totalKgs + kilos;
+      var ventaTotal = (precioVenta * (kgVenta)) - (flete+ maniobra) ;
+      var costoTotal = 0;
+    	var operacionText = operacion.options[operacion.selectedIndex].text;
+      var array = operacionText.split(' - '),
+      operacion = array[0], proveedor = array[1], precio = array[3];
 
-  var ventaTotal = (precioVenta * (kgVenta)) - (flete+ maniobra) ;
-  var costoTotal = 0;
-	var operacionText = operacion.options[operacion.selectedIndex].text;
-  var array = operacionText.split(' - '),
-  operacion = array[0], proveedor = array[1], precio = array[3];
+    	if (precioVenta == 0 || isNaN(precioVenta)) precioVenta = 0;
+      if (kilos=="" || kilos==0 ||  isNaN(kilos)) kilos = 0;
 
-	if (precioVenta == 0 || isNaN(precioVenta)) precioVenta = 0;
-  if (kilos=="" || kilos==0 ||  isNaN(kilos)) kilos = 0;
+      suma += parseFloat(precio);
+      promedio = suma/ cont;
+      costoTotal = promedio * (kgVenta);
+      costoMerma = merma * precioVenta;
 
-  suma += parseFloat(precio);
-  promedio = suma/ cont;
-  costoTotal = promedio * (kgVenta);
-  costoMerma = merma * precioVenta;
-
-  utTotal = ventaTotal - costoTotal - costoMerma;
-
-
-  document.querySelector("#totalVenta").value = ventaTotal;
-  document.querySelector("#kgVenta").value = kgVenta;
-  document.querySelector("#costoUnitario").value = promedio;
-  document.querySelector("#costo").value = costoTotal;
-  document.querySelector("#utViaje").value = utTotal;
-  document.querySelector("#costoMerma").value = costoMerma;
-  document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utTotal).format('0,0.00');
+      utTotal = ventaTotal - costoTotal - costoMerma;
 
 
-
-  datos.push({
-        "operacion": operacion,
-        "kilos"    : kilos,
-        "precio"   : precio
-    });
-  objeto = datos;
-  listaCompras.value = JSON.stringify(objeto);
-  //listaCompras.value = datos;
+      document.querySelector("#totalVenta").value = ventaTotal;
+      document.querySelector("#kgVenta").value = kgVenta;
+      document.querySelector("#costoUnitario").value = promedio;
+      document.querySelector("#costo").value = costoTotal;
+      document.querySelector("#utViaje").value = utTotal;
+      document.querySelector("#costoMerma").value = costoMerma;
+      document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utTotal).format('0,0.00');
 
 
 
-  // datosJson += JSON.stringify({ operacion: operacion, kilos: kilos, precio: parseFloat(precio) });
-  // console.log(datosJson);
+      datos.push({
+            "operacion": operacion,
+            "kilos"    : kilos,
+            "precio"   : precio
+        });
+      objeto = datos;
+      listaCompras.value = JSON.stringify(objeto);
 
-  insertarRowTabla(operacionText, kilos, precio);
+      insertarRowTabla(operacionText, kilos, precio);
+    }// validacion del precio de venta
+
 
 }
 

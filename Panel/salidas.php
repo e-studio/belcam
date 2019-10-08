@@ -108,11 +108,11 @@ require_once "includes/crud.php";
                     </div>
                     <div class="col-xs-3">
                       <label>Flete</label>
-                      <input type="text" required id="flete" name="flete" class="form-control">
+                      <input type="text" required id="flete" name="flete" value="0" class="form-control">
                       </div>
                       <div class="col-xs-3">
                         <label>Maniobra</label>
-                        <input type="text" required id="maniobra" name="maniobra" class="form-control">
+                        <input type="text" required id="maniobra" name="maniobra" value="0" class="form-control">
                       </div>
 
                       </div> <!-- row -->
