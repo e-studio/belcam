@@ -45,7 +45,7 @@ require_once "includes/crud.php";
                     <div class="row">
                       <div class="col-xs-3">
                         <label># Operacion</label>
-                        <input type="text" required name="operacion" class="form-control">
+                        <input type="text" required name="operacion" id="operacion" class="form-control" onchange="buscaSalida(this.value)">
                       </div>
                       <div class="col-xs-3">
                         <label>Cliente</label>

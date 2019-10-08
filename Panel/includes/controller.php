@@ -116,6 +116,22 @@ class MvcController{
 
     }
 
+    // BUSCA SI UNA OPERACION YA EXISTE EN LA TABLA DE SALIDAS
+    public function buscaSalidaAjax($codigo){
+
+        $res = Datos::mdlSalidasAjax($codigo);
+        //echo $res["noOperacion"];
+        if ($res==""){
+        	//echo $res["noOperacion"];
+            echo "no";
+        }
+        else {
+        	// echo $res["noOperacion"];
+            echo "si";
+        }
+
+    }
+
 	#REGISTRO DE USUARIOS
 	#------------------------------------
 	public function registroUsuario(){

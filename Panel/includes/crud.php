@@ -166,6 +166,20 @@ class Datos extends Conexion{
 	}
 
 
+	# BUSCA SI UNA OPERACION ESTA REGISTRADA EN LA TABLA DE SALIAS
+	#-------------------------------------
+
+	public function mdlSalidasAjax($codigo){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM salidas WHERE noOperacion = :codigo");
+		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetch();
+		$stmt->close();
+
+	}
+
+
 	# LISTA DE MIS DEPOSITOS O BODEGAS DISPONIBLES
 	#-------------------------------------
 

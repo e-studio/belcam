@@ -1,5 +1,6 @@
-<?php session_start();
-if(!$_SESSION["valido"]){
+<?php
+ session_start();
+ if(!$_SESSION["valido"]){
   header("location:index.php");
   exit();
 }
