@@ -56,7 +56,7 @@
               <br>
               <div class="row">
                 <div class="col-xs-5">
-                  <label>Direccin</label>
+                  <label>Direccion</label>
                   <input type="text" class="form-control" name="direccion" value="<?php echo $respuesta['direccion'];?>" >
                 </div>
                 <div class="col-xs-2">
