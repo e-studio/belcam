@@ -54,6 +54,7 @@
             <li><a href="regProveedor.php"><i class="fa fa-user-plus"></i> Proveedor</a></li>
             <li><a href="regUsuario.php"><i class="fa fa-user-plus"></i> Usuario</a></li>
             <li><a href="regProducto.php"><i class="fa fa-user-plus"></i> Producto</a></li>
+            <li><a href="regUnidad.php"><i class="fa fa-truck"></i> Unidad</a></li>
             <li>-</li>
 
             <li><a href="listaChoferes.php"><i class="fa fa-group"></i> Choferes</a></li>
@@ -61,6 +62,7 @@
             <li><a href="listaProveedores.php"><i class="fa fa-group"></i> Proveedores</a></li>
             <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
             <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
+            <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidad</a></li>
           </ul>
         </li>
 
