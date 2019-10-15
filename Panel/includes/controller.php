@@ -354,6 +354,23 @@ class MvcController{
 
 	}
 
+	#Registrar nueva unidad
+
+	public function ctlRegistroUnidad () {
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosUnidad = array("descripcion" => $_POST["descripcion"],
+								 "kilometraje" => $_POST["kilometros"],
+								 "anio" => $_POST["anio"],
+								 "marca" => $_POST["marca"],
+								 "modelo" => $_POST["modelo"],
+								 "placas" => $_POST["placas"]);
+
+			$Respuesta = Datos::mdlRegistroUnidad($datosUnidad, "unidades");
+
+		}
+	}
+
 	#ACTUALIZA DE USUARIO
 	#------------------------------------
 	public function actualizaUsuario(){
@@ -572,6 +589,36 @@ class MvcController{
 
 	}
 
+	#Actualiza Unidad
+
+	public function ctlActualizaUnidad ($id) {
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$datosUnidad = array("idUnidad" => $id,
+								 "descripcion" => $_POST["descripcion"],
+								 "kilometraje" => $_POST["kilometros"],
+								 "anio" => $_POST["anio"],
+								 "marca" => $_POST["marca"],
+								 "modelo" => $_POST["modelo"],
+								 "placas" => $_POST["placas"]);
+
+			$Respuesta = Datos::mdlActualizaUnidad($datosUnidad, "unidades");
+
+			if ($Respuesta == "success") {
+				echo "<script type='text/javascript'>
+						alert('Regsitro Actualizado');
+						window.location.href='listaUnidades.php';
+					 </script>";
+			}
+			else {
+				echo "<script>
+						alert('Error');
+						window.location.href='listaUnidades.php';
+					</script>";
+			}
+		}
+	}
+
 
 	#BORRAR USUARIO
     #------------------------------------
@@ -710,6 +757,28 @@ class MvcController{
         }
     }
 
+    #Borrar Unidad
+
+    public function borrarUnidad () {
+    
+    	if (isset($_GET['idBorrar'])) {
+
+    		$datosController = $_GET['idBorrar'];
+    		$Respuesta = Datos::mdlBorrarUnidad($datosController, "unidades");
+
+    		if ($Respuesta == "success") {
+    			echo "<script type='text/javascript'>
+    				alert('Registro Eliminado');
+    				window.location.href='listaUnidades.php';
+    			</script>";
+    		}
+    		else {
+    			echo "<script tupe='text/javascript'>alert('Error');</script>";
+    		}
+
+    	}
+
+    }
 
 	#LISTADO DE TODOS LOS USUARIOS
     #------------------------------------
@@ -736,7 +805,6 @@ class MvcController{
         }
 
     }
-
 
     #LISTADO DE TODOS LOS PRODUCTOS
     #------------------------------------
@@ -914,6 +982,29 @@ class MvcController{
                   <td><a href="listaProveedores.php?idBorrar='.$item["id"].'" ><button class="btn btn-danger">Borrar</button></a></td>
                 </tr>';
         }
+
+    }
+
+    #Listado de todas las unidades
+
+    public function listaUnidades () {
+    	$Respuesta = Datos::mdlListaUnidades("unidades");
+    	$Contador = 0;
+
+    		foreach ($Respuesta as $Row => $Item) {
+    			$Contador++;
+
+    			echo "<tr>
+    					<td>".$Contador."</td>
+    					<td>".$Item["placas"]."</td>
+    					<td>".$Item["marca"]."</td>
+    					<td>".$Item["modelo"]."</td>
+						<td>".$Item["anio"]."</td>
+						<td><a href='updtUnidad.php?idEditar=".$Item["idUnidad"]."'><button class='btn btn-warning'>Editar</button></a></td>
+						<td><a href='listaUnidades.php?idBorrar=".$Item["idUnidad"]."'><button class='btn btn-danger'>Borrar</button></a></td>
+    				</tr>";
+
+    		}
 
     }
 

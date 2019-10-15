@@ -1,11 +1,14 @@
-<?php include_once "includes/controller.php";
-      include_once "includes/crud.php";
-      //include_once "includes/ingreso.php";
-      session_start();
-      if(!$_SESSION["valido"]){
-        header("location:index.php");
-        exit();
-      }
+<?php
+    include_once "includes/controller.php";
+    include_once "includes/crud.php";
+    //include_once "includes/ingreso.php";
+    session_start();
+        if(!$_SESSION["valido"]){
+            header("location:index.php");
+            exit();
+        }
+      $idUnidad = $_REQUEST['idEditar'];
+      $Respuesta = Datos::mdlBuscaUnidad("unidades", $idUnidad);
  ?>
 
 <!DOCTYPE html>
@@ -30,32 +33,32 @@
   					<div class="col-md-10">
   						<div class="box box-primary">
   							<div class="box-header with-border">
-  									<h3 class="box-title">Registro de unidades</h3>
+  									<h3 class="box-title">Editor de unidades</h3>
   							</div>
   							<div class="box-body">
   								<div class="row">
   									<div class="col-sm-1">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="kilometros" placeholder="Kilometraje">
+  										<input type="text" value="<?php echo $Respuesta['kilometraje'];?>" class="form-control" name="kilometros" placeholder="Kilometraje">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="anio" placeholder="Año">	
+  										<input type="text" value="<?php echo $Respuesta['anio'];?>" class="form-control" name="anio" placeholder="Año">	
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="marca" placeholder="Marca">
+  										<input type="text" value="<?php echo $Respuesta['marca'];?>" class="form-control" name="marca" placeholder="Marca">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="modelo" placeholder="Modelo">
+  										<input type="text" value="<?php echo $Respuesta['modelo'];?>" class="form-control" name="modelo" placeholder="Modelo">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="placas" placeholder="Placas">
+  										<input type="text" value="<?php echo $Respuesta['placas'];?>" class="form-control" name="placas" placeholder="Placas">
   									</div>
   								</div>
   								<br>
   								<div class="row">
   									<div class="col-md-12">
-  										<textarea name="descripcion" class="form-control"></textarea>
+  										<textarea name="descripcion" class="form-control"><?php echo $Respuesta['descripcion'];?></textarea>
   									</div>
   								</div>
   								<br>
@@ -73,12 +76,10 @@
   					</div>
   				</div>
   			</form>
-  			<?php 
-
-  				$Registro = new MvcController();
-  				$Registro -> ctlRegistroUnidad();
-
-  			?>
+            <?php
+                $Actualizar = new MvcController();
+                $Actualizar -> ctlActualizaUnidad($_REQUEST['idEditar']);
+            ?>
   		</section>
   	</div>
   	<?php

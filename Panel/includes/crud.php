@@ -2,7 +2,7 @@
 
 require_once "conexion.php";
 
-class Datos extends Conexion{
+class Datos extends Conexion {
 
 	#VERIFICA SI EL USUARIO EXISTE PARA INGRESAR AL SISTEMA
 	#--------------------------------------------------------
@@ -101,6 +101,15 @@ class Datos extends Conexion{
 		$stmt->close();
 	}
 
+	#Lista de Unidades
+
+	public function mdlListaUnidades ($tabla) {
+		$Statement = Conexion::conectar() -> prepare("SELECT * FROM $tabla ORDER BY placas");
+		$Statement -> execute();
+		return $Statement -> fetchAll();
+
+		$Statement -> close();
+	}
 
 	# LISTA DE CLIENTES
 	#-------------------------------------
@@ -137,6 +146,7 @@ class Datos extends Conexion{
 		$stmt->close();
 
 	}
+
 
 	# LISTA DE compras de un producto en especifico
 	#-------------------------------------
@@ -255,6 +265,18 @@ class Datos extends Conexion{
 
     }
 
+    public function mdlBuscaUnidad ($tabla, $id) {
+
+		$Statement = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idUnidad = :id");
+
+		$Statement->bindParam(":id", $id, PDO::PARAM_INT);
+
+		$Statement -> execute();
+		return $Statement -> fetch();
+
+		$Statement->close();
+    }
+
     #REGISTRO DE USUARIO
 	#-------------------------------------
 	public function registroUsuario($datosModel, $tabla){
@@ -299,7 +321,7 @@ class Datos extends Conexion{
 	#-------------------------------------
 	public function mdlRegistroChofer($datosModel, $tabla){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`idChofer`, `codChofer`, `nombre`, `alias`, `rfc`, `direccion`, `ine`, `licencia`, `telefono`, `telefono2`, `telefono3`, `contacto`, `fechaIngreso`) VALUES (NULL, NULL, 'Nelson', :alias, 'rfc', 'direcc', 'ine', 'licencia', 'telef', 'telef2', 'telef3', '0', NULL)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`idChofer`, `codChofer`, `nombre`, `alias`, `rfc`, `direccion`, `ine`, `licencia`, `telefono`, `telefono2`, `telefono3`, `contacto`, `fechaIngreso`) VALUES (NULL, NULL, :nombre, :alias, :rfc, :direccion, :ine, :licencia, :telefono, :telefono2, :telefono3, '0', :fechaIngreso)");
 
 		$stmt->bindParam(':nombre', $datosModel['nombre'], PDO::PARAM_STR,50);
 		$stmt->bindParam(':alias', $datosModel["alias"], PDO::PARAM_STR);
@@ -398,6 +420,29 @@ class Datos extends Conexion{
 		}
 
 		$stmt->close();
+
+	}
+
+	#Registro unidades
+
+	public function mdlRegistroUnidad ($datosModel, $Tabla) {
+
+		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `descripcion`, `kilometraje`, `anio`, `marca`, `modelo`, `placas`) VALUES (null, :descripcion, :kilometraje, :anio, :marca, :modelo, :placas);");
+
+		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
+		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
+		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
+		$Statement -> bindParam(":modelo", $datosModel["modelo"], PDO::PARAM_STR);
+		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				return "success";
+			}
+			else {
+				return "error";
+			}
+		$Statement -> close();	
 
 	}
 
@@ -546,6 +591,28 @@ class Datos extends Conexion{
 		$stmt->close();
 	}
 
+	#Actualizar unidad
+
+	public function mdlActualizaUnidad ($datosModel, $Tabla) {
+
+		$Statement = Conexion::conectar() -> prepare("UPDATE $Tabla SET descripcion = :descripcion, kilometraje = :kilometraje, anio = :anio, marca = :marca, modelo = :modelo, placas = :placas WHERE idUnidad = :idUnidad;");
+		$Statement -> bindParam(":idUnidad", $datosModel["idUnidad"], PDO::PARAM_INT);
+		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
+		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
+		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
+		$Statement -> bindParam(":modelo", $datosModel["modelo"], PDO::PARAM_STR);
+		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				return "success";
+			}
+			else {
+				return "error";
+			}
+		$Statement -> close();
+	}
+
 	#BORRAR USUARIO
 	#-------------------------------------
 	public function mdlborrarUsuario($datosModel,$tabla){
@@ -632,13 +699,28 @@ class Datos extends Conexion{
 	#-------------------------------------
 	public function mdlborrarProveedor($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
-		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		$stmt -> bindParam(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
 			return "success";
 		} else {
 			return "error";
 		}
 		$stmt -> close();
+	}
+
+	#Borrar Unidad
+
+	public function mdlBorrarUnidad ($datosModel, $Tabla) {
+		$Statement = Conexion::conectar() -> prepare ("DELETE FROM $Tabla WHERE idUnidad = :id;");
+		$Statement -> bindParam(":id", $datosModel, PDO::PARAM_INT);
+
+		if ($Statement -> execute()) {
+			return "success";
+		}
+		else {
+			return "error";
+		}
+		$Statement -> close();
 	}
 
 	#BUSCA UN USUARIO

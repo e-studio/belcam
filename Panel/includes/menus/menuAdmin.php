@@ -62,7 +62,7 @@
             <li><a href="listaProveedores.php"><i class="fa fa-group"></i> Proveedores</a></li>
             <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
             <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
-            <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidad</a></li>
+            <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidades</a></li>
           </ul>
         </li>
 
