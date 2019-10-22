@@ -477,11 +477,12 @@ class Datos extends Conexion {
 	public function mdlActualizaProducto($datosModel, $tabla){
 
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, codProducto = :codProducto WHERE idProducto = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, codProducto = :codProducto, tipo= :tipoproducto WHERE idProducto = :id");
 
 		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
 		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":codProducto", $datosModel["codProducto"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipoproducto", $datosModel["tipoProducto"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 			return "success";

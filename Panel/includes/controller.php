@@ -422,7 +422,8 @@ class MvcController{
 
 			$datosController = array( "id"=>$_POST["id"],
 									  "nombre"=>$_POST["nombre"],
-								      "codProducto"=>$_POST["codProducto"]);
+								      "codProducto"=>$_POST["codProducto"],
+								  	  "tipoProducto"=>$_POST["TipoPro"]);
 
 			$respuesta = Datos::mdlActualizaProducto($datosController, "productos");
 
@@ -824,6 +825,7 @@ class MvcController{
                   <td>'.$cont.'</td>
                   <td>'.$item["codProducto"].'</td>
                   <td>'.$item["nombre"].'</td>
+                  <td>'.$item["tipo"].'</td>
                   <td><a href="updtProducto.php?idEditar='.$item["idProducto"].'"><button class="btn btn-warning">Editar</button></a></td>
                   <td><a href="listaProductos.php?idBorrar='.$item["idProducto"].'" ><button class="btn btn-danger">Borrar</button></a></td>
                 </tr>';

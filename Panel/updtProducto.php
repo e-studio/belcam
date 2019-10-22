@@ -32,7 +32,7 @@
     <section class="content">
      <form role="form" method="post">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-9">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Actualizaci&oacute;n de Datos - Producto</h3>
@@ -42,8 +42,17 @@
                 <div class="col-xs-6">
                   <input type="text" class="form-control" name="nombre" value="<?php echo $respuesta['nombre'];?>">
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-2">
                   <input type="text" class="form-control" name="codProducto" value="<?php echo $respuesta['codProducto'];?>">
+                </div>
+                <div class="col-xs-4">
+                  <div class="col-xs-8">
+                  <select class="form-control" required name="TipoPro">
+                    <option  value="MAYOREO" <?php  if($respuesta['tipo']=='MAYOREO'){echo 'selected';}?>>Mayoreo</option>
+                    <option  value="CHILE" <?php  if($respuesta['tipo']=='CHILE'){echo 'selected';}?>>Chile</option>
+                    <option  value="NUEZ" <?php  if($respuesta['tipo']=='NUEZ'){echo 'selected';}?>>Nuez</option>
+                  </select>
+                  </div>
                 </div>
               </div>
               <br>
