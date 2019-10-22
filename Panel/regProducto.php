@@ -29,20 +29,30 @@
     <section class="content">
      <form role="form" method="post">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-9">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Registro de Productos</h3>
             </div>
             <div class="box-body">
               <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-5">
                   <input type="text" class="form-control" name="nombre" placeholder="Nombre" required="true" >
+                </div>
+                <div class="col-xs-2">
+                  <div class="col-xs-12">
+                  <input type="text" class="form-control" name="codProducto" placeholder="Codigo" required="true" >
+                  </div>
                 </div>
                 <div class="col-xs-4">
                   <div class="col-xs-6">
-                  <input type="text" class="form-control" name="codProducto" placeholder="Codigo" required="true" >
-                </div>
+                  <select class="form-control" required name="TipoPro">
+                    <option  selected>Tipo</option>
+                    <option  value="MAYOREO">Mayoreo</option>
+                    <option  value="CHILE">Chile</option>
+                    <option  value="NUEZ">Nuez</option>
+                  </select>
+                  </div>
                 </div>
               </div>
               <br>

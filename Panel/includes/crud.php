@@ -302,10 +302,11 @@ class Datos extends Conexion {
 	#-------------------------------------
 	public function registroProducto($datosModel, $tabla){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (nombre, codProducto) VALUES (:nombre,:codProducto)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (nombre, codProducto, tipo) VALUES (:nombre,:codProducto, :tipoProducto)");
 
 		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":codProducto", $datosModel["codProducto"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipoProducto", $datosModel["tipoProducto"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 			return "success";
@@ -498,8 +499,9 @@ class Datos extends Conexion {
 	public function mdlActualizaChofer($datosModel, $tabla){
 
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, alias = :alias, rfc = :rfc, direccion = :direccion, ine = :ine, licencia = :licencia, telefono = :telefono, telefono2 = :telefono2, telefono3 = :telefono3, fechaIngreso = '2019-06-25' WHERE idChofer = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, alias = :alias, rfc = :rfc, direccion = :direccion, ine = :ine, licencia = :licencia, telefono = :telefono, telefono2 = :telefono2, telefono3 = :telefono3, fechaIngreso = :fechaIngreso WHERE idChofer = :id");
 
+		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
 		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":alias", $datosModel["alias"], PDO::PARAM_STR);
 		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);

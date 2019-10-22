@@ -1,3 +1,4 @@
+
 <?php
 
 class MvcController{
@@ -177,7 +178,8 @@ class MvcController{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			$datosController = array( "nombre"=>$_POST["nombre"],
-								      "codProducto"=>$_POST["codProducto"]);
+								      "codProducto"=>$_POST["codProducto"],
+								  	  "tipoProducto"=>$_POST["TipoPro"]);
 
 			$respuesta = Datos::registroProducto($datosController, "productos");
 
@@ -455,7 +457,8 @@ class MvcController{
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-			$datosController = array( "nombre"=>$_POST["nombre"],
+			$datosController = array( "id"=>$_POST["id"],
+									  "nombre"=>$_POST["nombre"],
 									  "alias"=>$_POST["alias"],
 									  "rfc"=>$_POST["rfc"],
 								      "direccion"=>$_POST["direccion"],
