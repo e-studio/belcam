@@ -140,7 +140,7 @@ class Datos extends Conexion {
 
 	public function mdlProductos($tabla){
 
-		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla ORDER BY nombre");
+		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo NOT IN ('CHILE', 'NUEZ') ORDER BY nombre");
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt->close();

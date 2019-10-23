@@ -1,12 +1,12 @@
 <?php
-// $servername = "127.0.0.1";
-// $username = "root";
-// $password = "";
-// $dbname = "belcam";
-$servername = "mysql1007.mochahost.com";
-$username = "rickurbi_belcam";
-$password = "8gqMy;BQz@Om";
-$dbname = "rickurbi_belcam";
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "belcam";
+//$servername = "mysql1007.mochahost.com";
+//$username = "rickurbi_belcam";
+//$password = "8gqMy;BQz@Om";
+//$dbname = "rickurbi_belcam";
 
 $operacion = $_POST["operacion"];
 $proveedor = $_POST["proveedor"];
@@ -26,10 +26,10 @@ $flete = $_POST["flete"];
 $maniobra = $_POST["maniobra"];
 $costoTotal = $_POST["costoTotal"];
 $totalCompra = $_POST["totalCompra"];
-$fecha =  $_POST["fecha"];
-$referencia =  $_POST["referencia"];
-$monto =  $_POST["monto"];
-$saldo =  $_POST["saldo"];
+$fecha =  '23/10/2019';
+$referencia =  'esta';
+$monto =  'este';
+$saldo =  'aquel';
 
 
 try {
@@ -46,7 +46,7 @@ try {
     }
 catch(PDOException $e)
     {
-    echo $sql."<br>" . $e->getMessage();
+    echo $e->getMessage();
     }
 
 $conn = null;

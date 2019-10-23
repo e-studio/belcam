@@ -31,6 +31,7 @@ require_once "includes/crud.php";
       </h1>
       <br>
 <form role="form" action="regEntradas.php" method="post">
+   <div class="row">
       <div class="col-md-12">
 
       <!-- general form elements -->
@@ -41,37 +42,41 @@ require_once "includes/crud.php";
             <!-- form start -->
 
               <div class="box-body">
-
-
-                <div class="col-xs-2">
+               <div class="row">
+                  <div class="col-xs-2">
                   <label># Operacion</label>
                   <input type="text" required id="operacion" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
-                </div>
-                <div class="col-xs-3">
-                  <label>Proveedor</label>
-                  <select class="form-control" name="proveedor" >
-                    <option></option>
-                    <?php $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
-                  </select>
-                </div>
+                  </div>
+                  <div class="col-xs-2">
+                     <label>Lote</label>
+                     <input type="text" required id="lote" name="lote" class="form-control">
+                  </div>
+                  <div class="col-xs-3">
+                     <label>Proveedor</label>
+                     <select class="form-control" name="proveedor" >
+                        <option></option>
+                        <?php $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
+                     </select>
+                  </div>
 
-                <div class="col-xs-3">
-                  <label>Cliente</label>
-                  <input type="text" name="cliente" class="form-control">
-                </div>
+                   <div class="col-xs-3">
+                     <label>Cliente</label>
+                     <input type="text" name="cliente" class="form-control">
+                   </div>
 
-                <div class="col-xs-2">
-                  <label>Producto</label>
-                  <select class="form-control" required name="codProd">
-                    <option value="">Selecione</option>
-                    <?php
-                      $productos = new MvcController();
-                      $productos -> ctlBuscaProductos();
-                    ?>
-                  </select>
-                </div>
-<br><br><br><br>
-                <div class="col-xs-1">
+                   <div class="col-xs-2">
+                     <label>Producto</label>
+                     <select class="form-control" required name="codProd">
+                       <option value="">Selecione</option>
+                       <?php
+                         $productos = new MvcController();
+                         $productos -> ctlBuscaProductos();
+                       ?>
+                     </select>
+                   </div>
+               </div> <!-- Row-->
+               <div class="row">
+                                  <div class="col-xs-1">
                   <label>Unidad</label>
                   <input type="text" required name="unidad" class="form-control">
                 </div>
@@ -97,7 +102,7 @@ require_once "includes/crud.php";
                 </div>
                 <div class="col-xs-1">
                   <label>Calidad</label>
-                  <input type="text" required name="calidad" class="form-control">
+                  <input type="text" id="calidad" name="calidad" class="form-control">
                 </div>
                 <div class="col-xs-2">
                   <label>Origen</label>
@@ -107,106 +112,83 @@ require_once "includes/crud.php";
                   <label>Destino</label>
                   <input type="text" required name="destino" class="form-control">
                 </div>
+               </div> <!--Row-->
+               <div class="row">
+                  <div class="col-xs-2">
+                     <label>Comision</label>
+                     <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" id="comision" name="comision" class="form-control" onchange="calculaCompra()">
+                   </div>
+                   <div class="col-xs-1">
+                     <label>Flete</label>
+                     <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="flete" name="flete" class="form-control" onchange="calculaCompra()">
+                   </div>
+                   <div class="col-xs-1">
+                     <label>Maniobra</label>
+                     <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="maniobra" name="maniobra" class="form-control" onchange="calculaCompra()">
+                   </div>
+               </div><!--Row-->
+               <div class="row">
+                  <div class="col-xs-8">
+                  </div>
                 <div class="col-xs-2">
-                  <label>Comision</label>
-                  <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" id="comision" name="comision" class="form-control" onchange="calculaCompra()">
-                </div>
-                <div class="col-xs-1">
-                  <label>Flete</label>
-                  <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="flete" name="flete" class="form-control" onchange="calculaCompra()">
-                </div>
-                <div class="col-xs-1">
-                  <label>Maniobra</label>
-                  <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="maniobra" name="maniobra" class="form-control" onchange="calculaCompra()">
-                </div>
-                <br><br><br><br>
-                <br><br><br><br>
-                <div class="col-xs-8">
-                </div>
-                <div class="col-xs-2">
-                  <strong>Costo</strong><h4><p align="right"id="costoLbl"><span>$</span> 0</p></h4>
+                  <strong>Costo</strong><h4><p align="right"id="costoLbl"><span>$</span> 0.00</p></h4>
                   <input type="hidden" value="0" required id="costo" name="costoTotal" class="form-control">
                   <!-- type="hidden" -->
                 </div>
-
+               </div>
 
               </div>
-
-              <!-- <div class="row">
-                <div class="col-xs-9"></div>
-
-                <div class="col-xs-2">
-                      <label><h4><strong>Total Costo</strong></h4></label><h2><p align="right"id="totalCompraLbl"><span>$</span> 0</p></h2>
-                      <input type="hidden" required id="totalCompra" name="totalCompra" class="form-control">
-                </div>
-
-                <div class="col-xs-1"></div>
-
-              </div> -->
 
               <div class="box-footer" align="right">
-                <br><br>
-                <!-- <div class="row">
-                  <div class="col-xs-9"></div>
-                  <div class="col-xs-2">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>
-                  <div class="col-xs-1"></div>
-                </div> -->
+                <p><strong> NOTA: Ingrese todos los valores numericos SIN signo de pesos ni comas ($ , ) </strong></p>
               </div>
               <div>
-                <p><strong> NOTA: ingrese todos los valores numericos SIN signo de pesos ni comas ($ , ) </strong></p>
+
               </div>
 
           </div>
 
+          <div class="row">
+             <div class="col-md-6"></div> <!-- Caja de Total-->
+             <div class="col-md-3">
+               <div class="box box-primary">
+                 <div class="box-header with-border">
+                   <h3 class="box-title">Total Costo</h3>
+                   <div class="box-body">
+                       <label><h4><strong></strong></h4></label><h2><p align="right"id="totalCompraLbl"><span>$</span> 0.00</p></h2>
+                       <input type="hidden" value="0" required id="totalCompra" name="totalCompra" class="form-control">
+                   </div>
+                 </div>
 
-          <div class="col-md-6"></div> <!-- Caja de Guardar-->
-          <div class="col-md-3">
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">Total Costo</h3>
-                <div class="box-footer" align="right">
-                    <label><h4><strong></strong></h4></label><h2><p align="right"id="totalCompraLbl"><span>$</span> 0</p></h2>
-                    <input type="hidden" value="0" required id="totalCompra" name="totalCompra" class="form-control">
-                </div>
-              </div>
+               </div>
+             </div> <!-- Caja de Total-->
+             <div class="col-md-3">
+               <div class="box box-primary">
+                 <div class="box-header with-border">
+                   <h3 class="box-title">Guardar Venta</h3>
+                   <div class="box-body" align="right">
+                     <br><br>
+                     <button type="submit" class="btn btn-primary">Guardar</button>
+                   </div>
+                 </div>
 
-            </div>
-          </div> <!-- Caja de Guardar-->
-          <div class="col-md-3">
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">Guardar Venta</h3>
-                <div class="box-footer" align="right">
-                  <br><br>
-                  <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-              </div>
-
-            </div>
-          </div> <!-- Caja de Guardar-->
-
+               </div>
+             </div> <!-- Caja de Guardar-->
+          </div>
       </div>
 
-
+   </div>
 
     </section>
 </form>
-    <!-- Main content -->
-    <section class="content">
-
-
-    </section>
+ 
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0
-    </div>
-    <strong>Copyright &copy; 2019 <a href="http://belcam.com.mx">Productos del Campo Beltr&aacute;n </a>.</strong> Todos los derechos reservados.
-  </footer>
+
+<?php
+   include "includes/menus/footer.php";
+?>
 
 </div>
 <!-- ./wrapper -->

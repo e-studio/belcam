@@ -81,12 +81,14 @@ require_once "includes/crud.php";
                   <th>#</th>
                   <th>No. Operacion</th>
                   <th>Proveedor</th>
+                  <th>Cliente</th>
                   <th>Cod. Prod.</th>
                   <th>Kgs.</th>
                   <th>Precio</th>
                   <th>Costo</th>
                   <th>Total</th>
                   <th>Fecha</th>
+                  <th></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -104,6 +106,7 @@ require_once "includes/crud.php";
                   <th>#</th>
                   <th>No. Operacion</th>
                   <th>Proveedor</th>
+                  <th>Cliente</th>
                   <th>Cod. Prod.</th>
                   <th>Kgs.</th>
                   <th>Precio</th>
@@ -126,12 +129,9 @@ require_once "includes/crud.php";
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0
-    </div>
-    <strong>Copyright &copy; 2019 <a href="http://belcam.com.mx">Productos del Campo Beltr&aacute;n </a>.</strong> Todos los derechos reservados.
-  </footer>
+<?php
+  include "includes/menus/footer.php";
+?>
 
 </div>
 <!-- ./wrapper -->

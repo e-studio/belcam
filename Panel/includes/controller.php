@@ -702,7 +702,7 @@ class MvcController{
     #------------------------------------
     public function borrarCompra(){
 
-        if ($_GET['idBorrar']){
+        if (isset($_GET['idBorrar'])){
         	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
             $datosController = $_GET['idBorrar'];
             $respuesta = Datos::mdlborrarCompra($datosController,"entradas");
@@ -912,13 +912,18 @@ class MvcController{
                   <td>'.$cont.'</td>
                   <td>'.$item["noOperacion"].'</td>
                   <td>'.$item["proveedor"].'</td>
+                  <td>'.$item["cliente"].'</td>
                   <td>'.$item["codProducto"].'</td>
                   <td>'.$item["kg"].'</td>
                   <td>'.$item["precio"].'</td>
                   <td>'.$item["costoTotal"].'</td>
                   <td>'.$item["total"].'</td>
                   <td>'.$item["fecha"].'</td>
+                  <td>
+                  <a href="updtCompra.php?idEditar'.$item["cons"].'"><button class="btn btn-warning">Editar</button></a>
+                  </td>
                   <td><a href="listaCompras.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a></td>
+
                 </tr>';
                 //<td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
         }
