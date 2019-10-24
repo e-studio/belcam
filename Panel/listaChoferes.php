@@ -1,10 +1,11 @@
-<?php include_once "includes/controller.php";
-      include_once "includes/crud.php";
-      session_start();
-      if(!$_SESSION["valido"]){
+<?php
+session_start();
+if(!$_SESSION["valido"]){
         header("location:index.php");
         exit();
-      }
+  }
+include_once "includes/controller.php";
+include_once "includes/crud.php";
  ?>
 <!DOCTYPE html>
 <html>
