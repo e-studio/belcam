@@ -120,7 +120,7 @@ require_once "includes/crud.php";
                       <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="precio" name="precio" class="form-control" onchange="calculaCompra()">
 
                       <label>Calidad (escriba solo numeros)</label>
-                      <input type="text" id="calidad" name="calidad" class="form-control">
+                      <input type="number" id="calidad" name="calidad" class="form-control">
 
 
                    </div>
