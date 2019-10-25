@@ -104,7 +104,7 @@ require_once "includes/crud.php";
                        <option value="">Selecione</option>
                        <?php
                          $productos = new MvcController();
-                         $productos -> ctlBuscaProductosNuez();
+                         $productos -> ctlBuscaProductosNuez('Z');
                        ?>
                      </select>
 
@@ -119,7 +119,7 @@ require_once "includes/crud.php";
                       <label>Precio</label>
                       <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="precio" name="precio" class="form-control" onchange="calculaCompra()">
 
-                      <label>Calidad</label>
+                      <label>Calidad (escriba solo numeros)</label>
                       <input type="text" id="calidad" name="calidad" class="form-control">
 
 
