@@ -7,7 +7,12 @@ if(!$_SESSION["valido"]){
 
 require_once "includes/controller.php";
 require_once "includes/crud.php";
+
+  $usuario = $_REQUEST['idEditar'];
+  $respuesta = Datos::mdlBuscaEntrada("entradas",$usuario);
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +32,7 @@ require_once "includes/crud.php";
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Registro de Compras
+        Actualizacion de compras
       </h1>
       <br>
 <form role="form" action="regEntradas.php" method="post">
@@ -45,11 +50,11 @@ require_once "includes/crud.php";
                <div class="row">
                   <div class="col-xs-2">
                   <label># Operacion</label>
-                  <input type="text" required id="operacion" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
+                  <input type="text" required id="operacion" value="<?php echo $respuesta['noOperacion']; ?>" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
                   </div>
                   <div class="col-xs-2">
                      <label>Lote</label>
-                     <input type="text" required id="lote" name="lote" class="form-control">
+                     <input type="text" required id="lote" name="lote" value="<?php echo $respuesta['lote']; ?>" class="form-control">
                   </div>
                   <div class="col-xs-3">
                      <label>Proveedor</label>
@@ -61,7 +66,7 @@ require_once "includes/crud.php";
 
                    <div class="col-xs-3">
                      <label>Productor</label>
-                     <input type="text" name="productor" class="form-control">
+                     <input type="text" name="cliente" value="<?php echo $respuesta['productor']; ?>" class="form-control">
                    </div>
 
                    <div class="col-xs-2">
@@ -181,14 +186,20 @@ require_once "includes/crud.php";
 
     </section>
 </form>
- 
+    <!-- Main content -->
+    <section class="content">
+
+
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<?php
-   include "includes/menus/footer.php";
-?>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0
+    </div>
+    <strong>Copyright &copy; 2019 <a href="http://belcam.com.mx">Productos del Campo Beltr&aacute;n </a>.</strong> Todos los derechos reservados.
+  </footer>
 
 </div>
 <!-- ./wrapper -->

@@ -912,7 +912,7 @@ class MvcController{
                   <td>'.$cont.'</td>
                   <td>'.$item["noOperacion"].'</td>
                   <td>'.$item["proveedor"].'</td>
-                  <td>'.$item["cliente"].'</td>
+                  <td>'.$item["productor"].'</td>
                   <td>'.$item["codProducto"].'</td>
                   <td>'.$item["kg"].'</td>
                   <td>'.$item["precio"].'</td>
@@ -920,7 +920,7 @@ class MvcController{
                   <td>'.$item["total"].'</td>
                   <td>'.$item["fecha"].'</td>
                   <td>
-                  <a href="updtCompra.php?idEditar'.$item["cons"].'"><button class="btn btn-warning">Editar</button></a>
+                  <a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a>
                   </td>
                   <td><a href="listaCompras.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a></td>
 

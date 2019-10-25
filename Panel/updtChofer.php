@@ -113,7 +113,7 @@
      </form>
      <?php
         $registro = new MvcController();
-        $registro -> actualizaChofer();
+        $registro -> actualizaChofer($_REQUEST['idEditar']);
     ?>
 
 
