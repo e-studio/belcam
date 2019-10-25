@@ -287,6 +287,42 @@ class Datos extends Conexion {
 		$Statement->close();
     }
 
+    public function mdlRegistroEntrada ($datosModel, $tabla) {
+    	$Statement = Conexion::conectar() -> prepare("INSERT INTO $tabla (lote, noOperacion, proveedor, productor, codProducto, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, costoTotal, total, fecha, referencia, monto, saldo) VALUES (:lote, :noOperacion, :proveedor, :productor, :codProducto, :unidad, :unidad1, :operador, :kg, :inventario, :um, :precio, :calidad, :origen, :destino, :comision, :flete, :maniobra, :costoTotal, :total, :fecha, :referencia, :monto, :saldo)");
+
+    	$Statement->bindParam(":lote", $datosModel["lote"], PDO::PARAM_STR);
+    	$Statement->bindParam(":noOperacion", $datosModel["noOperacion"], PDO::PARAM_STR);
+    	$Statement->bindParam(":proveedor", $datosModel["proveedor"], PDO::PARAM_STR);
+    	$Statement->bindParam(":productor", $datosModel["productor"], PDO::PARAM_STR);
+    	$Statement->bindParam(":codProducto", $datosModel["codProducto"], PDO::PARAM_STR);
+    	$Statement->bindParam(":unidad", $datosModel["unidad"], PDO::PARAM_STR);
+    	$Statement->bindParam(":unidad1", $datosModel["unidad1"], PDO::PARAM_STR);
+    	$Statement->bindParam(":operador", $datosModel["operador"], PDO::PARAM_INT);
+    	$Statement->bindParam(":kg", $datosModel["kg"], PDO::PARAM_STR);
+    	$Statement->bindParam(":inventario", $datosModel["inventario"], PDO::PARAM_STR);
+    	$Statement->bindParam(":um", $datosModel["um"], PDO::PARAM_STR);
+    	$Statement->bindParam(":precio", $datosModel["precio"], PDO::PARAM_STR);
+    	$Statement->bindParam(":calidad", $datosModel["calidad"], PDO::PARAM_STR);
+    	$Statement->bindParam(":origen", $datosModel["origen"], PDO::PARAM_STR);
+    	$Statement->bindParam(":destino", $datosModel["destino"], PDO::PARAM_STR);
+    	$Statement->bindParam(":comision", $datosModel["comision"], PDO::PARAM_STR);
+    	$Statement->bindParam(":flete", $datosModel["flete"], PDO::PARAM_STR);
+    	$Statement->bindParam(":maniobra", $datosModel["maniobra"], PDO::PARAM_STR);
+    	$Statement->bindParam(":costoTotal", $datosModel["costoTotal"], PDO::PARAM_STR);
+    	$Statement->bindParam(":total", $datosModel["total"], PDO::PARAM_STR);
+    	$Statement->bindParam(":fecha", $datosModel["fecha"], PDO::PARAM_STR);
+    	$Statement->bindParam(":referencia", $datosModel["referencia"], PDO::PARAM_STR);
+    	$Statement->bindParam(":monto", $datosModel["monto"], PDO::PARAM_STR);
+    	$Statement->bindParam(":saldo", $datosModel["saldo"], PDO::PARAM_STR);
+
+    		if ($Statement -> execute()) {
+    			return "success";
+    		} else {
+    			return "error";
+    		}
+
+    }
+
     #REGISTRO DE USUARIO
 	#-------------------------------------
 	public function registroUsuario($datosModel, $tabla){

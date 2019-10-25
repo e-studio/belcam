@@ -4,9 +4,9 @@ if(!$_SESSION["valido"]){
   header("location:index.php");
   exit();
 }
+require "includes/crud.php";
+require "includes/controller.php";
 
-require_once "includes/controller.php";
-require_once "includes/crud.php";
 ?>
 
 <!DOCTYPE html>
@@ -61,13 +61,13 @@ require_once "includes/crud.php";
 
                    <div class="col-xs-3">
                      <label>Productor</label>
-                     <input type="text" name="productor" class="form-control">
+                     <input type="text" id="productor" name="productor" class="form-control">
                    </div>
 
                    <div class="col-xs-2">
                      <label>Producto</label>
                      <select class="form-control" required name="codProd">
-                       <option value="">Selecione</option>
+                       <option value="">Seleccione</option>
                        <?php
                          $productos = new MvcController();
                          $productos -> ctlBuscaProductos();
@@ -76,7 +76,7 @@ require_once "includes/crud.php";
                    </div>
                </div> <!-- Row-->
                <div class="row">
-                                  <div class="col-xs-1">
+                  <div class="col-xs-1">
                   <label>Unidad</label>
                   <input type="text" required name="unidad" class="form-control">
                 </div>
