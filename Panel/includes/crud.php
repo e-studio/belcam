@@ -54,17 +54,7 @@ class Datos extends Conexion {
 
 	}
 
-	public function mdlBuscaEntrada($tabla, $entrada){
 
-		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE cons = :id");
-
-		$stmt->bindParam(":id", $entrada, PDO::PARAM_INT);
-
-		$stmt -> execute();
-		return $stmt -> fetch();
-
-		$stmt->close();
-	}
 
 	#LISTA CHOFERES
 	#-------------------------------------

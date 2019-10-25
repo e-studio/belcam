@@ -60,8 +60,8 @@ require_once "includes/crud.php";
                   </div>
 
                    <div class="col-xs-3">
-                     <label>Productor</label>
-                     <input type="text" name="productor" class="form-control">
+                     <label>Cliente</label>
+                     <input type="text" name="cliente" class="form-control">
                    </div>
 
                    <div class="col-xs-2">
