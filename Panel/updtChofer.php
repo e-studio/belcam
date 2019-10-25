@@ -9,7 +9,6 @@
   $usuario = $_REQUEST['idEditar'];
   $respuesta = Datos::mdlBuscaChofer("choferes",$usuario);
 ?>
-
 <!DOCTYPE html>
 <html>
 <?php

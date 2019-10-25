@@ -12,6 +12,7 @@ $operacion = $_POST["operacion"];
 $proveedor = $_POST["proveedor"];
 $productor = $_POST["productor"];
 $codProd = $_POST["codProd"];
+$lote = $_POST["lote"];
 $unidad = $_POST["unidad"];
 $unidad1 = $_POST["unidad1"];
 $op = $_POST["op"];
@@ -27,17 +28,18 @@ $maniobra = $_POST["maniobra"];
 $anticipo = $_POST["anticipo"];
 $costoTotal = $_POST["costoTotal"];
 $totalCompra = $_POST["totalCompra"];
-$fecha =  '23/10/2019';
-$referencia =  'esta';
-$monto =  'este';
-$saldo =  'aquel';
+$formaPago = $_POST["formaPago"];
+// $fecha =  '23/10/2019';
+// $referencia =  'esta';
+// $monto =  'este';
+// $saldo =  'aquel';
 
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO entradas (noOperacion, proveedor, productor, codProducto, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, anticipo, costoTotal, total, `fecha`) VALUES ($operacion, '$proveedor', '$productor', '$codProd', '$unidad','$unidad1', $op, $kg, $kg, $um, $precio, $calidad, '$origen', '$destino', $comision, $flete, $maniobra, $anticipo,$costoTotal, $totalCompra, CURDATE())";
+    $sql = "INSERT INTO entradas (noOperacion, proveedor, productor, codProducto, lote, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, anticipo, costoTotal, total, formaPago, `fecha`) VALUES ($operacion, '$proveedor', '$productor', '$codProd', $lote, '$unidad','$unidad1', $op, $kg, $kg, $um, $precio, $calidad, '$origen', '$destino', $comision, $flete, $maniobra, $anticipo,$costoTotal, $totalCompra, '$formaPago', CURDATE())";
 
     $conn->exec($sql);
     echo'<script type="text/javascript">

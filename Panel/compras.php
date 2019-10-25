@@ -25,7 +25,7 @@ require_once "includes/crud.php";
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-<form role="form" action="regEntradas.php" method="post">
+<form role="form" action="regEntradasNuez.php" method="post">
     <section class="content-header">
       <h1>
         Compras de Nuez y Chile
@@ -186,10 +186,17 @@ require_once "includes/crud.php";
              <div class="col-md-3">
                <div class="box box-primary">
                  <div class="box-header with-border">
-                   <h3 class="box-title">Guardar Venta</h3>
+                   <h3 class="box-title">Guardar Datos</h3>
                    <div class="box-body" align="right">
                      <br><br>
-                     <button type="submit" class="btn btn-primary">Guardar</button>
+
+                    <div class="col-sm-6">
+                      <button class="btn btn-default"><a href="listaComprasNuez.php" >Cancelar</a></button>
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+
                    </div>
                  </div>
 

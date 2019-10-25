@@ -83,6 +83,24 @@ class Datos extends Conexion {
 		$stmt->close();
 	}
 
+	#LISTA COMPRAS ACTIVAS
+	#-------------------------------------
+	public function mdlListaComprasActivas($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status ='A'");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
+	#LISTA COMPRAS CERRADAS
+	#-------------------------------------
+	public function mdlListaComprasCerradas($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status ='C'");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
 	#LISTA VENTAS
 	#-------------------------------------
 	public function mdlListaVentas($tabla){
@@ -141,6 +159,18 @@ class Datos extends Conexion {
 	public function mdlProductos($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo NOT IN ('CHILE', 'NUEZ') ORDER BY nombre");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+
+	}
+
+	# LISTA DE PRODUCTOS NUEZ Y CHILE
+	#-------------------------------------
+
+	public function mdlProductosNuez($tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo = 'CHILE' OR tipo ='NUEZ' ORDER BY nombre");
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt->close();
@@ -443,7 +473,7 @@ class Datos extends Conexion {
 			else {
 				return "error";
 			}
-		$Statement -> close();	
+		$Statement -> close();
 
 	}
 
@@ -495,24 +525,35 @@ class Datos extends Conexion {
 	}
 
 
-	#ACTUALIZA CHOFER
+	#ACTUALIZA COMPRA DE NUEZ Y CHILE
 	#-------------------------------------
-	public function mdlActualizaChofer($datosModel, $tabla){
+	public function mdlActualizaComprasNuez($datosModel, $tabla){
 
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, alias = :alias, rfc = :rfc, direccion = :direccion, ine = :ine, licencia = :licencia, telefono = :telefono, telefono2 = :telefono2, telefono3 = :telefono3, fechaIngreso = :fechaIngreso WHERE idChofer = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :unidad1, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, anticipo = :anticipo, costoTotal = :costoTotal, total = :totalCompra, formaPago = :formaPago WHERE cons = :id");
 
 		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
-		$stmt->bindParam(":nombre", $datosModel["nombre"], PDO::PARAM_STR);
-		$stmt->bindParam(":alias", $datosModel["alias"], PDO::PARAM_STR);
-		$stmt->bindParam(":rfc", $datosModel["rfc"], PDO::PARAM_STR);
-		$stmt->bindParam(":direccion", $datosModel["direccion"], PDO::PARAM_STR);
-		$stmt->bindParam(":ine", $datosModel["ine"], PDO::PARAM_STR);
-		$stmt->bindParam(":licencia", $datosModel["licencia"], PDO::PARAM_STR);
-		$stmt->bindParam(":telefono", $datosModel["telefono"], PDO::PARAM_STR);
-		$stmt->bindParam(":telefono2", $datosModel["telefono2"], PDO::PARAM_STR);
-		$stmt->bindParam(":telefono3", $datosModel["telefono3"], PDO::PARAM_STR);
-		$stmt->bindParam(":fechaIngreso", $datosModel["fechaIngreso"], PDO::PARAM_STR);
+		$stmt->bindParam("operacion" , $_POST["operacion"], PDO::PARAM_STR);
+		$stmt->bindParam("proveedor" , $_POST["proveedor"], PDO::PARAM_STR);
+		$stmt->bindParam("productor" ,$_POST["productor"], PDO::PARAM_STR);
+		$stmt->bindParam("codProd" , $_POST["codProd"], PDO::PARAM_STR);
+		$stmt->bindParam("lote" , $_POST["lote"], PDO::PARAM_INT);
+		$stmt->bindParam("unidad" , $_POST["unidad"], PDO::PARAM_STR);
+		$stmt->bindParam("unidad1" , $_POST["unidad1"], PDO::PARAM_STR);
+		$stmt->bindParam("op" , $_POST["op"], PDO::PARAM_INT);
+		$stmt->bindParam("kg" ,  $_POST["kg"], PDO::PARAM_INT);
+		$stmt->bindParam("um" , $_POST["um"], PDO::PARAM_INT);
+		$stmt->bindParam("precio" , $_POST["precio"], PDO::PARAM_INT);
+		$stmt->bindParam("calidad" , $_POST["calidad"], PDO::PARAM_INT);
+		$stmt->bindParam("origen" , $_POST["origen"], PDO::PARAM_STR);
+		$stmt->bindParam("destino" , $_POST["destino"], PDO::PARAM_STR);
+		$stmt->bindParam("comision" , $_POST["comision"], PDO::PARAM_INT);
+		$stmt->bindParam("flete" , $_POST["flete"], PDO::PARAM_INT);
+		$stmt->bindParam("maniobra" , $_POST["maniobra"], PDO::PARAM_INT);
+		$stmt->bindParam("anticipo" , $_POST["anticipo"], PDO::PARAM_INT);
+		$stmt->bindParam("costoTotal" , $_POST["costoTotal"], PDO::PARAM_INT);
+		$stmt->bindParam("totalCompra" , $_POST["totalCompra"], PDO::PARAM_INT);
+		$stmt->bindParam("formaPago" , $_POST["formaPago"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 			return "success";
@@ -685,6 +726,33 @@ class Datos extends Conexion {
 	}
 
 
+	#ABRIR COMPRA
+	#-------------------------------------
+	public function mdlAbrirCompra($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET status = 'A' WHERE cons = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+	#CERRAR COMPRA
+	#-------------------------------------
+	public function mdlCerrarCompra($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET status = 'C' WHERE cons = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		$stmt -> close();
+	}
+
+
 	#BORRAR VENTA
 	#-------------------------------------
 	public function mdlborrarVenta($datosModel,$tabla){
@@ -767,6 +835,21 @@ class Datos extends Conexion {
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idChofer = :id");
 
 		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		$stmt->close();
+	}
+
+	#BUSCA UN USUARIO
+	#-------------------------------------
+
+	public function mdlBuscaCompraUpdt($tabla, $compra){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE cons = :compra");
+
+		$stmt->bindParam(":compra", $compra, PDO::PARAM_INT);
 
 		$stmt -> execute();
 		return $stmt -> fetch();

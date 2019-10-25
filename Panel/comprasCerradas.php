@@ -63,7 +63,7 @@ require_once "includes/crud.php";
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lista de Compras Activas
+        Lista de Compras
       </h1>
       <br>
     </section>
@@ -96,8 +96,8 @@ require_once "includes/crud.php";
                   <?php
                     $registro = new MvcController();
                     $registro -> comprasCerradas();
-                    $registro -> borrarCompra();
-                    $registro -> cerrarCompra();
+                    //$registro -> borrarCompra();
+                    $registro -> abrirCompra();
                   ?>
 
                 </tbody>

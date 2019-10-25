@@ -27,7 +27,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-<form role="form" action="regEntradasNuez.php" method="post">
+<form role="form" method="post">
     <section class="content-header">
       <h1>
         Compras de Nuez y Chile
@@ -53,10 +53,8 @@
                         <div class="col-xs-4">
                            <label>Proveedor</label>
                            <select class="form-control" name="proveedor" >
-                              <option></option>
-
                               <?php
-                              echo  '<option value="'.$respuest["proveedor"].'" selected>'.$respuesta["proveedor"].'</option>';
+                              echo  '<option value="'.$respuesta["proveedor"].'" selected>'.$respuesta["proveedor"].'</option>';
                               $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
                            </select>
                         </div>
@@ -106,10 +104,9 @@
 
                      <label>Producto</label>
                      <select class="form-control" required name="codProd">
-                       <option value="">Selecione</option>
                        <?php
                          $productos = new MvcController();
-                         $productos -> ctlBuscaProductosNuez();
+                         $productos -> ctlBuscaProductosNuez($respuesta["codProducto"]);
                        ?>
                      </select>
 
@@ -208,12 +205,16 @@
                </div>
              </div> <!-- Caja de Guardar-->
 
-
-
           </div>
 
     </section>
+    <input type="hidden" id="id" name="id" value="<?php echo $compra; ?>">
 </form>
+
+<?php
+    $registro = new MvcController();
+    $registro -> actualizaCompraNuez();
+?>
 
     <!-- /.content -->
   </div>
@@ -269,9 +270,6 @@
 
 <script src="dist/js/opCompras.js"></script>
 <script>
-      function load() {
-        alert("evento load detectado!");
-      }
       window.onload = calculaCompra;
     </script>
 </body>

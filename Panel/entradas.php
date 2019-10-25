@@ -27,7 +27,7 @@ require_once "includes/crud.php";
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Registro de Compras
+        Registro de Compras - Alfalfa, Avena, Rastrojo, Zacate
       </h1>
       <br>
 <form role="form" action="regEntradas.php" method="post">
@@ -181,7 +181,7 @@ require_once "includes/crud.php";
 
     </section>
 </form>
- 
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
