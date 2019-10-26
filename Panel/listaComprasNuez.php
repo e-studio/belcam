@@ -80,7 +80,7 @@ require_once "includes/crud.php";
                 <tr>
                   <th>No. Operacion</th>
                   <th>Proveedor</th>
-                  <th>Cliente</th>
+                  <th>Productor</th>
                   <th>Cod. Prod.</th>
                   <th>Kgs.</th>
                   <th>Precio</th>
