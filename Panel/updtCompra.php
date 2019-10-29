@@ -35,7 +35,7 @@ require_once "includes/crud.php";
         Actualizacion de compras
       </h1>
       <br>
-<form role="form" action="actEntradas.php" method="post">
+<form role="form" action="actEntradas.php" method="POST">
    <div class="row">
       <div class="col-md-12">
 
@@ -66,7 +66,7 @@ require_once "includes/crud.php";
 
                    <div class="col-xs-3">
                      <label>Productor</label>
-                     <input type="text" name="cliente" value="<?php echo $respuesta['productor']; ?>" class="form-control">
+                     <input type="text" id="productor" name="productor" value="<?php echo $respuesta['productor']; ?>" class="form-control">
                    </div>
 
                    <div class="col-xs-2">
@@ -140,6 +140,7 @@ require_once "includes/crud.php";
                   <strong>Costo</strong><h4><p align="right"id="costoLbl"><span>$</span> 0.00</p></h4>
                   <input type="hidden" value="0" required id="costo" name="costoTotal" class="form-control">
                   <!-- type="hidden" -->
+                  <input type="hidden" id="id" name="id" value="<?php echo $usuario;?>">
                 </div>
                </div>
 

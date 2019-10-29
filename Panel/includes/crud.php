@@ -523,6 +523,40 @@ class Datos extends Conexion {
 
 	}
 
+	#Registro Entradas
+
+	public function mdlRegEntradas ($datosModel, $Tabla) {
+
+		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (cons, lote, noOperacion, proveedor, productor, codProducto, unidad, unidad1, kg, um, precio, calidad, origen, destino, comision, flete, maniobra, costoTotal, total, status) VALUES (null, :lote, :noOperacion, :proveedor, :productor, :codProd, :unidad, :unidad1, :kg, :um, :precio, :calidad, :origen, :destino, :comision, :flete, :maniobra, :costoTotal, :total, :status)");
+
+		$Statement -> bindParam(":lote", $datosModel["lote"], PDO::PARAM_STR);
+		$Statement -> bindParam(":noOperacion", $datosModel["operacion"], PDO::PARAM_STR);
+		$Statement -> bindParam(":proveedor", $datosModel["proveedor"], PDO::PARAM_STR);
+		$Statement -> bindParam(":productor", $datosModel["productor"], PDO::PARAM_STR);
+		$Statement -> bindParam(":codProd", $datosModel["codProd"], PDO::PARAM_STR);
+		$Statement -> bindParam(":unidad", $datosModel["unidad"], PDO::PARAM_STR);
+		$Statement -> bindParam(":unidad1", $datosModel["unidad1"], PDO::PARAM_STR);
+		$Statement -> bindParam(":kg", $datosModel["kg"], PDO::PARAM_STR);
+		$Statement -> bindParam(":um", $datosModel["um"], PDO::PARAM_STR);
+		$Statement -> bindParam(":precio", $datosModel["precio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":calidad", $datosModel["calidad"], PDO::PARAM_STR);
+		$Statement -> bindParam(":origen", $datosModel["origen"], PDO::PARAM_STR);
+		$Statement -> bindParam(":destino", $datosModel["destino"], PDO::PARAM_STR);
+		$Statement -> bindParam(":comision", $datosModel["comision"], PDO::PARAM_STR);
+		$Statement -> bindParam(":flete", $datosModel["flete"], PDO::PARAM_STR);
+		$Statement -> bindParam(":maniobra", $datosModel["maniobra"], PDO::PARAM_STR);
+		$Statement -> bindParam(":costoTotal", $datosModel["costoTotal"], PDO::PARAM_STR);
+		$Statement -> bindParam(":total", $datosModel["totalCompra"], PDO::PARAM_STR);
+		$Statement -> bindParam(":status", $datosModel["status"], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				return "success";
+			} else {
+				return "error";
+			}
+
+
+	}
 
 	#ACTUALIZA USUARIO
 	#-------------------------------------
@@ -568,6 +602,39 @@ class Datos extends Conexion {
 			return "error";
 		}
 		$stmt->close();
+	}
+
+	#Actualiza Entradas de rastrojo, zacate, etc
+
+	public function mdlUpdtEntradas ($datosModel, $tabla) {
+		$Statement = Conexion::conectar() -> prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :unidad1, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, costoTotal = :costoTotal, total = :totalCompra WHERE cons = :id");
+		$Statement -> bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
+		$Statement -> bindParam(":operacion", $datosModel["operacion"], PDO::PARAM_STR);
+		$Statement -> bindParam(":proveedor", $datosModel["proveedor"], PDO::PARAM_STR);
+		$Statement -> bindParam(":productor", $datosModel["productor"], PDO::PARAM_STR);
+		$Statement -> bindParam(":codProd", $datosModel["codProd"], PDO::PARAM_STR);
+		$Statement -> bindParam(":lote", $datosModel["lote"], PDO::PARAM_STR);
+		$Statement -> bindParam(":unidad", $datosModel["unidad"], PDO::PARAM_STR);
+		$Statement -> bindParam(":unidad1", $datosModel["unidad1"], PDO::PARAM_STR);
+		$Statement -> bindParam(":op", $datosModel["op"], PDO::PARAM_STR);
+		$Statement -> bindParam(":kg", $datosModel["kg"], PDO::PARAM_STR);
+		$Statement -> bindParam(":um", $datosModel["um"], PDO::PARAM_STR);
+		$Statement -> bindParam(":precio", $datosModel["precio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":calidad", $datosModel["calidad"], PDO::PARAM_STR);
+		$Statement -> bindParam(":origen", $datosModel["origen"], PDO::PARAM_STR);
+		$Statement -> bindParam(":destino", $datosModel["destino"], PDO::PARAM_STR);
+		$Statement -> bindParam(":comision", $datosModel["comision"], PDO::PARAM_STR);
+		$Statement -> bindParam(":flete", $datosModel["flete"], PDO::PARAM_STR);
+		$Statement -> bindParam(":maniobra", $datosModel["maniobra"], PDO::PARAM_STR);
+		$Statement -> bindParam(":costoTotal", $datosModel["costoTotal"], PDO::PARAM_STR);
+		$Statement -> bindParam(":totalCompra", $datosModel["total"], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				return "success";
+			} else {
+				return "error";
+			}
+
 	}
 
 

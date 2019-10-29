@@ -4,7 +4,6 @@ if(!$_SESSION["valido"]){
   header("location:index.php");
   exit();
 }
-require "includes/crud.php";
 require "includes/controller.php";
 
 ?>
