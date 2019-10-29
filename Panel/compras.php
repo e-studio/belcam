@@ -7,6 +7,15 @@ if(!$_SESSION["valido"]){
 
 require_once "includes/controller.php";
 require_once "includes/crud.php";
+
+function opNum(){
+  setlocale(LC_ALL,"es_MX");
+
+  $fecha = strftime('%y%m%d');
+  $siguiente = new MvcController();
+  $siguiente -> ctlBuscaNumOpEntradas($fecha);
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +51,7 @@ require_once "includes/crud.php";
                      <div class="row">
                         <div class="col-xs-2">
                         <label>#Operacion</label>
-                        <input type="text" required id="operacion" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
+                        <input type="text" readonly="true" id="operacion" name="operacion" value="<?php opNum(); ?>" class="form-control" onchange="buscaEntrada(this.value)">
                         </div>
                         <div class="col-xs-2">
                            <label>Lote</label>

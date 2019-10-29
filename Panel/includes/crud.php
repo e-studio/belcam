@@ -163,6 +163,21 @@ class Datos extends Conexion {
 
 	}
 
+
+	# CUENTA LOSREGISTROS QUE EMPIEZAN CON
+	# CIERTA FECHA EN LA TABLA QUE SE OBTIENEN COMO PARAMETROS
+	# ----------------------------------------------------------
+
+	public function mdlNumOperaciones($tabla, $fecha){
+
+		$stmt = Conexion::conectar()->prepare("SELECT COUNT(*) as cuenta FROM $tabla WHERE `noOperacion` LIKE :fecha");
+		$stmt->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetch();
+		$stmt->close();
+
+	}
+
 	# LISTA DE PRODUCTOS
 	#-------------------------------------
 

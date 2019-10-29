@@ -27,6 +27,20 @@ class MvcController{
 		}
 	}
 
+
+	#-------------------------------------
+	#Busca el siguiente numero de operacion
+	#------------------------------------
+	public function ctlBuscaNumOpEntradas($fecha){
+		$busca = $fecha.'%';
+
+		$respuesta = Datos::mdlNumOperaciones('entradas', $busca);
+
+		$next = $respuesta['cuenta']+1;
+		echo $fecha,"-",$next;
+		//echo '$fecha-$next';
+	}
+
 	#-------------------------------------
 	#Busca los productos de la tabla productos
 	#------------------------------------
