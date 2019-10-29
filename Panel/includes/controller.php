@@ -1,6 +1,6 @@
 
 <?php
-
+require 'includes/crud.php';
 class MvcController{
 
 	#-------------------------------------
@@ -402,8 +402,37 @@ class MvcController{
 								 "placas" => $_POST["placas"]);
 
 			$Respuesta = Datos::mdlRegistroUnidad($datosUnidad, "unidades");
-
+				if ($Respuesta == "success") {
+					echo'<script type="text/javascript">
+					    alert("Registro Guardado");
+					    window.location.href="listaUnidades.php";
+					    </script>';					
+				} else {
+					echo'<script type="text/javascript">
+					    alert("Registro Guardado");
+					    window.location.href="regUnidad.php";
+					    </script>';		
+				}
 		}
+	}
+
+	#Registrar nueva entrada
+
+	public function ctlRegEntradas ($datosController) {
+		$Respuesta = Datos::mdlRegEntradas($datosController, "entradas");
+
+		if ($Respuesta == "success") {
+			echo'<script type="text/javascript">
+				alert("Registro Guardado");
+				window.location.href="listaComprasNuez.php";
+				</script>';	
+		} else {
+			echo'<script type="text/javascript">
+				alert("Registro Guardado");
+				window.location.href="entradas.php";
+				</script>';	
+		}
+
 	}
 
 	#ACTUALIZA DE USUARIO
@@ -481,6 +510,25 @@ class MvcController{
 
 		}
 
+	}
+
+
+	#ACTUALIZA DE COMPRAS DE ALFALFA, ZACATE, RASTROJO, ETC
+
+	public function ctlUpdtEntradas ($datosController) {
+		$Respuesta = Datos::mdlUpdtEntradas($datosController, "entradas");
+
+			if ($Respuesta == "success") {
+				echo"<script type='text/javascript'>
+				    alert('Registro Actualizado');
+				    window.location.href='listaComprasNuez.php';
+				    </script>";
+			} else {
+				echo"<script type='text/javascript'>
+				    alert('Error, no se pudo actualizar el registro');
+				    window.location.href='listaComprasNuez.php';
+				    </script>";
+			}
 	}
 
 
@@ -1112,7 +1160,7 @@ class MvcController{
                   <td>'.$item["total"].'</td>
                   <td>'.$item["fecha"].'</td>
                   <td>
-                  <a href="updtCompra.php?idEditar'.$item["cons"].'" title="Editar Compra"><button class="btn btn-warning"><i class="fa fa-fw fa-edit"></i></button></a>
+                  <a href="updtCompra.php?idEditar='.$item["cons"].'" title="Editar Compra"><button class="btn btn-warning"><i class="fa fa-fw fa-edit"></i></button></a>
                   <a href="comprasCerradas.php?idAbrir='.$item["cons"].'" title="Abrir Compra"><button class="btn btn-success"><i class="fa fa-fw fa-unlock"></i></button></a>';
               //    <a href="comprasCerradas.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger"><i class="fa fa-fw fa-trash-o"></i></button></a>
 

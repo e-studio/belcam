@@ -1,7 +1,8 @@
 <?php
 require "includes/controller.php";
 
-$datosController = array(
+
+$datosController = array("id" => $_POST["id"],
                 "operacion" => $_POST["operacion"],
                 "lote" => $_POST["lote"],
                 "proveedor" => $_POST["proveedor"],
@@ -28,7 +29,6 @@ $datosController = array(
             );
 
 $Respuesta = new MvcController();
-$Respuesta -> ctlRegEntradas($datosController);
+$Respuesta -> ctlUpdtEntradas($datosController);
 
-$conn = null;
 ?>
