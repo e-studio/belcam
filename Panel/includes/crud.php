@@ -190,6 +190,13 @@ class Datos extends Conexion {
 
 	}
 
+	public function mdlProductosTodos ($tabla) {
+				$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla ORDER BY nombre");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
 	# LISTA DE PRODUCTOS NUEZ Y CHILE
 	#-------------------------------------
 
@@ -1008,7 +1015,7 @@ class Datos extends Conexion {
 	#BUSCA UN PROVEEDOR
 	#-------------------------------------
 
-	public function mdlBuscaProveedor($tabla, $usuario){
+	public function mdlBuscaProveedor($tabla, $usuario) {
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
 
@@ -1018,6 +1025,23 @@ class Datos extends Conexion {
 		return $stmt -> fetch();
 
 		$stmt->close();
+	}
+
+	#BUSCA DATOS ESPECIFICOS DE COMPRA PARA GENERAR UN REPORTE
+
+	public function mdlReportes ($Parametros) {
+		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, codProducto, precio FROM entradas WHERE fecha BETWEEN :de AND :hasta AND codProducto = :codProd;");
+
+		$Statement -> bindParam(":de", $Parametros['de'], PDO::PARAM_STR);
+		$Statement -> bindParam(":hasta", $Parametros['hasta'], PDO::PARAM_STR);
+		$Statement -> bindParam(":codProd", $Parametros['producto'], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				$Resultado = $Statement -> fetchAll();
+				return $Resultado;
+			} else {
+				echo "adios";
+			}
 	}
 
 } // conexion
