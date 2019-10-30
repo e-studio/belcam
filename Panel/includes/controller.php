@@ -406,12 +406,12 @@ class MvcController{
 					echo'<script type="text/javascript">
 					    alert("Registro Guardado");
 					    window.location.href="listaUnidades.php";
-					    </script>';					
+					    </script>';
 				} else {
 					echo'<script type="text/javascript">
 					    alert("Registro Guardado");
 					    window.location.href="regUnidad.php";
-					    </script>';		
+					    </script>';
 				}
 		}
 	}
@@ -425,12 +425,12 @@ class MvcController{
 			echo'<script type="text/javascript">
 				alert("Registro Guardado");
 				window.location.href="listaComprasNuez.php";
-				</script>';	
+				</script>';
 		} else {
 			echo'<script type="text/javascript">
 				alert("Registro Guardado");
 				window.location.href="entradas.php";
-				</script>';	
+				</script>';
 		}
 
 	}
@@ -875,14 +875,22 @@ class MvcController{
         }
     }
 
+
+
+
+
+
+
     #CERRAR COMPRA
-    #------------------------------------
+    #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public function cerrarCompra(){
 
         if (isset($_GET['idCerrar'])){
-        	//echo'<script type="text/javascript">alert("'.$_GET['idCerrar'].'");</script>';
+
             $datosController = $_GET['idCerrar'];
             $respuesta = Datos::mdlCerrarCompra($datosController,"entradas");
+
+
             if ($respuesta == "success"){
                 echo "<script type='text/javascript'>
                 		alert('Compra Cerrada!');
@@ -894,6 +902,13 @@ class MvcController{
             }
         }
     }
+    #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
     #BORRAR VENTAS

@@ -870,8 +870,12 @@ class Datos extends Conexion {
 	#CERRAR COMPRA
 	#-------------------------------------
 	public function mdlCerrarCompra($datosModel,$tabla){
+
+
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET status = 'C' WHERE cons = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+
+
 		if ($stmt->execute()){
 			return "success";
 		} else {
