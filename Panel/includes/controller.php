@@ -1259,6 +1259,60 @@ class MvcController{
 
     }
 
+
+    public function ctlBuscarReportes () {
+    	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    			$Parametros = array("producto" => $_POST["producto"],
+    								"de" => $_POST["de"],
+    								"hasta" => $_POST["hasta"],
+    								"tabla" => "entradas");
+
+    			$Respuesta = Datos::mdlReportes($Parametros);
+
+    			$_POST["ans"] = $Respuesta;
+		    	
+    	}
+    }
+
+    public function ctlListaReportes () {
+    	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    			$Datos = $_POST["ans"];
+	    	foreach ($Datos as $Row => $item) {
+	    		echo "<tr>
+	    			<td>".$item["noOperacion"]."</td>
+	    			<td>".$item["codProducto"]."</td>
+	    			<td>".$item["precio"]."</td>
+	    		</tr>";
+	    	}
+    	}
+    }
+
+    public function ctlPromedios () {
+    	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    		$Datos = $_POST["ans"];
+    		$Suma = 0.0;
+    		$Contador = 0;
+    			foreach($Datos as $Row => $item) {
+    				$Suma += $item["precio"];
+    				$Contador++;
+    			}
+
+    			echo $Suma / $Contador;
+    	}
+    }
+
+    	#-------------------------------------
+	#Busca los productos de la tabla productos Solo el nombre
+	#------------------------------------
+	public function ctlBuscaProductosNombre(){
+
+		$respuesta = Datos::mdlProductosTodos("productos");
+
+		foreach ($respuesta as $row => $item){
+			echo "<option>".$item["codProducto"]."</option>";
+		}
+	}
+
 }//Clase principal
 
 ?>

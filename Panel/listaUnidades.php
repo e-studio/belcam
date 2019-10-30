@@ -34,6 +34,7 @@ include_once "includes/crud.php";
 							</div>
 							<div class="box-body">
 								<table class="table table-ordered">
+								
 									<tr>
 										<th style="width: 10px;">#</th>
 										<th>Placas</th>
