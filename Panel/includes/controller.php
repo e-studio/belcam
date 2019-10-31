@@ -1311,24 +1311,77 @@ class MvcController{
 	    	foreach ($Datos as $Row => $item) {
 	    		echo "<tr>
 	    			<td>".$item["noOperacion"]."</td>
-	    			<td>".$item["codProducto"]."</td>
+	    			<td>".$item["fecha"]."</td>
+	    			<td>".$item["proveedor"]."</td>
+	    			<td>".$item["productor"]."</td>
 	    			<td>".$item["precio"]."</td>
+	    			<td>".$item["kg"]."</td>
+	    			<td>".$item["costoTotal"]."</td>
+	    			<td>".$item["total"]."</td>
 	    		</tr>";
 	    	}
     	}
     }
 
-    public function ctlPromedios () {
+    public function ctlPromedios ($Cosa) {
     	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    		$Datos = $_POST["ans"];
-    		$Suma = 0.0;
-    		$Contador = 0;
-    			foreach($Datos as $Row => $item) {
+
+    		if ($Cosa == "precio") {
+    			$Datos = $_POST["ans"];
+    			$Suma = 0.0;
+    			$Contador = 0;
+    				foreach($Datos as $Row => $item) {
     				$Suma += $item["precio"];
     				$Contador++;
-    			}
+    				}
+	    				if ($Suma == 0) {
+	    					echo "0.0";
+	    				} else {
+	    					echo number_format($Suma / $Contador, 3);	
+	    				}
+    			
+    		} else if ($Cosa == "kg") {
+    			$Datos = $_POST["ans"];
+    			$Suma = 0.0;
+    			$Contador = 0;
+    				foreach($Datos as $Row => $item) {
+    				$Suma += $item["kg"];
+    				$Contador++;
+    				}
+	    				if ($Suma == 0) {
+	    					echo "0.0";
+	    				} else {
+	    					echo $Suma;	
+	    				}
+    		} else if ($Cosa == "costo") {
+    			$Datos = $_POST["ans"];
+    			$Suma = 0.0;
+    			$Contador = 0;
+    				foreach($Datos as $Row => $item) {
+    				$Suma += $item["costoTotal"];
+    				$Contador++;
+    				}
+	    				if ($Suma == 0) {
+	    					echo "0.0";
+	    				} else {
+	    					echo $Suma;	
+	    				}
+    		} else if ($Cosa == "total") {
+    			$Datos = $_POST["ans"];
+    			$Suma = 0.0;
+    			$Contador = 0;
+    				foreach($Datos as $Row => $item) {
+    				$Suma += $item["total"];
+    				$Contador++;
+    				}
+	    				if ($Suma == 0) {
+	    					echo "0.0";
+	    				} else {
+	    					echo $Suma;	
+	    				}
+    		}
 
-    			echo $Suma / $Contador;
+    		
     	}
     }
 
