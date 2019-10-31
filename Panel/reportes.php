@@ -1,24 +1,24 @@
 <?php
-	include_once "includes/controller.php";
-	include_once "includes/crud.php";
 	session_start();
 
-		if (!($_SESSION["valido"])) {
-			header("location:index.php");
-			exit();
-		}
+	if (!($_SESSION["valido"])) {
+		header("location:index.php");
+		exit();
+	}
+	include_once "includes/controller.php";
+	include_once "includes/crud.php";
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<?php 
+<?php
 	include "includes/menus/head.php";
 ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-		<?php 
+		<?php
 			include "includes/menus/header.php";
 			include "includes/menus/menuAdmin.php";
 
@@ -69,7 +69,7 @@
 						</div>
 					</div>
 				</form>
-				<?php  
+				<?php
 					$Buscar = new MvcController();
 					$Buscar -> ctlBuscarReportes();
 				?>
@@ -88,12 +88,12 @@
 											<th>Precio</th>
 										</tr>
 									</thead>
-									<tbody>	
+									<tbody>
 
 									<?php
 										$Lista = new MvcController();
-										$Lista -> ctlListaReportes();						
-									?>							
+										$Lista -> ctlListaReportes();
+									?>
 									</tbody>
 
 

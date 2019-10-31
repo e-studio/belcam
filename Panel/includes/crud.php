@@ -874,22 +874,99 @@ class Datos extends Conexion {
 		$stmt -> close();
 	}
 
-	#CERRAR COMPRA
-	#-------------------------------------
-	public function mdlCerrarCompra($datosModel,$tabla){
 
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET status = 'C' WHERE cons = :id");
+
+
+
+
+
+ #CERRAR COMPRA
+ #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	public function mdlCerrarCompra($datosModel){
+
+		$msg = "";
+
+		// Consultar el id de entradas que vamos a cerrar y obtener codProducto, calidad, precio y kgs
+		$stmt = Conexion::conectar()->prepare("SELECT codProducto, calidad, precio, kg FROM entradas  WHERE cons = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 
-
-		if ($stmt->execute()){
-			return "success";
-		} else {
-			return "error";
+		if($stmt->execute()){
+			$res = $stmt->fetch();
+			$msg .= $res['codProducto'].'-';
 		}
-		$stmt -> close();
+
+		$codProducto = $res['codProducto'];
+		$calidad = $res['calidad'];
+		$precio = $res['precio'];
+		$kg = $res['kg'];
+
+		$stmt2 = Conexion::conectar()->prepare("SELECT id, precioPromedio FROM inventarioNuez WHERE codigo = :codigo AND calidad = :calidad");
+		// $stmt2 -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		$stmt2 -> bindPARAM(":codigo",$codProducto, PDO::PARAM_STR);
+		$stmt2 -> bindPARAM(":calidad",$calidad, PDO::PARAM_INT);
+
+		$stmt2->execute();
+		$res2 = $stmt2->fetch();
+
+		if ($res2 != ''){
+
+			$msg .= 'If';
+
+			$idInventario = $res2['id'];
+			$precioAnt = $res2['precioPromedio'];
+			$precioPromedio = ($precioAnt + $precio)/2;
+
+			// UPDATE
+			$stmt3 = Conexion::conectar()->prepare("UPDATE inventarioNuez SET precioAnterior = :precioAnt, precioPromedio =:precioProm  WHERE id = :id");
+			$stmt3 -> bindPARAM(":id",$idInventario, PDO::PARAM_INT);
+			$stmt3 -> bindPARAM(":precioAnt",$precioAnt, PDO::PARAM_INT);
+			$stmt3 -> bindPARAM(":precioProm",$precioPromedio, PDO::PARAM_INT);
+			$stmt3->execute();
+		} else {
+			// INSERT
+			$msg .= 'Else';
+			$stmt4 = Conexion::conectar()->prepare("INSERT INTO inventarioNuez (nombre, codigo, calidad, precioAnterior, precioPromedio) VALUES (:nombre, :codigo, :calidad, :precioAnterior, :precioPromedio)");
+			$stmt4 -> bindPARAM(":nombre", $codProducto, PDO::PARAM_STR);
+			$stmt4 -> bindPARAM(":codigo", $codProducto, PDO::PARAM_STR);
+			$stmt4 -> bindPARAM(":calidad", $calidad, PDO::PARAM_INT);
+			$stmt4 -> bindPARAM(":precioAnterior", $precio, PDO::PARAM_INT);
+			$stmt4 -> bindPARAM(":precioPromedio",$precio, PDO::PARAM_INT);
+			$stmt4->execute();
+
+		}
+
+
+        	//  buscar el codProducto y calidad en la tabla inventarioNuez, si existe actualizar los kgs y el precio
+        	//  de lo contrario registrar todos los datos (codProducto, calidad, precio y kgs) en la tabla inventarioNuez
+
+        	// despues de esto se cierra la compra en entradas
+
+
+		// $stmt5 = Conexion::conectar()->prepare("UPDATE entradas SET status = 'C' WHERE cons = :id");
+		// $stmt5 -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+
+
+		// if ($stmt5->execute()){
+		// 	$msg += "3 ";
+		// // 	return "success";
+		// // } else {
+		// // 	return "error";
+		// }
+		// $stmt5 -> close();
+
+		return $msg;
 	}
+
+
+
+ #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 	#BORRAR VENTA

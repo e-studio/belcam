@@ -888,7 +888,23 @@ class MvcController{
         if (isset($_GET['idCerrar'])){
 
             $datosController = $_GET['idCerrar'];
-            $respuesta = Datos::mdlCerrarCompra($datosController,"entradas");
+            $respuesta = Datos::mdlCerrarCompra($datosController);
+
+            //if ($respuesta){
+            	echo "<script type='text/javascript'>
+                		alert('".$respuesta."');
+                		window.location.href='listaComprasNuez.php'
+                	 </script>";
+
+            //}
+
+            // else
+            // {
+            // 	echo "<script type='text/javascript'>
+            //     		alert('FALSE');
+            //     		window.location.href='listaComprasNuez.php'
+            //     	 </script>";
+            // }
 
 
             if ($respuesta == "success"){
@@ -1285,7 +1301,7 @@ class MvcController{
     			$Respuesta = Datos::mdlReportes($Parametros);
 
     			$_POST["ans"] = $Respuesta;
-		    	
+
     	}
     }
 
