@@ -53,6 +53,19 @@ class MvcController{
 		}
 	}
 
+	public function ctlBuscaProductosAct($cod){
+
+		$respuesta = Datos::mdlProductos("productos");
+
+		foreach ($respuesta as $row => $item){
+			if($item["codProducto"] == $cod){
+				echo  '<option value="'.$item["codProducto"].' " selected>'.$item["nombre"].'</option>';
+			}else{
+				echo  '<option value="'.$item["codProducto"].'">'.$item["nombre"].'</option>';
+			}
+		}
+	}
+
 	#-------------------------------------
 	#Busca los productos de Nuez y Chile
 	#------------------------------------
