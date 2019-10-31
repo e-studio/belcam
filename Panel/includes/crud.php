@@ -1030,7 +1030,7 @@ class Datos extends Conexion {
 	#BUSCA DATOS ESPECIFICOS DE COMPRA PARA GENERAR UN REPORTE
 
 	public function mdlReportes ($Parametros) {
-		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, codProducto, precio FROM entradas WHERE fecha BETWEEN :de AND :hasta AND codProducto = :codProd;");
+		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, fecha, proveedor, productor, precio, kg, costoTotal, total FROM entradas WHERE fecha BETWEEN :de AND :hasta AND codProducto = :codProd;");
 
 		$Statement -> bindParam(":de", $Parametros['de'], PDO::PARAM_STR);
 		$Statement -> bindParam(":hasta", $Parametros['hasta'], PDO::PARAM_STR);
