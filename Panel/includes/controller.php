@@ -1351,7 +1351,7 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo $Suma;	
+	    					echo number_format($Suma, 2, ".", ",");	
 	    				}
     		} else if ($Cosa == "costo") {
     			$Datos = $_POST["ans"];
@@ -1364,7 +1364,7 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo $Suma;	
+	    					echo number_format($Suma, 2, ".", ",");	
 	    				}
     		} else if ($Cosa == "total") {
     			$Datos = $_POST["ans"];
@@ -1377,7 +1377,7 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo $Suma;	
+	    					echo number_format($Suma, 2, ".", ",");	
 	    				}
     		}
 
