@@ -59,7 +59,7 @@ require_once "includes/crud.php";
                   <div class="col-xs-3">
                      <label>Proveedor</label>
                      <select class="form-control" name="proveedor" >
-                        <option value=""><?php echo $respuesta['proveedor']; ?></option>
+                        <option  value=""><?php echo $respuesta['proveedor']; ?></option>
                         <?php $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
                      </select>
                   </div>
@@ -72,11 +72,12 @@ require_once "includes/crud.php";
                    <div class="col-xs-2">
                      <label>Producto</label>
                      <select class="form-control" required name="codProd">
-                       <option value="">Selecione</option>
-                       
+
                        <?php
+                        $codigo = $respuesta['codProducto'];
+
                          $productos = new MvcController();
-                         $productos -> ctlBuscaProductos();
+                         $productos -> ctlBuscaProductosAct($codigo);
                        ?>
                      </select>
                    </div>
@@ -150,7 +151,6 @@ require_once "includes/crud.php";
                 <p><strong> NOTA: Ingrese todos los valores numericos SIN signo de pesos ni comas ($ , ) </strong></p>
               </div>
               <div>
-
               </div>
 
           </div>
@@ -248,5 +248,8 @@ require_once "includes/crud.php";
 <script src="dist/js/pages/dashboard.js"></script>
 
 <script src="dist/js/opCompras.js"></script>
+<script>
+      window.onload = calculaCompra;
+    </script>
 </body>
 </html>
