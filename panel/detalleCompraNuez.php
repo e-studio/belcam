@@ -1,28 +1,21 @@
 <?php
-session_start();
-if(!$_SESSION["valido"]){
-  header("location:index.php");
-  exit();
-}
+  session_start();
+      if(!$_SESSION["valido"]){
+        header("location:index.php");
+        exit();
+      }
+  include_once "includes/controller.php";
+  include_once "includes/crud.php";
 
-require_once "includes/controller.php";
-require_once "includes/crud.php";
-
-function opNum(){
-  setlocale(LC_ALL,"es_MX");
-
-  $fecha = strftime('%y%m%d');
-  $siguiente = new MvcController();
-  $siguiente -> ctlBuscaNumOpEntradas($fecha);
-
-}
+  $compra = $_REQUEST['idEditar'];
+  $respuesta = Datos::mdlBuscaCompraUpdt("entradas",$compra);
 ?>
-
 <!DOCTYPE html>
 <html>
 <?php
     include "includes/menus/head.php";
   ?>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -34,10 +27,10 @@ function opNum(){
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-<form role="form" action="regEntradasNuez.php" method="post">
+<form role="form" method="post">
     <section class="content-header">
       <h1>
-        Compras de Nuez y Chile
+        Informacion de Compra
       </h1>
       <br>
 
@@ -51,47 +44,48 @@ function opNum(){
                      <div class="row">
                         <div class="col-xs-2">
                         <label>#Operacion</label>
-                        <input type="text" readonly="true" id="operacion" name="operacion" value="<?php opNum(); ?>" class="form-control" onchange="buscaEntrada(this.value)">
+                        <input type="text" readonly="true" id="operacion" value="<?php echo $respuesta["noOperacion"]; ?>" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
                         </div>
                         <div class="col-xs-2">
                            <label>Lote</label>
-                           <input type="text" required id="lote" name="lote" class="form-control">
+                           <input type="text" required value="<?php echo $respuesta["lote"]; ?>" id="lote" name="lote" class="form-control">
                         </div>
                         <div class="col-xs-4">
                            <label>Proveedor</label>
                            <select class="form-control" name="proveedor" >
-                              <option></option>
-                              <?php $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
+                              <?php
+                              echo  '<option value="'.$respuesta["proveedor"].'" selected>'.$respuesta["proveedor"].'</option>';
+                              //$proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
                            </select>
                         </div>
 
                          <div class="col-xs-4">
                            <label>Productor</label>
-                           <input type="text" name="productor" class="form-control">
+                           <input type="text" value="<?php echo $respuesta["productor"]; ?>" name="productor" class="form-control">
                          </div>
                      </div> <!-- Row-->
 
                      <div class="row">
                         <div class="col-xs-2">
                           <label>Unidad</label>
-                          <input type="text" required name="unidad" class="form-control">
+                          <input type="text" value="<?php echo $respuesta["unidad"]; ?>" required name="unidad" class="form-control">
                         </div>
                         <div class="col-xs-2">
                           <label>Remolque</label>
-                          <input type="text" required name="unidad1" class="form-control">
+                          <input type="text" value="<?php echo $respuesta["unidad1"]; ?>" required name="unidad1" class="form-control">
                         </div>
                         <div class="col-xs-2">
                           <label>Op</label>
-                          <input type="text" required name="op" class="form-control">
+                          <input type="text" value="<?php echo $respuesta["operador"]; ?>" required name="op" class="form-control">
                         </div>
 
                         <div class="col-xs-3">
                           <label>Origen</label>
-                          <input type="text" required name="origen" class="form-control">
+                          <input type="text" value="<?php echo $respuesta["origen"]; ?>" required name="origen" class="form-control">
                         </div>
                         <div class="col-xs-3">
                           <label>Destino</label>
-                          <input type="text" required name="destino" class="form-control">
+                          <input type="text" value="<?php echo $respuesta["destino"]; ?>" required name="destino" class="form-control">
                         </div>
                     </div> <!--Row-->
 
@@ -110,26 +104,25 @@ function opNum(){
 
                      <label>Producto</label>
                      <select class="form-control" required name="codProd">
-                       <option value="">Selecione</option>
                        <?php
                          $productos = new MvcController();
-                         $productos -> ctlBuscaProductosNuez('Z');
+                         $productos -> ctlBuscaProductosNuez($respuesta["codProducto"]);
                        ?>
                      </select>
 
 
                       <label>Kg.</label>
-                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="kg" name="kg" class="form-control" onchange="calculaCompra()">
+                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["kg"]; ?>" required id="kg" name="kg" class="form-control" onchange="calculaCompra()">
 
 
                       <label>U.M.</label>
-                      <input type="text" required name="um" class="form-control">
+                      <input type="text"value="<?php echo $respuesta["um"]; ?>" required name="um" class="form-control">
 
                       <label>Precio</label>
-                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="precio" name="precio" class="form-control" onchange="calculaCompra()">
+                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["precio"]; ?>" required id="precio" name="precio" class="form-control" onchange="calculaCompra()">
 
                       <label>Calidad</label>
-                      <input type="number" id="calidad" value="0" name="calidad" class="form-control">
+                      <input type="text" value="<?php echo $respuesta["calidad"]; ?>" id="calidad" name="calidad" class="form-control">
 
 
                    </div>
@@ -146,22 +139,22 @@ function opNum(){
 
 
                          <label>Comision</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" id="comision" name="comision" class="form-control" onchange="calculaCompra()">
+                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["comision"]; ?>" id="comision" name="comision" class="form-control" onchange="calculaCompra()">
 
 
                          <label>Flete</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="flete" name="flete" class="form-control" onchange="calculaCompra()">
+                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["flete"]; ?>" required id="flete" name="flete" class="form-control" onchange="calculaCompra()">
 
 
                          <label>Maniobra</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" required id="maniobra" name="maniobra" class="form-control" onchange="calculaCompra()">
+                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["maniobra"]; ?>" required id="maniobra" name="maniobra" class="form-control" onchange="calculaCompra()">
 
 
                          <label>Anticipo</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="0" id="anticipo" name="anticipo" class="form-control" onchange="calculaCompra()">
+                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["anticipo"]; ?>" id="anticipo" name="anticipo" class="form-control" onchange="calculaCompra()">
 
                          <label>Forma Pago</label>
-                         <input type="text" id="formaPago" name="formaPago" class="form-control">
+                         <input type="text" value="<?php echo $respuesta["formaPago"]; ?>" id="formaPago" name="formaPago" class="form-control">
 
                    </div>
                  </div>
@@ -192,19 +185,17 @@ function opNum(){
                </div>
              </div> <!-- Caja de Total-->
 
-             <div class="col-md-3">
+             <div class="col-md-2">
                <div class="box box-primary">
                  <div class="box-header with-border">
-                   <h3 class="box-title">Guardar Datos</h3>
+                   <!-- <h3 class="box-title">Guardar Datos</h3> -->
                    <div class="box-body" align="right">
-                     <br><br>
-
                     <div class="col-sm-6">
-                      <button class="btn btn-default"><a href="listaComprasNuez.php" >Cancelar</a></button>
+                      <button class="btn btn-default"><a href="comprasCerradas.php" >Volver</a></button>
                     </div>
-                    <div class="col-sm-6">
-                      <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
+                    <!-- <div class="col-sm-6">
+                      <button type="submit" class="btn btn-warning">Actualizar</button>
+                    </div> -->
 
                    </div>
                  </div>
@@ -212,12 +203,16 @@ function opNum(){
                </div>
              </div> <!-- Caja de Guardar-->
 
-
-
           </div>
 
     </section>
+    <input type="hidden" id="id" name="id" value="<?php echo $compra; ?>">
 </form>
+
+<?php
+    $registro = new MvcController();
+    $registro -> actualizaCompraNuez();
+?>
 
     <!-- /.content -->
   </div>
@@ -272,5 +267,8 @@ function opNum(){
 <script src="dist/js/pages/dashboard.js"></script>
 
 <script src="dist/js/opCompras.js"></script>
+<script>
+      window.onload = calculaCompra;
+    </script>
 </body>
 </html>

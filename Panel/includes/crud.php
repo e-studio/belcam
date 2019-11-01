@@ -888,20 +888,21 @@ class Datos extends Conexion {
 		$msg = "";
 
 		// Consultar el id de entradas que vamos a cerrar y obtener codProducto, calidad, precio y kgs
-		$stmt = Conexion::conectar()->prepare("SELECT codProducto, calidad, precio, kg FROM entradas  WHERE cons = :id");
+		//$stmt = Conexion::conectar()->prepare("SELECT codProducto, calidad, precio, kg FROM entradas  WHERE cons = :id");
+		$stmt = Conexion::conectar()->prepare("SELECT e.codProducto, e.calidad, e.precio, e.kg, p.nombre FROM entradas as e, productos as p WHERE e.cons = :id AND p.codProducto = e.codProducto");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 
 		if($stmt->execute()){
 			$res = $stmt->fetch();
 			$msg .= $res['codProducto'].'-';
 		}
-
+		$nombre = $res["nombre"];
 		$codProducto = $res['codProducto'];
 		$calidad = $res['calidad'];
 		$precio = $res['precio'];
 		$kg = $res['kg'];
 
-		$stmt2 = Conexion::conectar()->prepare("SELECT id, precioPromedio FROM inventarioNuez WHERE codigo = :codigo AND calidad = :calidad");
+		$stmt2 = Conexion::conectar()->prepare("SELECT id, precioPromedio, kgs FROM inventarioNuez WHERE codigo = :codigo AND calidad = :calidad");
 		// $stmt2 -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		$stmt2 -> bindPARAM(":codigo",$codProducto, PDO::PARAM_STR);
 		$stmt2 -> bindPARAM(":calidad",$calidad, PDO::PARAM_INT);
@@ -916,20 +917,23 @@ class Datos extends Conexion {
 			$idInventario = $res2['id'];
 			$precioAnt = $res2['precioPromedio'];
 			$precioPromedio = ($precioAnt + $precio)/2;
+			$nuevoKgs = $res2['kgs'] + $kg;
 
 			// UPDATE
-			$stmt3 = Conexion::conectar()->prepare("UPDATE inventarioNuez SET precioAnterior = :precioAnt, precioPromedio =:precioProm  WHERE id = :id");
+			$stmt3 = Conexion::conectar()->prepare("UPDATE inventarioNuez SET kgs = :nKgs, precioAnterior = :precioAnt, precioPromedio =:precioProm  WHERE id = :id");
 			$stmt3 -> bindPARAM(":id",$idInventario, PDO::PARAM_INT);
+			$stmt3 -> bindPARAM(":nKgs",$nuevoKgs, PDO::PARAM_INT);
 			$stmt3 -> bindPARAM(":precioAnt",$precioAnt, PDO::PARAM_INT);
 			$stmt3 -> bindPARAM(":precioProm",$precioPromedio, PDO::PARAM_INT);
 			$stmt3->execute();
 		} else {
 			// INSERT
 			$msg .= 'Else';
-			$stmt4 = Conexion::conectar()->prepare("INSERT INTO inventarioNuez (nombre, codigo, calidad, precioAnterior, precioPromedio) VALUES (:nombre, :codigo, :calidad, :precioAnterior, :precioPromedio)");
-			$stmt4 -> bindPARAM(":nombre", $codProducto, PDO::PARAM_STR);
+			$stmt4 = Conexion::conectar()->prepare("INSERT INTO inventarioNuez (nombre, codigo, calidad, kgs, precioAnterior, precioPromedio) VALUES (:nombre, :codigo, :calidad, :kgs, :precioAnterior, :precioPromedio)");
+			$stmt4 -> bindPARAM(":nombre", $nombre, PDO::PARAM_STR);
 			$stmt4 -> bindPARAM(":codigo", $codProducto, PDO::PARAM_STR);
 			$stmt4 -> bindPARAM(":calidad", $calidad, PDO::PARAM_INT);
+			$stmt4 -> bindPARAM(":kgs", $kg, PDO::PARAM_INT);
 			$stmt4 -> bindPARAM(":precioAnterior", $precio, PDO::PARAM_INT);
 			$stmt4 -> bindPARAM(":precioPromedio",$precio, PDO::PARAM_INT);
 			$stmt4->execute();
@@ -943,19 +947,20 @@ class Datos extends Conexion {
         	// despues de esto se cierra la compra en entradas
 
 
-		// $stmt5 = Conexion::conectar()->prepare("UPDATE entradas SET status = 'C' WHERE cons = :id");
-		// $stmt5 -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		$stmt5 = Conexion::conectar()->prepare("UPDATE entradas SET status = 'C' WHERE cons = :id");
+		$stmt5 -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 
 
-		// if ($stmt5->execute()){
-		// 	$msg += "3 ";
-		// // 	return "success";
-		// // } else {
-		// // 	return "error";
-		// }
-		// $stmt5 -> close();
+		if ($stmt5->execute()){
+			$msg .= "-".$calidad;
+			//return "success";
+			return $msg;
+		} else {
+			return "error";
+		}
+		$stmt5 -> close();
 
-		return $msg;
+
 	}
 
 
@@ -1103,6 +1108,29 @@ class Datos extends Conexion {
 
 		$stmt->close();
 	}
+
+
+	#CONSULTA DE INVENTARIOS DE NUEZ
+
+	public function mdlInventarioNuez () {
+		$Statement = Conexion::conectar()->prepare("SELECT * FROM inventarioNuez");
+
+		//$Statement -> bindParam(":codProd", $Parametros['producto'], PDO::PARAM_STR);
+
+		if ($Statement -> execute()) {
+			$Resultado = $Statement -> fetchAll();
+			return $Resultado;
+		} else {
+			echo "adios";
+		}
+
+	}
+
+
+
+
+
+
 
 	#BUSCA DATOS ESPECIFICOS DE COMPRA PARA GENERAR UN REPORTE
 

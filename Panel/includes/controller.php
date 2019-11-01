@@ -890,22 +890,10 @@ class MvcController{
             $datosController = $_GET['idCerrar'];
             $respuesta = Datos::mdlCerrarCompra($datosController);
 
-            //if ($respuesta){
-            	echo "<script type='text/javascript'>
+            echo "<script type='text/javascript'>
                 		alert('".$respuesta."');
                 		window.location.href='listaComprasNuez.php'
                 	 </script>";
-
-            //}
-
-            // else
-            // {
-            // 	echo "<script type='text/javascript'>
-            //     		alert('FALSE');
-            //     		window.location.href='listaComprasNuez.php'
-            //     	 </script>";
-            // }
-
 
             if ($respuesta == "success"){
                 echo "<script type='text/javascript'>
@@ -1191,8 +1179,9 @@ class MvcController{
                   <td>'.$item["total"].'</td>
                   <td>'.$item["fecha"].'</td>
                   <td>
-                  <a href="updtCompra.php?idEditar='.$item["cons"].'" title="Editar Compra"><button class="btn btn-warning"><i class="fa fa-fw fa-edit"></i></button></a>
-                  <a href="comprasCerradas.php?idAbrir='.$item["cons"].'" title="Abrir Compra"><button class="btn btn-success"><i class="fa fa-fw fa-unlock"></i></button></a>';
+                  <a href="detalleCompraNuez.php?idEditar='.$item["cons"].'" title="Detalles"><button class="btn btn-primary"><i class="fa fa-eye"></i></button></a>';
+
+              //<a href="comprasCerradas.php?idAbrir='.$item["cons"].'" title="Abrir Compra"><button class="btn btn-success"><i class="fa fa-fw fa-unlock"></i></button></a>';
               //    <a href="comprasCerradas.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger"><i class="fa fa-fw fa-trash-o"></i></button></a>
 
                 echo'  </td>
@@ -1305,6 +1294,32 @@ class MvcController{
     	}
     }
 
+
+
+	#-------------------------------------
+	#Busca los productos de la tabla inventarioNuez y genera reporte por producto
+	#------------------------------------
+
+    public function ctlInventarioNuez () {
+    	//if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    		//$Respuesta = Datos::mdlInventarioNuez ($_POST["producto"]);
+    		$Respuesta = Datos::mdlInventarioNuez ();
+    		foreach ($Respuesta as $Row => $item) {
+	    		echo "<tr>
+	    			<td>".$item["nombre"]."</td>
+	    			<td>".$item["calidad"]."</td>
+	    			<td>".$item["kgs"]."</td>
+	    			<td>".$item["precioPromedio"]."</td>
+	    		</tr>";
+	    	}
+
+
+    	//}
+    }
+
+
+
+
     public function ctlListaReportes () {
     	if ($_SERVER["REQUEST_METHOD"] == "POST") {
     			$Datos = $_POST["ans"];
@@ -1337,9 +1352,9 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo number_format($Suma / $Contador, 3);	
+	    					echo number_format($Suma / $Contador, 3);
 	    				}
-    			
+
     		} else if ($Cosa == "kg") {
     			$Datos = $_POST["ans"];
     			$Suma = 0.0;
@@ -1351,7 +1366,7 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo number_format($Suma, 2, ".", ",");	
+	    					echo number_format($Suma, 2, ".", ",");
 	    				}
     		} else if ($Cosa == "costo") {
     			$Datos = $_POST["ans"];
@@ -1364,7 +1379,7 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo number_format($Suma, 2, ".", ",");	
+	    					echo number_format($Suma, 2, ".", ",");
 	    				}
     		} else if ($Cosa == "total") {
     			$Datos = $_POST["ans"];
@@ -1377,11 +1392,11 @@ class MvcController{
 	    				if ($Suma == 0) {
 	    					echo "0.0";
 	    				} else {
-	    					echo number_format($Suma, 2, ".", ",");	
+	    					echo number_format($Suma, 2, ".", ",");
 	    				}
     		}
 
-    		
+
     	}
     }
 

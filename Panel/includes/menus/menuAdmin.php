@@ -15,6 +15,22 @@
 
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-lemon-o"></i> <span>Nuez</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="compras.php"><i class="fa fa-plus-square"></i> Compras</a></li>
+            <li><a href="listaComprasNuez.php"><i class="fa fa-unlock"></i> Compras Activas</a></li>
+            <li><a href="comprasCerradas.php"><i class="fa fa-lock"></i> Compras Cerradas</a></li>
+            <li><a href="inventarioNuez.php"><i class="fas fa-barcode"></i> Inventario</a></li>
+            <li><a href="reportes.php"><i class="fas fa-bar-chart"></i> Reportes</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
             <i class="fa  fa-usd"></i> <span>Ventas</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -34,14 +50,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="compras.php"><i class="fa fa-plus-square"></i> Nuez y Chile</a></li>
             <li><a href="entradas.php"><i class="fa fa-plus-square"></i> Nueva</a></li>
-            <li><a href="listaComprasNuez.php"><i class="fa fa-unlock"></i> Compras Activas</a></li>
-            <li><a href="comprasCerradas.php"><i class="fa fa-lock"></i> Compras Cerradas</a></li>
-            <li><a href="reportes.php"><i class="fas fa-list"></i> Reportes</a></li>
           </ul>
         </li>
-
 
         <li class="treeview">
           <a href="#">

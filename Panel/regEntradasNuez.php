@@ -50,6 +50,7 @@ try {
 catch(PDOException $e)
     {
     echo $e->getMessage();
+    echo '<br> '.$sql;
     }
 
 $conn = null;
