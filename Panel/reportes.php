@@ -40,7 +40,7 @@
 												<option>Seleccione</option>
 												<?php
 													$Productos = new MvcController();
-													$Productos -> ctlBuscaProductosNombre();
+													$Productos -> ctlBuscaProductosNuez('');
 												?>
 											</select>
 										</div>

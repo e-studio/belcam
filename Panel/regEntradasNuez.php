@@ -1,12 +1,12 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "belcam";
-//$servername = "mysql1007.mochahost.com";
-//$username = "rickurbi_belcam";
-//$password = "8gqMy;BQz@Om";
-//$dbname = "rickurbi_belcam";
+// $servername = "127.0.0.1";
+// $username = "root";
+// $password = "";
+// $dbname = "belcam";
+$servername = "mysql1007.mochahost.com";
+$username = "rickurbi_belcam";
+$password = "8gqMy;BQz@Om";
+$dbname = "rickurbi_belcam";
 
 $operacion = $_POST["operacion"];
 $proveedor = $_POST["proveedor"];

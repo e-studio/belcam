@@ -859,7 +859,7 @@ class MvcController{
             if ($respuesta == "success"){
                 echo "<script type='text/javascript'>
                 		alert('Registro Eliminado');
-                		window.location.href='listaCompras.php'
+                		window.location.href='listaComprasNuez.php'
                 	 </script>";
             }
             else{
@@ -1348,6 +1348,7 @@ class MvcController{
 	    			<td>".$item["total"]."</td>
 	    		</tr>";
 	    	}
+
     	}
     }
 

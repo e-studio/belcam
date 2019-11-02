@@ -11,11 +11,11 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+
 <?php
 	include "includes/menus/head.php";
 ?>
-</head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<?php
