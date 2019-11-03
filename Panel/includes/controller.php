@@ -603,12 +603,12 @@ class MvcController{
 
 	#ACTUALIZA DE CHOFER
 	#------------------------------------
-	public function actualizaChofer(){
+	public function actualizaChofer($id){
 
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-			$datosController = array( "id"=>$_POST["id"],
+			$datosController = array( "id"=>$id,
 									  "nombre"=>$_POST["nombre"],
 									  "alias"=>$_POST["alias"],
 									  "rfc"=>$_POST["rfc"],
