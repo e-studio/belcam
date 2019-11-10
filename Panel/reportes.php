@@ -108,76 +108,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="box box-primary">
-							<div class="box-header with-border">
-								<h3 class="box-title">Reporte</h3>
-							</div>
-							<div class="box-body">
-								<div class="row">
-									<div class="col-md-6">
-										<h4>Precio promedio</h4>
-									</div>
-									<div class="col-md-2"></div>
-									<div class="col-md-2">
-										<h4>
-										<?php
-											$Promedio = new MvcController();
-											$Promedio -> ctlPromedios("precio");
-										?>
-										</h4>
-									</div>
-									<div class="col-md-2"></div>
-								</div>
 
-								<div class="row">
-									<div class="col-md-6">
-										<h4>KG totales</h4>
-									</div>
-									<div class="col-md-2"></div>
-									<div class="col-md-2">
-										<h4>
-										<?php
-											$Promedio = new MvcController();
-											$Promedio -> ctlPromedios("kg");
-										?>
-										</h4>
-									</div>
-									<div class="col-md-2"></div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<h4>Costo Total</h4>
-									</div>
-									<div class="col-md-2"></div>
-									<div class="col-md-2">
-										<h4>
-										<?php
-											$Promedio = new MvcController();
-											$Promedio -> ctlPromedios("costo");
-										?>
-										</h4>
-									</div>
-									<div class="col-md-2"></div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<h4>Total</h4>
-									</div>
-									<div class="col-md-2"></div>
-									<div class="col-md-2">
-										<h4>
-										<?php
-											$Promedio = new MvcController();
-											$Promedio -> ctlPromedios("total");
-										?>
-										</h4>
-									</div>
-									<div class="col-md-2"></div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php
+						$Promedio = new MvcController();
+						$Promedio -> ctlPromedios();
+					?>
 				</div>
 			</section>
 		</div>
