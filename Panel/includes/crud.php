@@ -163,6 +163,15 @@ class Datos extends Conexion {
 
 	}
 
+	public function mdlOperadores(){
+
+		$stmt = Conexion::conectar()->prepare("SELECT nombre FROM choferes ORDER BY nombre");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+
+	}
+
 
 	# CUENTA LOSREGISTROS QUE EMPIEZAN CON
 	# CIERTA FECHA EN LA TABLA QUE SE OBTIENEN COMO PARAMETROS
@@ -203,6 +212,15 @@ class Datos extends Conexion {
 	public function mdlProductosNuez($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo = 'CHILE' OR tipo ='NUEZ' ORDER BY nombre");
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+
+	}
+
+	public function mdlProductosMayoreo($tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo ='MAYOREO' ORDER BY nombre");
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt->close();
@@ -771,7 +789,7 @@ class Datos extends Conexion {
 	}
 
 
-	
+
 
 	#MODELO ACTUALIZA CHOFER
 	#-----------------------------------------

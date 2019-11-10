@@ -27,6 +27,17 @@ class MvcController{
 		}
 	}
 
+	public function ctlBuscaOperadores(){
+
+		$respuesta = Datos::mdlOperadores();
+
+		foreach ($respuesta as $row => $item){
+			echo  '<option value="'.$item["nombre"].'">'.$item["nombre"].'</option>';
+		}
+	}
+
+	
+
 
 	#-------------------------------------
 	#Busca el siguiente numero de operacion
@@ -83,7 +94,19 @@ class MvcController{
 		}
 	}
 
+	public function ctlBuscaProductosMayoreo($prod){
 
+		$respuesta = Datos::mdlProductosMayoreo("productos");
+
+		foreach ($respuesta as $row => $item){
+			if ($item["codProducto"] == $prod ){
+				echo  '<option value="'.$item["codProducto"].'" selected>'.$item["nombre"].'</option>';
+			}
+			else{
+				echo  '<option value="'.$item["codProducto"].'">'.$item["nombre"].'</option>';
+			}
+		}
+	}
 
 	#-------------------------------------
 	#Busca operaciones de compra, precio y proveedor de la tabla entradas
@@ -601,7 +624,9 @@ class MvcController{
 	}
 
 
-	#ACTUALIZA DE CHOFER
+	
+
+#ACTUALIZA DE CHOFER
 	#------------------------------------
 	public function actualizaChofer($id){
 
@@ -644,8 +669,6 @@ class MvcController{
 		}
 
 	}
-
-
 	#ACTUALIZA DE CLIENTE
 	#------------------------------------
 	public function actualizaCliente(){
