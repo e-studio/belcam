@@ -1,21 +1,24 @@
 <?php
-  session_start();
-      if(!$_SESSION["valido"]){
-        header("location:index.php");
-        exit();
-      }
-  include_once "includes/controller.php";
-  include_once "includes/crud.php";
+session_start();
+if(!$_SESSION["valido"]){
+  header("location:index.php");
+  exit();
+}
 
-  $compra = $_REQUEST['idEditar'];
-  $respuesta = Datos::mdlBuscaCompraUpdt("entradas",$compra);
+require_once "includes/controller.php";
+require_once "includes/crud.php";
+
+  $usuario = $_REQUEST['idEditar'];
+  $respuesta = Datos::mdlBuscaEntrada("entradas",$usuario);
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
 <?php
     include "includes/menus/head.php";
   ?>
-
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -27,207 +30,178 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-<form role="form" method="post">
     <section class="content-header">
       <h1>
-        Compras de MAYOREO
+        Actualizacion de compras
       </h1>
       <br>
+<form role="form" action="actEntradas.php" method="POST">
+   <div class="row">
+      <div class="col-md-12">
 
-          <div class="row">
-            <div class="col-md-12">
-               <div class="box box-success">
-                 <div class="box-header with-border">
-                   <h3 class="box-title">Datos de Generales</h3>
-                   <div class="box-body">
+      <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
 
-                     <div class="row">
-                        <div class="col-xs-2">
-                        <label>#Operacion</label>
-                        <input type="text" id="operacion" value="<?php echo $respuesta["noOperacion"]; ?>" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
-                        </div>
-                        <div class="col-xs-2">
-                           <label>Lote</label>
-                           <input type="text" required value="<?php echo $respuesta["lote"]; ?>" id="lote" name="lote" class="form-control">
-                        </div>
-                        <div class="col-xs-4">
-                           <label>Proveedor</label>
-                           <select class="form-control" name="proveedor" >
-                              <?php
-                              echo  '<option value="'.$respuesta["proveedor"].'" selected>'.$respuesta["proveedor"].'</option>';
-                              $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
-                           </select>
-                        </div>
+              <div class="box-body">
+               <div class="row">
+                  <div class="col-xs-2">
+                  <label># Operacion</label>
+                  <input type="text" required id="operacion" value="<?php echo $respuesta['noOperacion']; ?>" name="operacion" class="form-control" onchange="buscaEntrada(this.value)">
+                  </div>
+                  <div class="col-xs-2">
+                     <label>Lote</label>
+                     <input type="text" required id="lote" name="lote" value="<?php echo $respuesta['lote']; ?>" class="form-control">
+                  </div>
+                  <div class="col-xs-3">
+                     <label>Proveedor</label>
+                     <select class="form-control" name="proveedor" >
+                        <option  value=""><?php echo $respuesta['proveedor']; ?></option>
+                        <?php $proveedores = new MvcController(); $proveedores -> ctlBuscaProveedores();?>
+                     </select>
+                  </div>
 
-                         <div class="col-xs-4">
-                           <label>Productor</label>
-                           <input type="text" value="<?php echo $respuesta["productor"]; ?>" name="productor" class="form-control">
-                         </div>
-                     </div> <!-- Row-->
+                   <div class="col-xs-3">
+                     <label>Productor</label>
+                     <input type="text" id="productor" name="productor" value="<?php echo $respuesta['productor']; ?>" class="form-control">
+                   </div>
 
-                     <div class="row">
-                        <div class="col-xs-2">
-                          <label>Unidad</label>
-                          <input type="text" value="<?php echo $respuesta["unidad"]; ?>" required name="unidad" class="form-control">
-                        </div>
-                        <div class="col-xs-2">
-                          <label>Remolque</label>
-                          <input type="text" value="<?php echo $respuesta["unidad1"]; ?>" required name="unidad1" class="form-control">
-                        </div>
-                        <div class="col-xs-2">
-                          <label>Operador</label>
-                          <select class="form-control" required name="op">
-                           <?php
-                             $productos = new MvcController();
-                             $productos -> ctlBuscaOperadores($respuesta["operador"]);
-                           ?>
-                         </select>
-
-                        </div>
-
-                        <div class="col-xs-3">
-                          <label>Origen</label>
-                          <input type="text" value="<?php echo $respuesta["origen"]; ?>" required name="origen" class="form-control">
-                        </div>
-                        <div class="col-xs-3">
-                          <label>Destino</label>
-                          <input type="text" value="<?php echo $respuesta["destino"]; ?>" required name="destino" class="form-control">
-                        </div>
-                    </div> <!--Row-->
-
-                 </div>
-
-               </div>
-             </div>
-           </div>
-
-
-             <div class="col-md-3">
-               <div class="box box-success">
-                 <div class="box-header with-border">
-                   <h3 class="box-title">Datos del Producto</h3>
-                   <div class="box-body">
-
-                    <label>Producto</label>
+                   <div class="col-xs-2">
+                     <label>Producto</label>
                      <select class="form-control" required name="codProd">
+
                        <?php
+                        $codigo = $respuesta['codProducto'];
+
                          $productos = new MvcController();
-                         $productos -> ctlBuscaProductosMayoreo($respuesta["codProducto"]);
+                         $productos -> ctlBuscaProductosAct($codigo);
                        ?>
                      </select>
-
-                      <label>Kg.</label>
-                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["kg"]; ?>" required id="kg" name="kg" class="form-control" onchange="calculaCompra()">
-
-
-                      <label>U.M.</label>
-                      <input type="text"value="<?php echo $respuesta["um"]; ?>" required name="um" class="form-control">
-
-                      <label>Precio</label>
-                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["precio"]; ?>" required id="precio" name="precio" class="form-control" onchange="calculaCompra()">
-
-                      <label>Calidad</label>
-                      <input type="text" value="<?php echo $respuesta["calidad"]; ?>" id="calidad" name="calidad" class="form-control">
-
-
                    </div>
-                 </div>
-
-               </div>
-             </div>  <!-- Datos del Producto -->
-
-             <div class="col-md-3">
-               <div class="box box-danger">
-                 <div class="box-header with-border">
-                   <h3 class="box-title">Descuentos</h3>
-                   <div class="box-body">
-
-
-                         <label>Comision</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["comision"]; ?>" id="comision" name="comision" class="form-control" onchange="calculaCompra()">
-
-
-                         <label>Flete</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["flete"]; ?>" required id="flete" name="flete" class="form-control" onchange="calculaCompra()">
-
-
-                         <label>Maniobra</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["maniobra"]; ?>" required id="maniobra" name="maniobra" class="form-control" onchange="calculaCompra()">
-
-
-                         <label>Anticipo</label>
-                         <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta["anticipo"]; ?>" id="anticipo" name="anticipo" class="form-control" onchange="calculaCompra()">
-
-                         <label>Forma Pago</label>
-                         <input type="text" value="<?php echo $respuesta["formaPago"]; ?>" id="formaPago" name="formaPago" class="form-control">
-
+               </div> <!-- Row-->
+               <div class="row">
+                                  <div class="col-xs-1">
+                  <label>Unidad</label>
+                  <input type="text" required name="unidad" value="<?php echo $respuesta['unidad']; ?>" class="form-control">
+                </div>
+                <div class="col-xs-1">
+                  <label>Remolque</label>
+                  <input type="text" required name="unidad1" value="<?php echo $respuesta['unidad1']; ?>" class="form-control">
+                </div>
+                <div class="col-xs-1">
+                  <label>Op</label>
+                  <input type="text" required name="op" value="<?php echo $respuesta['operador']; ?>" class="form-control">
+                </div>
+                <div class="col-xs-1">
+                  <label>Kg.</label>
+                  <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta['kg']; ?>" required id="kg" name="kg" class="form-control" onchange="calculaCompra()">
+                </div>
+                <div class="col-xs-1">
+                  <label>U.M.</label>
+                  <input type="text" required name="um" value="<?php echo $respuesta['um']; ?>" class="form-control">
+                </div>
+                <div class="col-xs-1">
+                  <label>Precio</label>
+                  <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta['precio']; ?>" required id="precio" name="precio" class="form-control" onchange="calculaCompra()">
+                </div>
+                <div class="col-xs-1">
+                  <label>Calidad</label>
+                  <input type="text" id="calidad" name="calidad" value="<?php echo $respuesta['calidad']; ?>" class="form-control">
+                </div>
+                <div class="col-xs-2">
+                  <label>Origen</label>
+                  <input type="text" required name="origen" value="<?php echo $respuesta['origen']; ?>" class="form-control">
+                </div>
+                <div class="col-xs-2">
+                  <label>Destino</label>
+                  <input type="text" required name="destino" value="<?php echo $respuesta['destino']; ?>" class="form-control">
+                </div>
+               </div> <!--Row-->
+               <div class="row">
+                  <div class="col-xs-2">
+                     <label>Comision</label>
+                     <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta['comision']; ?>" id="comision" name="comision" class="form-control" onchange="calculaCompra()">
                    </div>
-                 </div>
-
+                   <div class="col-xs-1">
+                     <label>Flete</label>
+                     <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta['flete']; ?>" required id="flete" name="flete" class="form-control" onchange="calculaCompra()">
+                   </div>
+                   <div class="col-xs-1">
+                     <label>Maniobra</label>
+                     <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.01" value="<?php echo $respuesta['maniobra']; ?>" required id="maniobra" name="maniobra" class="form-control" onchange="calculaCompra()">
+                   </div>
+               </div><!--Row-->
+               <div class="row">
+                  <div class="col-xs-8">
+                  </div>
+                <div class="col-xs-2">
+                  <strong>Costo</strong><h4><p align="right"id="costoLbl"><span>$</span> 0.00</p></h4>
+                  <input type="hidden" value="0" required id="costo" name="costoTotal" class="form-control">
+                  <!-- type="hidden" -->
+                  <input type="hidden" id="id" name="id" value="<?php echo $usuario;?>">
+                </div>
                </div>
-             </div> <!-- Caja de Descuentos-->
 
+              </div>
 
+              <div class="box-footer" align="right">
+                <p><strong> NOTA: Ingrese todos los valores numericos SIN signo de pesos ni comas ($ , ) </strong></p>
+              </div>
+              <div>
+              </div>
+
+          </div>
+
+          <div class="row">
+             <div class="col-md-6"></div> <!-- Caja de Total-->
              <div class="col-md-3">
                <div class="box box-primary">
                  <div class="box-header with-border">
-
+                   <h3 class="box-title">Total Costo</h3>
                    <div class="box-body">
-                     <div class="col-xs-12">
-                        <strong>Costo</strong><h4><p align="right"id="costoLbl"><span>$</span> 0.00</p></h4>
-                        <input type="hidden" value="0" required id="costo" name="costoTotal" class="form-control">
-                        <!-- type="hidden" -->
-                      </div>
-
-                      <div class="col-xs-12">
-                       <h3>Total Costo</h3>
                        <label><h4><strong></strong></h4></label><h2><p align="right"id="totalCompraLbl"><span>$</span> 0.00</p></h2>
                        <input type="hidden" value="0" required id="totalCompra" name="totalCompra" class="form-control">
-                     </div>
                    </div>
                  </div>
 
                </div>
              </div> <!-- Caja de Total-->
-
              <div class="col-md-3">
                <div class="box box-primary">
                  <div class="box-header with-border">
-                   <h3 class="box-title">Guardar Datos</h3>
+                   <h3 class="box-title">Guardar Venta</h3>
                    <div class="box-body" align="right">
                      <br><br>
-
-                    <div class="col-sm-6">
-                      <button class="btn btn-default"><a href="listaCompras.php" >Cancelar</a></button>
-                    </div>
-                    <div class="col-sm-6">
-                      <button type="submit" class="btn btn-warning">Actualizar</button>
-                    </div>
-
+                     <button type="submit" class="btn btn-primary">Guardar</button>
                    </div>
                  </div>
 
                </div>
              </div> <!-- Caja de Guardar-->
-
           </div>
+      </div>
+
+   </div>
 
     </section>
-    <input type="hidden" id="id" name="id" value="<?php echo $compra; ?>">
 </form>
+    <!-- Main content -->
+    <section class="content">
 
-<?php
-    $registro = new MvcController();
-    $registro -> actualizaCompra();
-?>
 
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<?php
-   include "includes/menus/footer.php";
-?>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0
+    </div>
+    <strong>Copyright &copy; 2019 <a href="http://belcam.com.mx">Productos del Campo Beltr&aacute;n </a>.</strong> Todos los derechos reservados.
+  </footer>
 
 </div>
 <!-- ./wrapper -->

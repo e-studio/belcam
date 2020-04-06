@@ -1,6 +1,6 @@
 
 <?php
-require_once 'crud.php';
+require 'includes/crud.php';
 class MvcController{
 
 	#-------------------------------------
@@ -27,28 +27,21 @@ class MvcController{
 		}
 	}
 
-
-	public function ctlBuscaOperadores($chofer){
+	public function ctlBuscaOperadores(){
 
 		$respuesta = Datos::mdlOperadores();
 
-		 foreach ($respuesta as $row => $item){
-
-			if ($item["idChofer"] == $chofer ){
-				echo  '<option value="'.$item["idChofer"].'" selected>'.$item["nombre"].' - '.$chofer.'</option>';
-			}
-			else{
-				echo  '<option value="'.$item["idChofer"].'">'.$item["nombre"].'</option>';
-			}
+		foreach ($respuesta as $row => $item){
+			echo  '<option value="'.$item["nombre"].'">'.$item["nombre"].'</option>';
 		}
 	}
 
+	
 
 
-
-	#-----------------------------------------------------------
-	#Busca el siguiente numero de operacion en la tabla entradas
-	#-----------------------------------------------------------
+	#-------------------------------------
+	#Busca el siguiente numero de operacion
+	#------------------------------------
 	public function ctlBuscaNumOpEntradas($fecha){
 		$busca = $fecha.'%';
 
@@ -58,21 +51,6 @@ class MvcController{
 		echo $fecha,"-",$next;
 		//echo '$fecha-$next';
 	}
-
-	#----------------------------------------------------------
-	#Busca el siguiente numero de operacion en la tabla salidas
-	#----------------------------------------------------------
-	public function ctlBuscaNumOpSalidas($fecha){
-		$busca = $fecha.'%';
-
-		$respuesta = Datos::mdlNumOperaciones('salidas', $busca);
-
-		$next = $respuesta['cuenta']+1;
-		echo $fecha,"-",$next;
-		//echo '$fecha-$next';
-	}
-
-
 
 	#-------------------------------------
 	#Busca los productos de la tabla productos
@@ -173,7 +151,7 @@ class MvcController{
     }
 
     // BUSCA TODAS LAS COMPRAS QUE SE HAYAN HECHO DE UN PRODUCTO EN ESPECIFICO
-    static function buscaComprasAjax($tabla, $codigo){
+    public function buscaComprasAjax($tabla, $codigo){
 
         $res = Datos::mdlComprasAjax($tabla, $codigo);
 
@@ -199,11 +177,11 @@ class MvcController{
         //echo $res["noOperacion"];
         if ($res==""){
         	//echo $res["noOperacion"];
-            echo 0;
+            echo "no";
         }
         else {
         	// echo $res["noOperacion"];
-            echo 1;
+            echo "si";
         }
 
     }
@@ -215,11 +193,11 @@ class MvcController{
         //echo $res["noOperacion"];
         if ($res==""){
         	//echo $res["noOperacion"];
-            echo 0;
+            echo "no";
         }
         else {
-        	 //echo $res["noOperacion"];
-            echo 1;
+        	// echo $res["noOperacion"];
+            echo "si";
         }
 
     }
@@ -590,64 +568,6 @@ class MvcController{
 	}
 
 
-	#ACTUALIZA DE COMPRAS DE MAYOREO
-	#------------------------------------
-	public function actualizaCompra(){
-
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-			$datosController = array("id" => $_POST["id"],
-				"operacion" => $_POST["operacion"],
-				"proveedor" => $_POST["proveedor"],
-				"productor" =>$_POST["productor"],
-				"codProd" => $_POST["codProd"],
-				"lote" => $_POST["lote"],
-				"unidad" => $_POST["unidad"],
-				"unidad1" => $_POST["unidad1"],
-				"op" => $_POST["op"],
-				"kg" =>  $_POST["kg"],
-				"um" => $_POST["um"],
-				"precio" => $_POST["precio"],
-				"calidad" => $_POST["calidad"],
-				"origen" => $_POST["origen"],
-				"destino" => $_POST["destino"],
-				"comision" => $_POST["comision"],
-				"flete" => $_POST["flete"],
-				"maniobra" => $_POST["maniobra"],
-				"anticipo" => $_POST["anticipo"],
-				"costoTotal" => $_POST["costoTotal"],
-				"totalCompra" => $_POST["totalCompra"],
-				"formaPago" => $_POST["formaPago"]);
-
-			$respuesta = Datos::mdlActualizaCompras($datosController, "entradas");
-
-
-
-			if($respuesta == "success"){
-				echo'<script type="text/javascript">
-				    alert("Registro Actualizado");
-				    window.location.href="listaCompras.php";
-				    </script>';
-
-			}
-
-			else{
-				echo'<script type="text/javascript">
-				    alert("Error!");
-				    window.location.href="listaCompras.php";
-				    </script>';
-
-
-			}
-
-		}
-
-	}
-
-
-
-
 	#ACTUALIZA DE COMPRA DE NUEZ Y CHILE
 	#------------------------------------
 	public function actualizaCompraNuez(){
@@ -704,7 +624,7 @@ class MvcController{
 	}
 
 
-
+	
 
 #ACTUALIZA DE CHOFER
 	#------------------------------------
@@ -882,7 +802,7 @@ class MvcController{
     public function borrarUsuario(){
     	//echo'<script type="text/javascript">alert('.var_dump(isset($_GET["idBorrar"])).');</script>';
 
-        if (isset($_GET['idCerrar'])){
+        if ($_GET['idBorrar']){
         	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
             $datosController = $_GET['idBorrar'];
             $respuesta = Datos::mdlborrarUsuario($datosController,"usuarios");
@@ -899,7 +819,7 @@ class MvcController{
     #BORRAR PRODUCTO
     #------------------------------------
     public function borrarProducto(){
-        if (isset($_GET['idCerrar'])){
+        if ($_GET['idBorrar']){
         	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
             $datosController = $_GET['idBorrar'];
             $respuesta = Datos::mdlborrarProducto($datosController,"productos");
@@ -917,7 +837,7 @@ class MvcController{
     public function borrarChofer(){
     	//echo'<script type="text/javascript">alert('.var_dump(isset($_GET["idBorrar"])).');</script>';
 
-        if (isset($_GET['idCerrar'])){
+        if ($_GET['idBorrar']){
         	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
             $datosController = $_GET['idBorrar'];
             $respuesta = Datos::mdlborrarChofer($datosController,"choferes");
@@ -934,7 +854,7 @@ class MvcController{
     #------------------------------------
     public function borrarCliente(){
 
-        if (isset($_GET['idCerrar'])){
+        if ($_GET['idBorrar']){
         	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
             $datosController = $_GET['idBorrar'];
             $respuesta = Datos::mdlborrarCliente($datosController,"clientes");
@@ -962,7 +882,7 @@ class MvcController{
             if ($respuesta == "success"){
                 echo "<script type='text/javascript'>
                 		alert('Registro Eliminado');
-                		window.location.href='listaCompras.php'
+                		window.location.href='listaComprasNuez.php'
                 	 </script>";
             }
             else{
@@ -1032,40 +952,23 @@ class MvcController{
 
 
     #BORRAR VENTAS
-    #-----------------------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------
+    #------------------------------------
     public function borrarVentas(){
-    	if (isset($_GET['idBorrar'])){
-			// buscar la compra idBorrar y traer las operaciones registradas
-			$compras = Datos::mdlBuscaVentaBorar($_GET['idBorrar']);
 
-			$jsonItem = json_decode($compras[0], true);  //esto arroja un arreglo
-
-			foreach ($jsonItem as $item){	//recorremos el arreglo
-				$devuelve = Datos::mdlActualizaInventario($item["operacion"], $item['kilos']);
-				//echo $item["operacion"].' - '. $item['kilos']."<br>";
-			};
-
-			if ($devuelve == "success"){
-				    $respuesta = Datos::mdlborrarVenta($_GET['idBorrar'],"salidas");
-		            if ($respuesta == "success"){
-		                echo "<script type='text/javascript'>
-		                		alert('Venta Eliminada, inventario devuelto');
-		                		window.location.href='listaVentas.php'
-		                	 </script>";
-		            }
-		            else{
-		            	echo'<script type="text/javascript">alert("No se Elimino la venta!");</script>';
-		            }
-
-			}
-			else{
-		        	echo'<script type="text/javascript">alert("El inventario no coincide!");</script>';
-		        }
-
-		}
-
-
-
+        if ($_GET['idBorrar']){
+        	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
+            $datosController = $_GET['idBorrar'];
+            $respuesta = Datos::mdlborrarVenta($datosController,"salidas");
+            if ($respuesta == "success"){
+                echo "<script type='text/javascript'>
+                		alert('Registro Eliminado');
+                		window.location.href='listaVentas.php'
+                	 </script>";
+            }
+            else{
+            	echo'<script type="text/javascript">alert("Error!");</script>';
+            }
+        }
     }
 
 
@@ -1074,7 +977,7 @@ class MvcController{
     #------------------------------------
     public function borrarProveedor(){
 
-        if (isset($_GET['idCerrar'])){
+        if ($_GET['idBorrar']){
         	//echo'<script type="text/javascript">alert("'.$_GET['idBorrar'].'");</script>';
             $datosController = $_GET['idBorrar'];
             $respuesta = Datos::mdlborrarProveedor($datosController,"proveedores");
@@ -1248,12 +1151,12 @@ class MvcController{
                   <td>'.$item["costoTotal"].'</td>
                   <td>'.$item["total"].'</td>
                   <td>'.$item["fecha"].'</td>
-                  <td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
+                  <td>
+                  <a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a>
+                  </td>
                   <td><a href="listaCompras.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a></td>
 
                 </tr>';
-                //Boton editar
-                //Boton Borrar 		<a href="listaCompras.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a>
                 //<td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
         }
 
@@ -1334,6 +1237,8 @@ class MvcController{
 
         foreach ($respuesta as $row => $item){
         	$cont ++;
+
+
         echo '<tr>
                   <td>'.$cont.'</td>
                   <td>'.$item["noOperacion"].'</td>
@@ -1346,10 +1251,10 @@ class MvcController{
                   <td>'.$item["costo"].'</td>
                   <td>'.$item["total"].'</td>
                   <td>'.$item["fecha"].'</td>
-                  <td><a href="listaVentas.php?idBorrar='.$item["cons"].'"><button class="btn btn-danger">Borrar</button></a></td>
+
+                  <td><a href="listaVentas.php?idBorrar='.$item["cons"].'" ><button class="btn btn-danger">Borrar</button></a></td>
                 </tr>';
-                //Boton Borrar
-                //Boton Editar <td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
+                //<td><a href="updtCompra.php?idEditar='.$item["cons"].'"><button class="btn btn-warning">Editar</button></a></td>
         }
 
     }
@@ -1416,7 +1321,7 @@ class MvcController{
     			$Parametros = array("producto" => $_POST["producto"],
     								"de" => $_POST["de"],
     								"hasta" => $_POST["hasta"],
-    								"tabla" => "salidas");
+    								"tabla" => "entradas");
 
     			$Respuesta = Datos::mdlReportes($Parametros);
 
@@ -1469,29 +1374,6 @@ class MvcController{
 
     	}
     }
-
-
-
-//Busca el inventario de cierto producto para las graficas de la pantalla de inicio
-public function ctlBuscarInventario ($codProducto) {
-			$respuesta = Datos::mdlInventario($codProducto);
-
-				foreach ($respuesta as $Row => $item) {
-					$inv = (is_null($item['inventario'])) ? 0:$item['inventario'];
-					$kgs = (is_null($item['kgs'])) ? 0:$item['kgs'];
-					$porcentaje = (is_null($item['porcentaje'])) ? 0:$item['porcentaje'];
-
-				echo '<span class="progress-number"><b>'.$inv.'</b>/'.$kgs.'</span>';
-				echo '<div class="progress sm">
-	                      <div class="progress-bar progress-bar-aqua" style="width: '.$porcentaje.'%"></div>
-	                    </div>';
-	            }
-        	}
-
-
-
-
-
 
     public function ctlPromedios ($Cosa) {
     	if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -1566,193 +1448,6 @@ public function ctlBuscarInventario ($codProducto) {
 			echo "<option>".$item["codProducto"]."</option>";
 		}
 	}
-
-	#-------------------------------------
-	#Cuenta las compras hechas
-	#------------------------------------
-	public function ctlCuentaCompras($ops){
-
-		$respuesta = Datos::mdlCuentaOps($ops);
-
-		foreach ($respuesta as $row => $item){
-			echo  $item["resultado"];
-		}
-	}
-
-
-	#DATOS PARA GRAFICA 1
-    #------------------------------------
-    public function grafica1Controller(){
-    	//  crea el array para las citas atendidas
-        $respuesta = Datos::graficaMensualModel("salidas");
-        $meses = array();
-        $cantA = array();
-        foreach ($respuesta as $row => $item){
-            array_push($meses, $item["mes"]);
-            array_push($cantA, $item["total"]);
-
-        }
-
-
-        // Crea array para citas agendadas
-        $respuesta = Datos::graficaMensualModel("entradas");
-        $mesesCompras = array();
-        $cantCompras = array();
-        foreach ($respuesta as $row => $item){
-            array_push($mesesCompras, $item["mes"]);
-            array_push($cantCompras, $item["total"]);
-
-        }
-
-        // // Crea array para citas referidas
-        // $respuesta = Datos::grafica1cModel("presupuestos");
-        // //$meses = array();
-        // $cantC = array();
-        // foreach ($respuesta as $row => $item){
-        //     //array_push($meses, $item["mes"]);
-        //     array_push($cantC, $item["cantidad"]);
-
-        // }
-
-
-     echo "<script>
-  $(function () {
-
-    var areaChartCanvas = $('#graficaVentas').get(0).getContext('2d')
-    // This will get the first returned node in the jQuery collection.
-    var areaChart       = new Chart(areaChartCanvas)
-
-    var areaChartData = {
-      labels  :".json_encode($meses).",
-      datasets: [
-        {
-          label               : 'Ventas',
-          fillColor           : 'rgba(100, 200, 50, .5)',
-          strokeColor         : 'rgba(100, 200, 50, 1)',
-          pointColor          : 'rgba(100, 200, 50, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : ". json_encode($cantA,JSON_NUMERIC_CHECK)."
-        }
-      ]
-    }
-
-    var areaChartOptions = {
-      //Boolean - If we should show the scale at all
-      showScale               : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - Whether the line is curved between points
-      bezierCurve             : true,
-      //Number - Tension of the bezier curve between points
-      bezierCurveTension      : 0.3,
-      //Boolean - Whether to show a dot for each point
-      pointDot                : false,
-      //Number - Radius of each point dot in pixels
-      pointDotRadius          : 4,
-      //Number - Pixel width of point dot stroke
-      pointDotStrokeWidth     : 1,
-      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-      pointHitDetectionRadius : 20,
-      //Boolean - Whether to show a stroke for datasets
-      datasetStroke           : true,
-      //Number - Pixel width of dataset stroke
-      datasetStrokeWidth      : 2,
-      //Boolean - Whether to fill the dataset with a color
-      datasetFill             : true,
-      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio     : true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive              : true
-    }
-
-    //Create the line chart
-    areaChart.Line(areaChartData, areaChartOptions)
-
-  })
-</script>";
-
-echo "<script>
-  $(function () {
-
-    var areaChartCanvas = $('#graficaCompras').get(0).getContext('2d')
-    // This will get the first returned node in the jQuery collection.
-    var areaChart       = new Chart(areaChartCanvas)
-
-    var areaChartData = {
-      labels  :".json_encode($mesesCompras).",
-      datasets: [
-        {
-          label               : 'Ventas',
-          fillColor           : 'rgba(50, 214, 222, .5)',
-          strokeColor         : 'rgba(50, 214, 222, 1)',
-          pointColor          : 'rgba(50, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : ". json_encode($cantCompras,JSON_NUMERIC_CHECK)."
-        }
-      ]
-    }
-
-    var areaChartOptions = {
-      //Boolean - If we should show the scale at all
-      showScale               : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - Whether the line is curved between points
-      bezierCurve             : true,
-      //Number - Tension of the bezier curve between points
-      bezierCurveTension      : 0.3,
-      //Boolean - Whether to show a dot for each point
-      pointDot                : false,
-      //Number - Radius of each point dot in pixels
-      pointDotRadius          : 4,
-      //Number - Pixel width of point dot stroke
-      pointDotStrokeWidth     : 1,
-      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-      pointHitDetectionRadius : 20,
-      //Boolean - Whether to show a stroke for datasets
-      datasetStroke           : true,
-      //Number - Pixel width of dataset stroke
-      datasetStrokeWidth      : 2,
-      //Boolean - Whether to fill the dataset with a color
-      datasetFill             : true,
-      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio     : true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive              : true
-    }
-
-    //Create the line chart
-    areaChart.Line(areaChartData, areaChartOptions)
-
-  })
-</script>";
-}
-
-
-
-
-
-
 
 }//Clase principal
 

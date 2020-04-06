@@ -39,7 +39,7 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO entradas (noOperacion, proveedor, productor, codProducto, lote, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, anticipo, costoTotal, total, formaPago, `fecha`) VALUES ('$operacion', '$proveedor', '$productor', '$codProd', $lote, '$unidad','$unidad1', '$op', $kg, $kg, $um, $precio, $calidad, '$origen', '$destino', $comision, $flete, $maniobra, $anticipo,$costoTotal, $totalCompra, '$formaPago', CURDATE())";
+    $sql = "INSERT INTO entradas (noOperacion, proveedor, productor, codProducto, lote, unidad, unidad1, operador, kg, um, precio, calidad, origen, destino, comision, flete, maniobra, anticipo, costoTotal, total, formaPago, `fecha`) VALUES ('$operacion', '$proveedor', '$productor', '$codProd', $lote, '$unidad','$unidad1', '$op', $kg, $um, $precio, $calidad, '$origen', '$destino', $comision, $flete, $maniobra, $anticipo,$costoTotal, $totalCompra, '$formaPago', CURDATE())";
 
     $conn->exec($sql);
     echo'<script type="text/javascript">

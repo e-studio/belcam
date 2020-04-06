@@ -105,7 +105,6 @@
                      <label>Producto</label>
                      <select class="form-control" required name="codProd">
                        <?php
-                       // echo  '<option value="'.$respuesta["codProducto"].'" selected>'.$respuesta["codProducto"].'</option>';
                          $productos = new MvcController();
                          $productos -> ctlBuscaProductosNuez($respuesta["codProducto"]);
                        ?>

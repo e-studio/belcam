@@ -191,19 +191,14 @@ function buscaProducto(codigo) {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange = function() {
-
             if (this.readyState == 4 && this.status == 200) {
-
 
               var responseArray = xmlhttp.responseText.split("||");
 
               if (responseArray != ""){
-
                 $('#operacionCompra').empty();
-                console.log(responseArray);
 
                 for (var i = 0; i < responseArray.length - 1; i+=4) {
-
 
                   var operacion = responseArray[i];
                   var proveedor = responseArray[i+1];

@@ -6,7 +6,7 @@ class Datos extends Conexion {
 
 	#VERIFICA SI EL USUARIO EXISTE PARA INGRESAR AL SISTEMA
 	#--------------------------------------------------------
-	public static function ingresoModel($datosModel, $tabla){
+	public function ingresoModel($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE email = :usuario AND password = :password");
 
@@ -26,7 +26,7 @@ class Datos extends Conexion {
 	#LISTA USUARIOS
 	#-------------------------------------
 
-	public static function mdlListaUsuarios($tabla){
+	public function mdlListaUsuarios($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
@@ -42,7 +42,7 @@ class Datos extends Conexion {
 	#LISTA PRODUCTOS
 	#-------------------------------------
 
-	public static function mdlListaProductos($tabla){
+	public function mdlListaProductos($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
@@ -54,7 +54,7 @@ class Datos extends Conexion {
 
 	}
 
-	public static function mdlBuscaEntrada($tabla, $entrada){
+	public function mdlBuscaEntrada($tabla, $entrada){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE cons = :id");
 
@@ -66,21 +66,9 @@ class Datos extends Conexion {
 		$stmt->close();
 	}
 
-		public static function mdlBuscaVentaBorar($venta){
-
-		$stmt = Conexion::conectar()->prepare("SELECT listaCompras FROM salidas WHERE cons = :id LIMIT 1");
-
-		$stmt->bindParam(":id", $venta, PDO::PARAM_INT);
-
-		$stmt -> execute();
-		return $stmt -> fetch();
-
-		$stmt->close();
-	}
-
 	#LISTA CHOFERES
 	#-------------------------------------
-	public static function mdlListaChoferes($tabla){
+	public function mdlListaChoferes($tabla){
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -89,7 +77,7 @@ class Datos extends Conexion {
 
 	#LISTA CLIENTES
 	#-------------------------------------
-	public static function mdlListaClientes($tabla){
+	public function mdlListaClientes($tabla){
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -98,8 +86,8 @@ class Datos extends Conexion {
 
 	#LISTA COMPRAS
 	#-------------------------------------
-	public static function mdlListaCompras($tabla){
-		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE codProducto NOT LIKE 'N%' AND codProducto NOT LIKE 'C%'");
+	public function mdlListaCompras($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt->close();
@@ -107,7 +95,7 @@ class Datos extends Conexion {
 
 	#LISTA COMPRAS ACTIVAS
 	#-------------------------------------
-	public static function mdlListaComprasActivas($tabla){
+	public function mdlListaComprasActivas($tabla){
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status ='A'");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -116,7 +104,7 @@ class Datos extends Conexion {
 
 	#LISTA COMPRAS CERRADAS
 	#-------------------------------------
-	public static function mdlListaComprasCerradas($tabla){
+	public function mdlListaComprasCerradas($tabla){
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status ='C'");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -125,7 +113,7 @@ class Datos extends Conexion {
 
 	#LISTA VENTAS
 	#-------------------------------------
-	public static function mdlListaVentas($tabla){
+	public function mdlListaVentas($tabla){
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -134,7 +122,7 @@ class Datos extends Conexion {
 
 	#LISTA PROVEEDORES
 	#-------------------------------------
-	public static function mdlListaProvedores($tabla){
+	public function mdlListaProvedores($tabla){
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -143,7 +131,7 @@ class Datos extends Conexion {
 
 	#Lista de Unidades
 
-	public static function mdlListaUnidades ($tabla) {
+	public function mdlListaUnidades ($tabla) {
 		$Statement = Conexion::conectar() -> prepare("SELECT * FROM $tabla ORDER BY placas");
 		$Statement -> execute();
 		return $Statement -> fetchAll();
@@ -154,7 +142,7 @@ class Datos extends Conexion {
 	# LISTA DE CLIENTES
 	#-------------------------------------
 
-	public static function mdlClientes($tabla){
+	public function mdlClientes($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT idCliente, nombre FROM $tabla ORDER BY nombre");
 		$stmt->execute();
@@ -166,7 +154,7 @@ class Datos extends Conexion {
 	# LISTA DE PROVEEDORES
 	#-------------------------------------
 
-	public static function mdlProveedores(){
+	public function mdlProveedores(){
 
 		$stmt = Conexion::conectar()->prepare("SELECT codProveedor, nombre FROM proveedores ORDER BY nombre");
 		$stmt->execute();
@@ -175,12 +163,9 @@ class Datos extends Conexion {
 
 	}
 
-	# LISTA DE OPERADORES
-	#-------------------------------------
+	public function mdlOperadores(){
 
-	public static function mdlOperadores(){
-
-		$stmt = Conexion::conectar()->prepare("SELECT idChofer, nombre FROM choferes ORDER BY nombre");
+		$stmt = Conexion::conectar()->prepare("SELECT nombre FROM choferes ORDER BY nombre");
 		$stmt->execute();
 		return $stmt->fetchAll();
 		$stmt->close();
@@ -192,7 +177,7 @@ class Datos extends Conexion {
 	# CIERTA FECHA EN LA TABLA QUE SE OBTIENEN COMO PARAMETROS
 	# ----------------------------------------------------------
 
-	public static function mdlNumOperaciones($tabla, $fecha){
+	public function mdlNumOperaciones($tabla, $fecha){
 
 		$stmt = Conexion::conectar()->prepare("SELECT COUNT(*) as cuenta FROM $tabla WHERE `noOperacion` LIKE :fecha");
 		$stmt->bindParam(":fecha", $fecha, PDO::PARAM_STR);
@@ -205,7 +190,7 @@ class Datos extends Conexion {
 	# LISTA DE PRODUCTOS
 	#-------------------------------------
 
-	public static function mdlProductos($tabla){
+	public function mdlProductos($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo NOT IN ('CHILE', 'NUEZ') ORDER BY nombre");
 		$stmt->execute();
@@ -214,7 +199,7 @@ class Datos extends Conexion {
 
 	}
 
-	public static function mdlProductosTodos ($tabla) {
+	public function mdlProductosTodos ($tabla) {
 				$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla ORDER BY nombre");
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -224,7 +209,7 @@ class Datos extends Conexion {
 	# LISTA DE PRODUCTOS NUEZ Y CHILE
 	#-------------------------------------
 
-	public static function mdlProductosNuez($tabla){
+	public function mdlProductosNuez($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo = 'CHILE' OR tipo ='NUEZ' ORDER BY nombre");
 		$stmt->execute();
@@ -233,7 +218,7 @@ class Datos extends Conexion {
 
 	}
 
-	public static function mdlProductosMayoreo($tabla){
+	public function mdlProductosMayoreo($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT codProducto, nombre FROM $tabla WHERE tipo ='MAYOREO' ORDER BY nombre");
 		$stmt->execute();
@@ -246,7 +231,7 @@ class Datos extends Conexion {
 	# LISTA DE compras de un producto en especifico
 	#-------------------------------------
 
-	public static function mdlComprasAjax($tabla, $codigo){
+	public function mdlComprasAjax($tabla, $codigo){
 
 		$stmt = Conexion::conectar()->prepare("SELECT noOperacion, proveedor, inventario, precio FROM $tabla WHERE codProducto=:codigo AND inventario > 0 ORDER BY proveedor");
 		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
@@ -260,7 +245,7 @@ class Datos extends Conexion {
 	# BUSCA SI UNA OPERACION ESTA REGISTRADA EN LA TABLA DE ENTRADAS
 	#-------------------------------------
 
-	public static function mdlEntradasAjax($tabla, $codigo){
+	public function mdlEntradasAjax($tabla, $codigo){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE noOperacion = :codigo");
 		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
@@ -274,7 +259,7 @@ class Datos extends Conexion {
 	# BUSCA SI UNA OPERACION ESTA REGISTRADA EN LA TABLA DE SALIAS
 	#-------------------------------------
 
-	public static function mdlSalidasAjax($codigo){
+	public function mdlSalidasAjax($codigo){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM salidas WHERE noOperacion = :codigo");
 		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
@@ -288,7 +273,7 @@ class Datos extends Conexion {
 	# LISTA DE MIS DEPOSITOS O BODEGAS DISPONIBLES
 	#-------------------------------------
 
-	public static function mdlBodegas($tabla){
+	public function mdlBodegas($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT DISTINCT destino FROM $tabla ORDER BY destino");
 		$stmt->execute();
@@ -300,7 +285,7 @@ class Datos extends Conexion {
 	# LISTA DE MIS DEPOSITOS O BODEGAS DISPONIBLES
 	#-------------------------------------
 
-	public static function mdlBodegasClientes($tabla){
+	public function mdlBodegasClientes($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT nombre FROM $tabla ORDER BY destino");
 		$stmt->execute();
@@ -312,7 +297,7 @@ class Datos extends Conexion {
 
 	#REGISTRO DE USUARIOS
 	#-------------------------------------
-	public static function registroUsuarioModel($datosModel, $tabla){
+	public function registroUsuarioModel($datosModel, $tabla){
 
 		#prepare() Prepara una sentencia SQL para ser ejecutada por el método PDOStatement::execute(). La sentencia SQL puede contener cero o más marcadores de parámetros con nombre (:name) o signos de interrogación (?) por los cuales los valores reales serán sustituidos cuando la sentencia sea ejecutada. Ayuda a prevenir inyecciones SQL eliminando la necesidad de entrecomillar manualmente los parámetros.
 
@@ -346,7 +331,7 @@ class Datos extends Conexion {
 
 	//busca si existe registrada una orden en la tabla ordenes para evitar duplicar los numeros
 
-    public static function buscaProducto($tabla, $codigo){
+    public function buscaProducto($tabla, $codigo){
 
         $stmt = Conexion::conectar()->prepare("SELECT `destino`, SUM(`kg`) as kg, AVG(`precio`) as precio FROM $tabla WHERE `codProducto`=:codigo GROUP by `destino`");
 
@@ -360,7 +345,7 @@ class Datos extends Conexion {
 
     }
 
-    public static function mdlBuscaUnidad ($tabla, $id) {
+    public function mdlBuscaUnidad ($tabla, $id) {
 
 		$Statement = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idUnidad = :id");
 
@@ -372,7 +357,7 @@ class Datos extends Conexion {
 		$Statement->close();
     }
 
-    public static function mdlRegistroEntrada ($datosModel, $tabla) {
+    public function mdlRegistroEntrada ($datosModel, $tabla) {
     	$Statement = Conexion::conectar() -> prepare("INSERT INTO $tabla (lote, noOperacion, proveedor, productor, codProducto, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, costoTotal, total, fecha, referencia, monto, saldo) VALUES (:lote, :noOperacion, :proveedor, :productor, :codProducto, :unidad, :unidad1, :operador, :kg, :inventario, :um, :precio, :calidad, :origen, :destino, :comision, :flete, :maniobra, :costoTotal, :total, :fecha, :referencia, :monto, :saldo)");
 
     	$Statement->bindParam(":lote", $datosModel["lote"], PDO::PARAM_STR);
@@ -410,7 +395,7 @@ class Datos extends Conexion {
 
     #REGISTRO DE USUARIO
 	#-------------------------------------
-	public static function registroUsuario($datosModel, $tabla){
+	public function registroUsuario($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (nombre, password, email, rol, activo) VALUES (:nombre,:password,:email,:rol,:activo)");
 
@@ -431,7 +416,7 @@ class Datos extends Conexion {
 
 	#REGISTRO DE PRODUCTO
 	#-------------------------------------
-	public static function registroProducto($datosModel, $tabla){
+	public function registroProducto($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (nombre, codProducto, tipo) VALUES (:nombre,:codProducto, :tipoProducto)");
 
@@ -451,7 +436,7 @@ class Datos extends Conexion {
 
 	#REGISTRO DE CHOFER
 	#-------------------------------------
-	public static function mdlRegistroChofer($datosModel, $tabla){
+	public function mdlRegistroChofer($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`idChofer`, `codChofer`, `nombre`, `alias`, `rfc`, `direccion`, `ine`, `licencia`, `telefono`, `telefono2`, `telefono3`, `contacto`, `fechaIngreso`) VALUES (NULL, NULL, :nombre, :alias, :rfc, :direccion, :ine, :licencia, :telefono, :telefono2, :telefono3, '0', :fechaIngreso)");
 
@@ -478,7 +463,7 @@ class Datos extends Conexion {
 
 	#REGISTRO DE CLIENTE
 	#-------------------------------------
-	public static function mdlRegistroCliente($datosModel, $tabla){
+	public function mdlRegistroCliente($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`idCliente`, `codCliente`, `nombre`, `razonSocial`, `rfc`, `direccion`, `ubicacion`, `ubicacion2`, `ubicacion3`, `telefono`, `celular`, `celular2`, `contacto`, `contacto2`, `contacto3`, `lineaCredito`) VALUES (NULL, NULL, :nombre, :razonSocial,:rfc, :direccion, :ubicacion, :ubicacion2, :ubicacion3, :telefono, :celular, :celular2, :contacto, :contacto2, :contacto3, :lineaCredito)");
 
@@ -517,7 +502,7 @@ class Datos extends Conexion {
 
 	#REGISTRO DE CLIENTE
 	#-------------------------------------
-	public static function mdlRegistroProveedor($datosModel, $tabla){
+	public function mdlRegistroProveedor($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (`id`, `codProveedor`, `nombre`, `razonSocial`, `rfc`, `direccion`, `ubicacion`, `ubicacion2`, `ubicacion3`, `telefono`, `celular`, `celular2`, `contacto`, `contacto2`, `contacto3`, `lineaCredito`) VALUES (NULL, :codProveedor, :nombre, :razonSocial,:rfc, :direccion, :ubicacion, :ubicacion2, :ubicacion3, :telefono, :celular, :celular2, :contacto, :contacto2, :contacto3, :lineaCredito)");
 
@@ -557,7 +542,7 @@ class Datos extends Conexion {
 
 	#Registro unidades
 
-	public static function mdlRegistroUnidad ($datosModel, $Tabla) {
+	public function mdlRegistroUnidad ($datosModel, $Tabla) {
 
 		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `descripcion`, `kilometraje`, `anio`, `marca`, `modelo`, `placas`) VALUES (null, :descripcion, :kilometraje, :anio, :marca, :modelo, :placas);");
 
@@ -580,7 +565,7 @@ class Datos extends Conexion {
 
 	#Registro Entradas
 
-	public static function mdlRegEntradas ($datosModel, $Tabla) {
+	public function mdlRegEntradas ($datosModel, $Tabla) {
 
 		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (cons, lote, noOperacion, proveedor, productor, codProducto, unidad, unidad1, kg, um, precio, calidad, origen, destino, comision, flete, maniobra, costoTotal, total, status) VALUES (null, :lote, :noOperacion, :proveedor, :productor, :codProd, :unidad, :unidad1, :kg, :um, :precio, :calidad, :origen, :destino, :comision, :flete, :maniobra, :costoTotal, :total, :status)");
 
@@ -615,7 +600,7 @@ class Datos extends Conexion {
 
 	#ACTUALIZA USUARIO
 	#-------------------------------------
-	public static function mdlActualizaUsuario($datosModel, $tabla){
+	public function mdlActualizaUsuario($datosModel, $tabla){
 
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, password = :password, email = :email, rol = :rol, activo = :activo WHERE id = :id");
@@ -637,30 +622,9 @@ class Datos extends Conexion {
 		$stmt->close();
 	}
 
-
-	#ACTUALIZA INVENTARIO
-	#-------------------------------------
-	public static function mdlActualizaInventario($operacion, $kilos){
-
-
-		$stmt = Conexion::conectar()->prepare("UPDATE entradas SET inventario = inventario + :kilos WHERE noOperacion = :operacion");
-
-		$stmt->bindParam(":operacion", $operacion, PDO::PARAM_STR);
-		$stmt->bindParam(":kilos", $kilos, PDO::PARAM_STR);
-
-		if($stmt->execute()){
-			return "success";
-		}
-
-		else{
-			return "error";
-		}
-		$stmt->close();
-	}
-
 	#ACTUALIZA USUARIO
 	#-------------------------------------
-	public static function mdlActualizaProducto($datosModel, $tabla){
+	public function mdlActualizaProducto($datosModel, $tabla){
 
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, codProducto = :codProducto, tipo= :tipoproducto WHERE idProducto = :id");
@@ -682,7 +646,7 @@ class Datos extends Conexion {
 
 	#Actualiza Entradas de rastrojo, zacate, etc
 
-	public static function mdlUpdtEntradas ($datosModel, $tabla) {
+	public function mdlUpdtEntradas ($datosModel, $tabla) {
 		$Statement = Conexion::conectar() -> prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :unidad1, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, costoTotal = :costoTotal, total = :totalCompra WHERE cons = :id");
 		$Statement -> bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
 		$Statement -> bindParam(":operacion", $datosModel["operacion"], PDO::PARAM_STR);
@@ -713,54 +677,10 @@ class Datos extends Conexion {
 
 	}
 
-	#ACTUALIZA COMPRA DE MAYOREO
-	#-------------------------------------
-	public static function mdlActualizaCompras($datosModel, $tabla){
-
-
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :unidad1, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, anticipo = :anticipo, costoTotal = :costoTotal, total = :totalCompra, formaPago = :formaPago WHERE cons = :id");
-
-		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
-		$stmt->bindParam("operacion" , $_POST["operacion"], PDO::PARAM_STR);
-		$stmt->bindParam("proveedor" , $_POST["proveedor"], PDO::PARAM_STR);
-		$stmt->bindParam("productor" ,$_POST["productor"], PDO::PARAM_STR);
-		$stmt->bindParam("codProd" , $_POST["codProd"], PDO::PARAM_STR);
-		$stmt->bindParam("lote" , $_POST["lote"], PDO::PARAM_INT);
-		$stmt->bindParam("unidad" , $_POST["unidad"], PDO::PARAM_STR);
-		$stmt->bindParam("unidad1" , $_POST["unidad1"], PDO::PARAM_STR);
-		$stmt->bindParam("op" , $_POST["op"], PDO::PARAM_INT);
-		$stmt->bindParam("kg" ,  $_POST["kg"], PDO::PARAM_STR);
-		$stmt->bindParam("um" , $_POST["um"], PDO::PARAM_INT);
-		$stmt->bindParam("precio" , $_POST["precio"], PDO::PARAM_STR);
-		$stmt->bindParam("calidad" , $_POST["calidad"], PDO::PARAM_INT);
-		$stmt->bindParam("origen" , $_POST["origen"], PDO::PARAM_STR);
-		$stmt->bindParam("destino" , $_POST["destino"], PDO::PARAM_STR);
-		$stmt->bindParam("comision" , $_POST["comision"], PDO::PARAM_INT);
-		$stmt->bindParam("flete" , $_POST["flete"], PDO::PARAM_INT);
-		$stmt->bindParam("maniobra" , $_POST["maniobra"], PDO::PARAM_INT);
-		$stmt->bindParam("anticipo" , $_POST["anticipo"], PDO::PARAM_INT);
-		$stmt->bindParam("costoTotal" , $_POST["costoTotal"], PDO::PARAM_INT);
-		$stmt->bindParam("totalCompra" , $_POST["totalCompra"], PDO::PARAM_INT);
-		$stmt->bindParam("formaPago" , $_POST["formaPago"], PDO::PARAM_STR);
-
-		if($stmt->execute()){
-			return "success";
-		}
-
-		else{
-			return "error";
-		}
-		$stmt->close();
-	}
-
-
-
-
-
 
 	#ACTUALIZA COMPRA DE NUEZ Y CHILE
 	#-------------------------------------
-	public static function mdlActualizaComprasNuez($datosModel, $tabla){
+	public function mdlActualizaComprasNuez($datosModel, $tabla){
 
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :unidad1, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, anticipo = :anticipo, costoTotal = :costoTotal, total = :totalCompra, formaPago = :formaPago WHERE cons = :id");
@@ -802,7 +722,7 @@ class Datos extends Conexion {
 
 	#ACTUALIZA CLIENTE
 	#-------------------------------------
-	public static function mdlActualizaCliente($datosModel, $tabla){
+	public function mdlActualizaCliente($datosModel, $tabla){
 
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, razonSocial = :razonSocial, rfc = :rfc, direccion = :direccion, ubicacion = :ubicacion, ubicacion2 = :ubicacion2, ubicacion3 = :ubicacion3, telefono = :telefono, celular = :celular, celular2 = :celular2, contacto = :contacto, contacto2 = :contacto2, contacto3 = :contacto3, lineaCredito = :lineaCredito WHERE idCliente = :id");
@@ -836,7 +756,7 @@ class Datos extends Conexion {
 
 	#ACTUALIZA PROVEEDOR
 	#-------------------------------------
-	public static function mdlActualizaProveedor($datosModel, $tabla){
+	public function mdlActualizaProveedor($datosModel, $tabla){
 
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET codProveedor = :codProveedor, nombre = :nombre, razonSocial = :razonSocial, rfc = :rfc, direccion = :direccion, ubicacion = :ubicacion, ubicacion2 = :ubicacion2, ubicacion3 = :ubicacion3, telefono = :telefono, celular = :celular, celular2 = :celular2, contacto = :contacto, contacto2 = :contacto2, contacto3 = :contacto3, lineaCredito = :lineaCredito WHERE id = :id");
@@ -874,7 +794,7 @@ class Datos extends Conexion {
 	#MODELO ACTUALIZA CHOFER
 	#-----------------------------------------
 
-	public static function mdlActualizaChofer($datosModel, $tabla){
+	public function mdlActualizaChofer($datosModel, $tabla){
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre,alias = :alias,rfc = :rfc,direccion = :direccion, ine = :ine,licencia = :licencia,telefono = :telefono,telefono2 = :telefono2,telefono3 = :telefono3 ,fechaIngreso = :fechaIngreso WHERE idChofer =:id");
 
@@ -905,7 +825,7 @@ class Datos extends Conexion {
 
 	#Actualizar unidad
 
-	public static function mdlActualizaUnidad ($datosModel, $Tabla) {
+	public function mdlActualizaUnidad ($datosModel, $Tabla) {
 
 		$Statement = Conexion::conectar() -> prepare("UPDATE $Tabla SET descripcion = :descripcion, kilometraje = :kilometraje, anio = :anio, marca = :marca, modelo = :modelo, placas = :placas WHERE idUnidad = :idUnidad;");
 		$Statement -> bindParam(":idUnidad", $datosModel["idUnidad"], PDO::PARAM_INT);
@@ -927,7 +847,7 @@ class Datos extends Conexion {
 
 	#BORRAR USUARIO
 	#-------------------------------------
-	public static function mdlborrarUsuario($datosModel,$tabla){
+	public function mdlborrarUsuario($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -941,7 +861,7 @@ class Datos extends Conexion {
 
 	#BORRAR PRODUCTO
 	#-------------------------------------
-	public static function mdlborrarProducto($datosModel,$tabla){
+	public function mdlborrarProducto($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idProducto = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -955,7 +875,7 @@ class Datos extends Conexion {
 
 	#BORRAR CHOFER
 	#-------------------------------------
-	public static function mdlborrarChofer($datosModel,$tabla){
+	public function mdlborrarChofer($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idChofer = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -968,7 +888,7 @@ class Datos extends Conexion {
 
 	#BORRAR CLIENTE
 	#-------------------------------------
-	public static function mdlborrarCliente($datosModel,$tabla){
+	public function mdlborrarCliente($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idCliente = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -982,7 +902,7 @@ class Datos extends Conexion {
 
 	#BORRAR COMPRA
 	#-------------------------------------
-	public static function mdlborrarCompra($datosModel,$tabla){
+	public function mdlborrarCompra($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE cons = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -996,7 +916,7 @@ class Datos extends Conexion {
 
 	#ABRIR COMPRA
 	#-------------------------------------
-	public static function mdlAbrirCompra($datosModel,$tabla){
+	public function mdlAbrirCompra($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET status = 'A' WHERE cons = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -1016,7 +936,7 @@ class Datos extends Conexion {
 
  #CERRAR COMPRA
  #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	public static function mdlCerrarCompra($datosModel){
+	public function mdlCerrarCompra($datosModel){
 
 		$msg = "";
 
@@ -1109,7 +1029,7 @@ class Datos extends Conexion {
 
 	#BORRAR VENTA
 	#-------------------------------------
-	public static function mdlborrarVenta($datosModel,$tabla){
+	public function mdlborrarVenta($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE cons = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -1122,7 +1042,7 @@ class Datos extends Conexion {
 
 	#BORRAR PROVEEDOR
 	#-------------------------------------
-	public static function mdlborrarProveedor($datosModel,$tabla){
+	public function mdlborrarProveedor($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
 		$stmt -> bindParam(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
@@ -1135,7 +1055,7 @@ class Datos extends Conexion {
 
 	#Borrar Unidad
 
-	public static function mdlBorrarUnidad ($datosModel, $Tabla) {
+	public function mdlBorrarUnidad ($datosModel, $Tabla) {
 		$Statement = Conexion::conectar() -> prepare ("DELETE FROM $Tabla WHERE idUnidad = :id;");
 		$Statement -> bindParam(":id", $datosModel, PDO::PARAM_INT);
 
@@ -1151,7 +1071,7 @@ class Datos extends Conexion {
 	#BUSCA UN USUARIO
 	#-------------------------------------
 
-	public static function mdlBuscaUsuario($tabla, $usuario){
+	public function mdlBuscaUsuario($tabla, $usuario){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
 
@@ -1167,7 +1087,7 @@ class Datos extends Conexion {
 	#BUSCA UN PRODUCTO
 	#-------------------------------------
 
-	public static function mdlBuscaProducto($tabla, $producto){
+	public function mdlBuscaProducto($tabla, $producto){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idProducto = :id");
 
@@ -1184,7 +1104,7 @@ class Datos extends Conexion {
 	#BUSCA UN USUARIO
 	#-------------------------------------
 
-	public static function mdlBuscaChofer($tabla, $usuario){
+	public function mdlBuscaChofer($tabla, $usuario){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idChofer = :id");
 
@@ -1199,7 +1119,7 @@ class Datos extends Conexion {
 	#BUSCA UN USUARIO
 	#-------------------------------------
 
-	public static function mdlBuscaCompraUpdt($tabla, $compra){
+	public function mdlBuscaCompraUpdt($tabla, $compra){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE cons = :compra");
 
@@ -1214,7 +1134,7 @@ class Datos extends Conexion {
 	#BUSCA UN USUARIO
 	#-------------------------------------
 
-	public static function mdlBuscaCliente($tabla, $usuario){
+	public function mdlBuscaCliente($tabla, $usuario){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idCliente = :id");
 
@@ -1230,7 +1150,7 @@ class Datos extends Conexion {
 	#BUSCA UN PROVEEDOR
 	#-------------------------------------
 
-	public static function mdlBuscaProveedor($tabla, $usuario) {
+	public function mdlBuscaProveedor($tabla, $usuario) {
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
 
@@ -1245,7 +1165,7 @@ class Datos extends Conexion {
 
 	#CONSULTA DE INVENTARIOS DE NUEZ
 
-	public static function mdlInventarioNuez () {
+	public function mdlInventarioNuez () {
 		$Statement = Conexion::conectar()->prepare("SELECT * FROM inventarioNuez");
 
 		//$Statement -> bindParam(":codProd", $Parametros['producto'], PDO::PARAM_STR);
@@ -1267,7 +1187,7 @@ class Datos extends Conexion {
 
 	#BUSCA DATOS ESPECIFICOS DE COMPRA PARA GENERAR UN REPORTE
 
-	public static function mdlReportes ($Parametros) {
+	public function mdlReportes ($Parametros) {
 		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, fecha, proveedor, productor, precio, kg, costoTotal, total FROM entradas WHERE fecha BETWEEN :de AND :hasta AND codProducto = :codProd");
 
 		$Statement -> bindParam(":de", $Parametros['de'], PDO::PARAM_STR);
@@ -1281,61 +1201,5 @@ class Datos extends Conexion {
 				echo "adios";
 			}
 	}
-
-
-
-	#DATOS PARA GRAFICA 2
-	#-------------------------------------
-
-	public static function graficaMensualModel($tabla){
-
-		$stmt = Conexion::conectar()->prepare("SELECT SUM(total) AS total , MONTHNAME(fecha) AS mes FROM $tabla WHERE YEAR(fecha)='2020' GROUP BY MONTH(fecha) ORDER BY fecha");
-		$stmt -> execute();
-		return $stmt -> fetchALL();
-
-		$stmt->close();
-	}
-
-
-	#BUSCA EL INVENTARIO, KILOS ADQUIRIDOS PARA DAR UN PORCENTAJE DE EXISTENCIA EN INVENTARIO
-
-	public static function mdlInventario ($codProducto) {
-		$Statement = Conexion::conectar()->prepare("
-			SELECT SUM(`inventario`) AS inventario, SUM(`kg`) AS kgs, (SUM(`inventario`) / SUM(`kg`))*100 AS porcentaje FROM entradas where codProducto=:codProd");
-
-		$Statement -> bindParam(":codProd", $codProducto, PDO::PARAM_STR);
-
-			if ($Statement -> execute()) {
-				$Resultado = $Statement -> fetchAll();
-				return $Resultado;
-			} else {
-				echo "adios";
-			}
-	}
-
-
-	# CUENTA OPERACIONES COMPRAS O VENTAS
-	#-------------------------------------
-
-	public static function mdlCuentaOps($tabla){
-
-		$stmt = Conexion::conectar()->prepare("SELECT COUNT(cons) AS resultado FROM $tabla");
-		$stmt->execute();
-		return $stmt->fetchAll();
-		$stmt->close();
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 } // conexion

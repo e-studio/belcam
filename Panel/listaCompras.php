@@ -63,7 +63,7 @@ require_once "includes/crud.php";
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lista de Compras - MAYOREO
+        Lista de Compras
       </h1>
       <br>
     </section>

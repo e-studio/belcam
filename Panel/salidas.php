@@ -7,16 +7,6 @@ if(!$_SESSION["valido"]){
 
 require_once "includes/controller.php";
 require_once "includes/crud.php";
-
-function opNum(){
-  setlocale(LC_ALL,"es_MX");
-
-  $fecha = strftime('%y%m%d');
-  $siguiente = new MvcController();
-  $siguiente -> ctlBuscaNumOpSalidas($fecha);
-
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -53,10 +43,9 @@ function opNum(){
                   </div>
                   <div class="box-body">
                     <div class="row">
-                      <div class="col-xs-2">
+                      <div class="col-xs-3">
                         <label># Operacion</label>
-                        <!-- <input type="text" required name="operacion" id="operacion" class="form-control" onchange="buscaSalida(this.value)"> -->
-                        <input type="text" id="operacion" name="operacion" value="" class="form-control" onblur="buscaSalida(this.value)">
+                        <input type="text" required name="operacion" id="operacion" class="form-control" onchange="buscaSalida(this.value)">
                       </div>
                       <div class="col-xs-3">
                         <label>Cliente</label>
@@ -298,9 +287,9 @@ function opNum(){
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<!-- Morris.js charts
+<!-- Morris.js charts -->
 <script src="bower_components/raphael/raphael.min.js"></script>
-<script src="bower_components/morris.js/morris.min.js"></script>-->
+<script src="bower_components/morris.js/morris.min.js"></script>
 
 <!-- Sparkline -->
 <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>

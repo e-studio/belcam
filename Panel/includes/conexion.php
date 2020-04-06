@@ -2,7 +2,7 @@
 
 class Conexion{
 
-	public static function conectar(){
+	public function conectar(){
 		// conexion local
 		$servername = "127.0.0.1";
 		$username = "root";
