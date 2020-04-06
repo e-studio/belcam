@@ -76,35 +76,6 @@
             <a href="listaCompras.php" class="small-box-footer">Mas... <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
-        <!-- <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div> -->
-        <!-- ./col -->
-        <!-- <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div> -->
-        <!-- ./col -->
       </div>
       <!-- /.row -->
 
@@ -228,6 +199,44 @@
         </div>
         <!-- /.col -->
       </div>
+    </div>
+      <!-- /.row -->
+
+    </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Otro Reporte</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-8">
+
+                  <div class="chart">
+                    <!-- Sales Chart Canvas -->
+
+                    <canvas id="otraGrafica" style="height: 180px;"></canvas>
+
+
+                    </div>
+                                      <!-- /.chart-responsive -->
+                  <!-- /.chart-responsive -->
+                </div>
+                <!-- /.col -->
+              </div>
+            </div>
+            <!-- ./box-body -->
+            <!-- /.box-footer -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+    </div>
       <!-- /.row -->
 
     </section>
@@ -254,8 +263,10 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<!-- ChartJS -->
-<script src="bower_components/chart.js/Chart.js"></script>
+<!-- ChartJS
+<script src="bower_components/chart.js/Chart.js"></script>-->
+<script src="dist/Chart.js"></script>
+<script src="dist/Chart.min.js"></script>
 
 <!-- Morris.js charts
 <script src="bower_components/raphael/raphael.min.js"></script>
@@ -271,11 +282,11 @@
 
 <!-- jQuery Knob Chart -->
 <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-<!-- daterangepicker
+<!-- daterangepicker-->
 <script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>-->
-<!-- datepicker
-<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>-->
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker-->
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->
@@ -292,6 +303,69 @@
   $grafica = new MvcController();
   $grafica -> grafica1Controller();
 ?>
+
+<script>
+                      var ctx = document.getElementById('otraGrafica').getContext('2d');
+                      var myChart = new Chart(ctx, {
+                          type: 'line',
+                          data: {
+                              labels: ['Ene', 'Feb', 'Marzo', 'Abril', 'Mayo', 'Jun'],
+                              datasets: [{
+                                  label: '# of Votes',
+                                  data: [12, 0, 3, 5, 2, 3],
+                                  backgroundColor: [
+                                      'rgba(255, 99, 0, 0.5)',
+                                      'rgba(255, 99, 0, 0.5)',
+                                      'rgba(255, 99, 0, 0.5)',
+                                      'rgba(255, 99, 0, 0.5)',
+                                      'rgba(255, 99, 0, 0.5)',
+                                      'rgba(255, 99, 0, 0.5)'
+                                  ],
+                                  borderColor: [
+                                      'rgba(255, 99, 0, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)'
+                                  ],
+                                  borderWidth: 1
+                              },
+                              {
+                                  label: '# of Horses',
+                                  data: [7, 15, 6, 16, 10, 3],
+                                  backgroundColor: [
+                                      'rgba(255, 99, 132, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)',
+                                      'rgba(255, 206, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)',
+                                      'rgba(153, 102, 255, 0.2)',
+                                      'rgba(255, 159, 64, 0.2)'
+                                  ],
+                                  borderColor: [
+                                      'rgba(255, 99, 132, 1)',
+                                      'rgba(54, 162, 235, 1)',
+                                      'rgba(255, 206, 86, 1)',
+                                      'rgba(75, 192, 192, 1)',
+                                      'rgba(153, 102, 255, 1)',
+                                      'rgba(255, 159, 64, 1)'
+                                  ],
+                                  borderWidth: 1
+                              }
+
+                              ]
+                          },
+                          options: {
+                              scales: {
+                                  yAxes: [{
+                                      ticks: {
+                                          beginAtZero: true
+                                      }
+                                  }]
+                              }
+                          }
+                      });
+                      </script>
 
 
 

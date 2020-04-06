@@ -1470,11 +1470,6 @@ class MvcController{
     	}
     }
 
-<<<<<<< HEAD
-    public function ctlPromedios () {
-=======
-
-
 //Busca el inventario de cierto producto para las graficas de la pantalla de inicio
 public function ctlBuscarInventario ($codProducto) {
 			$respuesta = Datos::mdlInventario($codProducto);
@@ -1497,7 +1492,6 @@ public function ctlBuscarInventario ($codProducto) {
 
 
     public function ctlPromedios ($Cosa) {
->>>>>>> parent of ebd7ac27... Revert "Actualizacion 6 Abril 2020"
     	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     		$Datos = $_POST["ans"];
@@ -1517,7 +1511,7 @@ public function ctlBuscarInventario ($codProducto) {
     		if ($SumaPrecio != 0.0) {
     			$SumaPrecio /= $Contador;
     		}
-    		
+
 
     		echo "
     			<div class='col-md-4'>
