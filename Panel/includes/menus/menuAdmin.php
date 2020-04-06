@@ -51,6 +51,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="entradas.php"><i class="fa fa-plus-square"></i> Nueva</a></li>
+            <li><a href="listaCompras.php"><i class="fa fa-list-ol"></i> Listado</a></li>
           </ul>
         </li>
 
