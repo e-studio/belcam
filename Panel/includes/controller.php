@@ -1375,65 +1375,91 @@ class MvcController{
     	}
     }
 
-    public function ctlPromedios ($Cosa) {
+    public function ctlPromedios () {
     	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    		if ($Cosa == "precio") {
-    			$Datos = $_POST["ans"];
-    			$Suma = 0.0;
-    			$Contador = 0;
-    				foreach($Datos as $Row => $item) {
-    				$Suma += $item["precio"];
-    				$Contador++;
-    				}
-	    				if ($Suma == 0) {
-	    					echo "0.0";
-	    				} else {
-	    					echo number_format($Suma / $Contador, 3);
-	    				}
+    		$Datos = $_POST["ans"];
+    		$SumaPrecio = 0.0;
+    		$SumaKg = 0.0;
+    		$SumaCosto = 0.0;
+    		$SumaTotal = 0.0;
+    		$Contador = 0;
 
-    		} else if ($Cosa == "kg") {
-    			$Datos = $_POST["ans"];
-    			$Suma = 0.0;
-    			$Contador = 0;
-    				foreach($Datos as $Row => $item) {
-    				$Suma += $item["kg"];
+    		foreach($Datos as $Row => $item) {
+    				$SumaPrecio += $item["precio"];
+    				$SumaKg += $item["kg"];
+    				$SumaCosto += $item["costoTotal"];
+    				$SumaTotal += $item["total"];
     				$Contador++;
-    				}
-	    				if ($Suma == 0) {
-	    					echo "0.0";
-	    				} else {
-	    					echo number_format($Suma, 2, ".", ",");
-	    				}
-    		} else if ($Cosa == "costo") {
-    			$Datos = $_POST["ans"];
-    			$Suma = 0.0;
-    			$Contador = 0;
-    				foreach($Datos as $Row => $item) {
-    				$Suma += $item["costoTotal"];
-    				$Contador++;
-    				}
-	    				if ($Suma == 0) {
-	    					echo "0.0";
-	    				} else {
-	    					echo number_format($Suma, 2, ".", ",");
-	    				}
-    		} else if ($Cosa == "total") {
-    			$Datos = $_POST["ans"];
-    			$Suma = 0.0;
-    			$Contador = 0;
-    				foreach($Datos as $Row => $item) {
-    				$Suma += $item["total"];
-    				$Contador++;
-    				}
-	    				if ($Suma == 0) {
-	    					echo "0.0";
-	    				} else {
-	    					echo number_format($Suma, 2, ".", ",");
-	    				}
     		}
+    		if ($SumaPrecio != 0.0) {
+    			$SumaPrecio /= $Contador;
+    		}
+    		
 
+    		echo "
+    			<div class='col-md-4'>
+						<div class='box box-primary'>
+							<div class='box-header with-border'>
+								<h3 class='box-title'>Reporte</h3>
+							</div>
+							<div class='box-body'>
+								<div class='row'>
+									<div class='col-md-6'>
+										<h4>Precio promedio</h4>
+									</div>
+									<div class='col-md-2'></div>
+									<div class='col-md-2'>
+										<h4>".
+											number_format($SumaPrecio, 3)
+										."
+										</h4>
+									</div>
+									<div class='col-md-2'></div>
+								</div>
 
+								<div class='row'>
+									<div class='col-md-6'>
+										<h4>KG totales</h4>
+									</div>
+									<div class='col-md-2'></div>
+									<div class='col-md-2'>
+										<h4>".
+											number_format($SumaKg, 3)
+										."
+										</h4>
+									</div>
+									<div class='col-md-2'></div>
+								</div>
+								<div class='row'>
+									<div class='col-md-6'>
+										<h4>Costo Total</h4>
+									</div>
+									<div class='col-md-2'></div>
+									<div class='col-md-2'>
+										<h4>".
+											number_format($SumaCosto, 3)
+										."
+										</h4>
+									</div>
+									<div class='col-md-2'></div>
+								</div>
+								<div class='row'>
+									<div class='col-md-6'>
+										<h4>Total</h4>
+									</div>
+									<div class='col-md-2'></div>
+									<div class='col-md-2'>
+										<h4>".
+											number_format($SumaTotal, 3)
+										."
+										</h4>
+									</div>
+									<div class='col-md-2'></div>
+								</div>
+							</div>
+						</div>
+					</div>";
     	}
     }
 
