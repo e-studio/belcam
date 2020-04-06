@@ -1,8 +1,8 @@
 <?php
 $codigo = $_GET['codigo'];
 
-require_once "../includes/controller.php";
-require_once "../includes/crud.php";
+require_once "controller.php";
+require_once "crud.php";
 
 $precio = new MvcController();
 $precio->buscaComprasAjax("entradas",$codigo);

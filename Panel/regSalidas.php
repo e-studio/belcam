@@ -27,10 +27,10 @@ $costo = $_POST["costo"];
 $total = $_POST["total"];
 $utViaje = $_POST["utViaje"];
 $merma = $_POST["merma"];
-$fecha =  $_POST["fecha"];
-$referencia =  $_POST["referencia"];
-$monto =  $_POST["monto"];
-$saldo =  $_POST["saldo"];
+// $fecha =  $_POST["fecha"];
+// $referencia =  $_POST["referencia"];
+// $monto =  $_POST["monto"];
+// $saldo =  $_POST["saldo"];
 $listaCompras = $_POST["listaCompras"];
 
 
@@ -58,6 +58,7 @@ try {
     alert("Registro Guardado");
     window.location.href="salidas.php";
     </script>';
+
     }
 catch(PDOException $e)
     {

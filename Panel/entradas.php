@@ -51,7 +51,7 @@ function opNum(){
                      <div class="row">
                         <div class="col-xs-2">
                         <label>#Operacion</label>
-                        <input type="text" readonly="true" id="operacion" name="operacion" value="<?php opNum(); ?>" class="form-control" onchange="buscaEntrada(this.value)">
+                        <input type="text" required id="operacion" name="operacion" value="" class="form-control" onblur="buscaEntrada(this.value)">
                         </div>
                         <div class="col-xs-2">
                            <label>Lote</label>
@@ -82,9 +82,9 @@ function opNum(){
                         </div>
                         <div class="col-xs-2">
                           <label>Operador</label>
-                          <select class="form-control" name="op" >
-                              <option></option>
-                              <?php $Operadores = new MvcController(); $Operadores -> ctlBuscaOperadores();?>
+                          <select class="form-control" required name="op" >
+                            <option value="">Selecione</option>
+                              <?php $Operadores = new MvcController(); $Operadores -> ctlBuscaOperadores('no');?>
                            </select>
                         </div>
 
