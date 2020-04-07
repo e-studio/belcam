@@ -88,56 +88,17 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-                <div class="col-md-8">
+
+                <div class="col-md-6">
                   <p class="text-center">
                     <strong>Ventas</strong>
                   </p>
-
                   <div class="chart">
-                    <!-- Sales Chart Canvas -->
                     <canvas id="graficaVentas" style="height: 180px;"></canvas>
-                  </div>
-                  <!-- /.chart-responsive -->
+                    </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-md-4">
-                  <p class="text-center">
-                    <strong>Inventarios</strong>
-                  </p>
 
-                  <div class="progress-group">
-                    <span class="progress-text">Alfalfa</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("AL");
-                    ?>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Avena</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("AV");
-                    ?>
-
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Rastrojo</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("RA");
-                    ?>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Zacate</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("ZA");
-                    ?>
-                  </div>
-                  <!-- /.progress-group -->
-                </div>
-                <!-- /.col -->
-              </div>
-              <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <p class="text-center">
                     <strong>Compras</strong>
                   </p>
@@ -194,55 +155,61 @@
               <!-- /.row -->
             </div>
             <!-- /.box-footer -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-    </div>
-      <!-- /.row -->
+          </div><!-- /.box -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
 
-    </section>
-
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row">   <!-- Seccion de Inventarios -->
+        <div class="col-md-5">
           <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Otro Reporte</h3>
-            </div>
-            <!-- /.box-header -->
             <div class="box-body">
+              <div class="box-header with-border">
+              <h3 class="box-title">Inventarios</h3>
+            </div>
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
+                  <div class="progress-group">
+                    <span class="progress-text">Alfalfa</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("AL");
+                    ?>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Avena</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("AV");
+                    ?>
 
-                  <div class="chart">
-                    <!-- Sales Chart Canvas -->
-
-                    <canvas id="otraGrafica" style="height: 180px;"></canvas>
-
-
-                    </div>
-                                      <!-- /.chart-responsive -->
-                  <!-- /.chart-responsive -->
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Rastrojo</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("RA");
+                    ?>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Zacate</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("ZA");
+                    ?>
+                  </div>
+                  <!-- /.progress-group -->
                 </div>
-                <!-- /.col -->
               </div>
             </div>
-            <!-- ./box-body -->
-            <!-- /.box-footer -->
           </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
       </div>
-    </div>
-      <!-- /.row -->
+
+
+
 
     </section>
 
-
-    <!-- /.content -->
+  <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <?php
@@ -305,68 +272,129 @@
 ?>
 
 <script>
-                      var ctx = document.getElementById('otraGrafica').getContext('2d');
-                      var myChart = new Chart(ctx, {
-                          type: 'line',
-                          data: {
-                              labels: ['Ene', 'Feb', 'Marzo', 'Abril', 'Mayo', 'Jun'],
-                              datasets: [{
-                                  label: '# of Votes',
-                                  data: [12, 0, 3, 5, 2, 3],
-                                  backgroundColor: [
-                                      'rgba(255, 99, 0, 0.5)',
-                                      'rgba(255, 99, 0, 0.5)',
-                                      'rgba(255, 99, 0, 0.5)',
-                                      'rgba(255, 99, 0, 0.5)',
-                                      'rgba(255, 99, 0, 0.5)',
-                                      'rgba(255, 99, 0, 0.5)'
-                                  ],
-                                  borderColor: [
-                                      'rgba(255, 99, 0, 1)',
-                                      'rgba(54, 162, 235, 1)',
-                                      'rgba(255, 206, 86, 1)',
-                                      'rgba(75, 192, 192, 1)',
-                                      'rgba(153, 102, 255, 1)',
-                                      'rgba(255, 159, 64, 1)'
-                                  ],
-                                  borderWidth: 1
-                              },
-                              {
-                                  label: '# of Horses',
-                                  data: [7, 15, 6, 16, 10, 3],
-                                  backgroundColor: [
-                                      'rgba(255, 99, 132, 0.2)',
-                                      'rgba(54, 162, 235, 0.2)',
-                                      'rgba(255, 206, 86, 0.2)',
-                                      'rgba(75, 192, 192, 0.2)',
-                                      'rgba(153, 102, 255, 0.2)',
-                                      'rgba(255, 159, 64, 0.2)'
-                                  ],
-                                  borderColor: [
-                                      'rgba(255, 99, 132, 1)',
-                                      'rgba(54, 162, 235, 1)',
-                                      'rgba(255, 206, 86, 1)',
-                                      'rgba(75, 192, 192, 1)',
-                                      'rgba(153, 102, 255, 1)',
-                                      'rgba(255, 159, 64, 1)'
-                                  ],
-                                  borderWidth: 1
-                              }
+  var ctx = document.getElementById('graficaVentas').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['Ene', 'Feb', 'Marzo', 'Abril', 'Mayo', 'Jun'],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 0, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 0, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          },
+          {
+              label: '# of Horses',
+              data: [7, 15, 6, 16, 10, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }
 
-                              ]
-                          },
-                          options: {
-                              scales: {
-                                  yAxes: [{
-                                      ticks: {
-                                          beginAtZero: true
-                                      }
-                                  }]
-                              }
-                          }
-                      });
-                      </script>
+          ]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+</script>
+<script>
+  var ctx2 = document.getElementById('graficaCompras').getContext('2d');
+  var myChart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+          labels: ['Ene', 'Feb', 'Marzo', 'Abril', 'Mayo', 'Jun'],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 0, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)',
+                  'rgba(255, 99, 0, 0.5)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 0, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          },
+          {
+              label: '# of Horses',
+              data: [7, 15, 6, 16, 10, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }
 
+          ]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+</script>
 
 
 </body>
