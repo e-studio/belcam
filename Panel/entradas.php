@@ -71,9 +71,9 @@ function opNum(){
                          </div>
 
                          <div class="col-xs-2">
-                        <label>fecha</label>
-                        <input type="date" required id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
-                      </div>
+                          <label>fecha</label>
+                          <input type="date" required id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
+                        </div>
                      </div> <!-- Row-->
 
                      <div class="row">
