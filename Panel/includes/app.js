@@ -43,7 +43,6 @@ function validarIngreso(){
 function obtenerEvento(e) {
 	e.preventDefault();
 
-
   var datosJson, costoMerma = 0, utTotal=0, kgVenta=0;
 
 	var operacion = document.querySelector("#operacionCompra");
@@ -82,7 +81,6 @@ if (isNaN(precioVenta) || precioVenta == 0){
 
       utTotal = ventaTotal - costoTotal - costoMerma;
 
-
       document.querySelector("#totalVenta").value = ventaTotal;
       document.querySelector("#kgVenta").value = kgVenta;
       document.querySelector("#costoUnitario").value = promedio;
@@ -90,8 +88,6 @@ if (isNaN(precioVenta) || precioVenta == 0){
       document.querySelector("#utViaje").value = utTotal;
       document.querySelector("#costoMerma").value = costoMerma;
       document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utTotal).format('0,0.00');
-
-
 
       datos.push({
             "operacion": operacion,
@@ -103,7 +99,6 @@ if (isNaN(precioVenta) || precioVenta == 0){
 
       insertarRowTabla(operacionText, kilos, precio);
     }// validacion del precio de venta
-
 
 }
 
