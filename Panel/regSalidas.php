@@ -40,7 +40,7 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO `salidas`(`noOperacion`, `cliente`, `codProducto`, `unidad`,`remolque`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma`, `listaCompras`, `fecha`) VALUES ('$operacion', '$cliente', '$codProd', '$unidad','$remolque', $op, $kg, $um, $precioVenta, $calidad, '$origen', '$destino', $flete, $maniobra, $costoUnitario, $costo, $total, $utViaje, $merma, '$listaCompras', $fecha)";
+    $sql = "INSERT INTO `salidas`(`noOperacion`, `cliente`, `codProducto`, `unidad`,`remolque`, `operador`, `kg`, `um`, `precioVenta`, `calidad`, `origen`, `destino`, `flete`, `maniobra`, `costoUnitario`, `costo`, `total`, `utViaje`, `merma`, `listaCompras`, `fecha`) VALUES ('$operacion', '$cliente', '$codProd', '$unidad','$remolque', $op, $kg, $um, $precioVenta, $calidad, '$origen', '$destino', $flete, $maniobra, $costoUnitario, $costo, $total, $utViaje, $merma, '$listaCompras', '$fecha')";
     $conn->exec($sql);
 
     $array = json_decode($listaCompras);

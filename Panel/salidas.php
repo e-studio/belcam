@@ -85,7 +85,7 @@ function opNum(){
 
                       <div class="col-xs-2">
                         <label>fecha</label>
-                        <input type="text" required name="fecha" class="form-control">
+                        <input type="date" required id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
                       </div>
 
                     </div><!-- row -->
@@ -104,7 +104,7 @@ function opNum(){
                       <div class="col-xs-3">
                         <label>Unidad</label>
                         <select class="form-control" requered name="unidad">
-                          <option>Seleccione</option>  
+                          <option>Seleccione</option>
                           <?php
                             $Unidades = new MvcController();
                             $Unidades -> ctlBuscaUnidades();
@@ -115,16 +115,16 @@ function opNum(){
                       <div class="col-xs-3">
                         <label>Remolque</label>
                         <select class="form-control" requered name="remolque">
-                          <option>Seleccione</option>  
+                          <option value="">Seleccione</option>
                           <?php
-                            
+
                           ?>
                         </select>
                       </div>
                       <div class="col-xs-3">
                         <label>Operador</label>
-                        <select class="form-control" requered name="unidad">
-                          <option>Seleccione</option>  
+                        <select class="form-control" requered name="op">
+                          <option>Seleccione</option>
                           <?php
                             $Operadores = new MvcController();
                             $Operadores -> ctlOperadores();
@@ -307,6 +307,11 @@ function opNum(){
 
 </div>
 <!-- ./wrapper -->
+
+<!-- pone la fecha de hoy en el datepick -->
+<!-- <script>
+  document.getElementById('fecha').valueAsDate = new Date();
+</script> -->
 
 <!-- Mi app JS -->
 <script src="includes/app.js"></script>
