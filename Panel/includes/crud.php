@@ -144,7 +144,7 @@ class Datos extends Conexion {
 	#Lista de Unidades
 
 	public static function mdlListaUnidades ($tabla) {
-		$Statement = Conexion::conectar() -> prepare("SELECT * FROM $tabla ORDER BY placas");
+		$Statement = Conexion::conectar() -> prepare("SELECT * FROM $tabla ORDER BY idUnidad");
 		$Statement -> execute();
 		return $Statement -> fetchAll();
 
@@ -308,6 +308,7 @@ class Datos extends Conexion {
 		$stmt->close();
 
 	}
+
 
 
 	#REGISTRO DE USUARIOS
@@ -559,13 +560,11 @@ class Datos extends Conexion {
 
 	public static function mdlRegistroUnidad ($datosModel, $Tabla) {
 
-		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `descripcion`, `kilometraje`, `anio`, `marca`, `modelo`, `placas`) VALUES (null, :descripcion, :kilometraje, :anio, :marca, :modelo, :placas);");
+		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `descripcion`, `kilometraje`, `modelo`, `placas`) VALUES (null, :descripcion, :kilometraje, :modelo, :placas);");
 
 		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
 		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
-		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
-		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
-		$Statement -> bindParam(":modelo", $datosModel["modelo"], PDO::PARAM_STR);
+		$Statement -> bindParam(":modelo", $datosModel["anio"], PDO::PARAM_STR);
 		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
 
 			if ($Statement -> execute()) {

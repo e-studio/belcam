@@ -43,7 +43,13 @@ class MvcController{
 		}
 	}
 
+	public function ctlOperadores () {
+		$Respuesta = Datos::mdlOperadores();
 
+		foreach ($Respuesta as $Row => $Item) {
+			echo "<option value='" . $Item['idChofer'] . "'>" . $Item['nombre'] . "</option>";
+		}
+	}
 
 
 	#-----------------------------------------------------------
@@ -151,6 +157,16 @@ class MvcController{
 
 		foreach ($respuesta as $row => $item){
 			echo  '<option value="'.$item["destino"].'">'.$item["destino"].'</option>';
+		}
+	}
+
+	public function ctlBuscaUnidades () {
+
+
+		$Respuesta = Datos::mdlListaUnidades("unidades");
+
+		foreach ($Respuesta as $Row => $Item) {
+			echo "<option value='".$Item['idUnidad']."'>" . $Item['placas'] . "</option>";
 		}
 	}
 
