@@ -158,7 +158,7 @@ function opNum(){
                     <div class="row">
                       <div class="col-xs-3">
                         <label>Precio de Venta</label>
-                        <input type="text" required id="precioVenta" name="precio" class="form-control">
+                        <input type="text" required id="precioVenta" name="precio" class="form-control" onblur="recalcula()">
                       </div>
 
                     <div class="col-xs-3">

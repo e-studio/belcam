@@ -232,11 +232,21 @@ function buscaProducto(codigo) {
     }
 
 
-    function calculaTotal(){
-    	const kg = document.querySelector('#kg');
-    	const precio = document.querySelector('#precio');
+    function recalcula(){
+    	const kg = document.querySelector('#kgVenta');
+      const precio = document.querySelector('#precio');
     	const costoTotal = document.querySelector('#costoTotal');
     	const totalCosto = document.querySelector('#totalCosto');
+
+      // document.querySelector("#totalVenta").value = ventaTotal;
+      // document.querySelector("#kgVenta").value = kgVenta;
+      // document.querySelector("#costoUnitario").value = promedio;
+      // document.querySelector("#costo").value = costoTotal;
+      // document.querySelector("#utViaje").value = utTotal;
+      // document.querySelector("#costoMerma").value = costoMerma;
+      // document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utTotal).format('0,0.00');
+
+      console.log("totalVenta "+ventaTotal +" kgVenta "+kgVenta+ "costoUnitario" + promedio);
 
 
     }
