@@ -97,17 +97,35 @@ function opNum(){
 
                       <div class="col-xs-3">
                         <label>Unidad</label>
-                        <input type="text" name="unidad" class="form-control">
+                        <select class="form-control" requered name="unidad">
+                          <option>Seleccione</option>  
+                          <?php
+                            $Unidades = new MvcController();
+                            $Unidades -> ctlBuscaUnidades();
+                          ?>
+                        </select>
                       </div>
 
                       <div class="col-xs-3">
                         <label>Remolque</label>
-                        <input type="text" name="remolque" class="form-control">
+                        <select class="form-control" requered name="remolque">
+                          <option>Seleccione</option>  
+                          <?php
+                            
+                          ?>
+                        </select>
                       </div>
                       <div class="col-xs-3">
-                        <label>Op</label>
-                        <input type="text" name="op" class="form-control">
+                        <label>Operador</label>
+                        <select class="form-control" requered name="unidad">
+                          <option>Seleccione</option>  
+                          <?php
+                            $Operadores = new MvcController();
+                            $Operadores -> ctlOperadores();
+                          ?>
+                        </select>
                       </div>
+
                       <div class="col-xs-3">
                         <label>U.M.</label>
                         <input type="text" required name="um" class="form-control">
