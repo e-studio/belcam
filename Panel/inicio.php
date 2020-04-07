@@ -40,6 +40,7 @@
       <!-- Info boxes -->
       <div class="row">
         <div class="col-lg-3 col-xs-6">
+          <div class="col-lg-12 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
@@ -56,9 +57,9 @@
             </div>
             <a href="listaVentas.php" class="small-box-footer">Mas... <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+          </div>
+
+          <div class="col-lg-12 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
@@ -76,10 +77,60 @@
             <a href="listaCompras.php" class="small-box-footer">Mas... <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-1 col-xs-2">
+        </div>
+
+        <div class="col-lg-6 col-xs-6">
+          <div class="box">
+            <div class="box-body">
+              <div class="box-header with-border">
+                <h3 class="box-title">Inventarios</h3>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="progress-group">
+                    <span class="progress-text">Alfalfa</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("AL");
+                    ?>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Avena</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("AV");
+                    ?>
+
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Rastrojo</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("RA");
+                    ?>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">Zacate</span>
+                    <?php
+                      $inventario -> ctlBuscarInventario("ZA");
+                    ?>
+                  </div>
+                  <!-- /.progress-group -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
       <!-- /.row -->
 
-      <div class="row">
+      <div class="row">    <!-- Reporte Mensual -->
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
@@ -158,54 +209,6 @@
           </div><!-- /.box -->
         </div><!-- /.col -->
       </div><!-- /.row -->
-
-      <div class="row">   <!-- Seccion de Inventarios -->
-        <div class="col-md-5">
-          <div class="box">
-            <div class="box-body">
-              <div class="box-header with-border">
-              <h3 class="box-title">Inventarios</h3>
-            </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="progress-group">
-                    <span class="progress-text">Alfalfa</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("AL");
-                    ?>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Avena</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("AV");
-                    ?>
-
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Rastrojo</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("RA");
-                    ?>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Zacate</span>
-                    <?php
-                      $inventario -> ctlBuscarInventario("ZA");
-                    ?>
-                  </div>
-                  <!-- /.progress-group -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
 
     </section>
 
@@ -332,6 +335,7 @@
           }
       }
   });
+  myChart.update();
 </script>
 <script>
   var ctx2 = document.getElementById('graficaCompras').getContext('2d');
@@ -394,6 +398,7 @@
           }
       }
   });
+  myChart2.update();
 </script>
 
 
