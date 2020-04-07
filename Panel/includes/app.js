@@ -59,7 +59,6 @@ if (isNaN(precioVenta) || precioVenta == 0){
     document.getElementById("precioVenta").focus();
   }
   else{
-      cont+=1;
       if (isNaN(merma)) merma = 0;
       if (isNaN(flete)) flete = 0;
       if (isNaN(maniobra)) maniobra = 0;
@@ -74,6 +73,8 @@ if (isNaN(precioVenta) || precioVenta == 0){
     	if (precioVenta == 0 || isNaN(precioVenta)) precioVenta = 0;
       if (kilos=="" || kilos==0 ||  isNaN(kilos)) kilos = 0;
 
+      console.log(precio);
+      if (precio > 0 ) cont+=1;
       suma += parseFloat(precio);
       promedio = suma/ cont;
       costoTotal = promedio * (kgVenta);
