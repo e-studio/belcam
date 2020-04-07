@@ -9,6 +9,7 @@
 
   $compra = $_REQUEST['idEditar'];
   $respuesta = Datos::mdlBuscaCompraUpdt("entradas",$compra);
+
 ?>
 <!DOCTYPE html>
 <html>
