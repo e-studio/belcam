@@ -66,7 +66,7 @@ function opNum(){
                           <?php $clientes = new MvcController(); $clientes -> ctlBuscaClientes();?>
                         </select>
                       </div>
-                      <div class="col-xs-3">
+                      <div class="col-xs-2">
                         <label>Producto</label>
                         <select class="form-control" required name="producto" onblur="buscaCompras(this.value)">
 
@@ -78,11 +78,17 @@ function opNum(){
                         </select>
                       </div>
 
-                      <div class="col-xs-3">
+                      <div class="col-xs-2">
                         <label>Destino</label>
                         <input type="text" required name="destino" class="form-control">
                       </div>
-                    </div>
+
+                      <div class="col-xs-2">
+                        <label>fecha</label>
+                        <input type="text" required name="fecha" class="form-control">
+                      </div>
+
+                    </div><!-- row -->
 
                     <div class="row">
                       <br><br>
