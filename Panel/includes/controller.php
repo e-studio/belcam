@@ -634,7 +634,8 @@ class MvcController{
 				"anticipo" => $_POST["anticipo"],
 				"costoTotal" => $_POST["costoTotal"],
 				"totalCompra" => $_POST["totalCompra"],
-				"formaPago" => $_POST["formaPago"]);
+				"formaPago" => $_POST["formaPago"],
+				"fecha" => $_POST["fecha"]);
 
 			$respuesta = Datos::mdlActualizaCompras($datosController, "entradas");
 

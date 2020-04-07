@@ -57,7 +57,7 @@ function opNum(){
                            <label>Lote</label>
                            <input type="text" required id="lote" name="lote" class="form-control">
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-3">
                            <label>Proveedor</label>
                            <select class="form-control" name="proveedor" >
                               <option></option>
@@ -65,10 +65,15 @@ function opNum(){
                            </select>
                         </div>
 
-                         <div class="col-xs-4">
+                         <div class="col-xs-3">
                            <label>Productor</label>
                            <input type="text" name="productor" class="form-control">
                          </div>
+
+                         <div class="col-xs-2">
+                        <label>fecha</label>
+                        <input type="date" required id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
+                      </div>
                      </div> <!-- Row-->
 
                      <div class="row">
