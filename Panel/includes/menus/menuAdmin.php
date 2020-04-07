@@ -15,6 +15,58 @@
 
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-industry"></i> <span>Mayoreo</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#"><i class="fa fa-money"></i> <span>Compras</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="entradas.php"><i class="fa fa-plus-square"></i> Nueva</a></li>
+                <li><a href="listaCompras.php"><i class="fa fa-list-ol"></i> Listado</a></li>
+
+              </ul>
+            </li>
+
+
+            <li class="treeview">
+              <a href="#"><i class="fa fa-usd"></i> <span> Ventas</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="salidas.php"><i class="fa fa-plus-square"></i> Nueva </a></li>
+                <li><a href="listaVentas.php"><i class="fa fa-list-ol"></i> Listado</a></li>
+
+              </ul>
+            </li>
+
+
+            <li class="treeview">
+
+              <a href="#"><i class="fas fa-money-check"></i><span> Reportes</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href=""><i class="fas fa-file-invoice-dollar"></i> Ventas</a></li>
+                <li><a href=""><i class="far fa-file-alt"></i> Compras</a></li>
+
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-lemon-o"></i> <span>Nuez</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -29,55 +81,51 @@
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa  fa-usd"></i> <span>Ventas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="salidas.php"><i class="fa fa-plus-square"></i> Nueva </a></li>
-            <li><a href="listaVentas.php"><i class="fa fa-list-ol"></i> Listado</a></li>
-          </ul>
-        </li>
 
         <li class="treeview">
           <a href="#">
-            <i class="fa  fa-money"></i> <span>Compras</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="entradas.php"><i class="fa fa-plus-square"></i> Nueva</a></li>
-            <li><a href="listaCompras.php"><i class="fa fa-list-ol"></i> Listado</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa  fa-database"></i> <span>Catalogos</span>
+            <i class="far fa-folder"></i> <span>Catalogos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
 
-            <li><a href="regChofer.php"><i class="fa fa-user-plus"></i> Chofer</a></li>
-            <li><a href="regCliente.php"><i class="fa fa-user-plus"></i> Cliente</a></li>
-            <li><a href="regProveedor.php"><i class="fa fa-user-plus"></i> Proveedor</a></li>
-            <li><a href="regUsuario.php"><i class="fa fa-user-plus"></i> Usuario</a></li>
-            <li><a href="regProducto.php"><i class="fa fa-user-plus"></i> Producto</a></li>
-            <li><a href="regUnidad.php"><i class="fa fa-truck"></i> Unidad</a></li>
-            <li>-</li>
+            <li class="treeview">
+              <a href="#"><i class="fas fa-folder-plus"></i> <span> Agregar</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="regChofer.php"><i class="fa fa-user-plus"></i> Chofer</a></li>
+                <li><a href="regCliente.php"><i class="fa fa-user-plus"></i> Cliente</a></li>
+                <li><a href="regProveedor.php"><i class="fa fa-user-plus"></i> Proveedor</a></li>
+                <li><a href="regUsuario.php"><i class="fa fa-user-plus"></i> Usuario</a></li>
+                <li><a href="regProducto.php"><i class="fa fa-user-plus"></i> Producto</a></li>
+                <li><a href="regUnidad.php"><i class="fa fa-truck"></i> Unidad</a></li>
+                <li>-</li>
 
-            <li><a href="listaChoferes.php"><i class="fa fa-group"></i> Choferes</a></li>
-            <li><a href="listaClientes.php"><i class="fa fa-group"></i> Clientes</a></li>
-            <li><a href="listaProveedores.php"><i class="fa fa-group"></i> Proveedores</a></li>
-            <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
-            <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
-            <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidades</a></li>
+              </ul>
+            </li>
+
+
+            <li class="treeview">
+              <a href="#"><i class="fas fa-list-ol"></i> <span> Listado</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="listaChoferes.php"><i class="fa fa-group"></i> Choferes</a></li>
+                <li><a href="listaClientes.php"><i class="fa fa-group"></i> Clientes</a></li>
+                <li><a href="listaProveedores.php"><i class="fa fa-group"></i> Proveedores</a></li>
+                <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
+                <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
+                <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidades</a></li>
+                 </ul>
+            </li>
+
           </ul>
         </li>
 
