@@ -104,6 +104,7 @@
                 <li><a href="regUsuario.php"><i class="fa fa-user-plus"></i> Usuario</a></li>
                 <li><a href="regProducto.php"><i class="fa fa-user-plus"></i> Producto</a></li>
                 <li><a href="regUnidad.php"><i class="fa fa-truck"></i> Unidad</a></li>
+                <li><a href="regRemolque.php"><i class="fas fa-trailer"></i> Remolque</a></li>
                 <li>-</li>
 
               </ul>
@@ -123,9 +124,9 @@
                 <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
                 <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
                 <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidades</a></li>
+                <li><a href="listaRemolques.php"><i class="fas fa-trailer"></i> Remolques</a></li>
                  </ul>
             </li>
-
           </ul>
         </li>
 

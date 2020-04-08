@@ -76,7 +76,7 @@
   			<?php 
 
   				$Registro = new MvcController();
-  				$Registro -> ctlRegistroUnidad();
+  				$Registro -> ctlRegistroRemolque();
 
   			?>
   		</section>

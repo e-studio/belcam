@@ -151,6 +151,14 @@ class Datos extends Conexion {
 		$Statement -> close();
 	}
 
+	public static function mdlListaRemolques ($Tabla) {
+		$Statement = Conexion::conectar() -> prepare("SELECT * FROM $Tabla ORDER BY id");
+		$Statement -> execute();
+		return $Statement -> fetchAll();
+
+		$Statement -> close();
+	}
+
 	# LISTA DE CLIENTES
 	#-------------------------------------
 
@@ -373,6 +381,17 @@ class Datos extends Conexion {
 		$Statement->close();
     }
 
+    public static function mdlBuscaRemolque ($Tabla, $Id) {
+    	$Statement = Conexion::conectar()->prepare("SELECT * FROM $Tabla WHERE id = :id");
+
+    	$Statement -> bindParam(":id", $Id, PDO::PARAM_INT);
+
+    	$Statement -> execute();
+    	return $Statement -> fetch();
+    	echo $Statement;
+    	$Statement -> close();
+    }
+
     public static function mdlRegistroEntrada ($datosModel, $tabla) {
     	$Statement = Conexion::conectar() -> prepare("INSERT INTO $tabla (lote, noOperacion, proveedor, productor, codProducto, unidad, unidad1, operador, kg, inventario, um, precio, calidad, origen, destino, comision, flete, maniobra, costoTotal, total, fecha, referencia, monto, saldo) VALUES (:lote, :noOperacion, :proveedor, :productor, :codProducto, :unidad, :unidad1, :operador, :kg, :inventario, :um, :precio, :calidad, :origen, :destino, :comision, :flete, :maniobra, :costoTotal, :total, :fecha, :referencia, :monto, :saldo)");
 
@@ -576,6 +595,24 @@ class Datos extends Conexion {
 		$Statement -> close();
 
 	}
+
+	public static function mdlRegistroRemolque ($Datos, $Tabla) {
+		$Statement = Conexion::conectar()->prepare("INSERT INTO $Tabla (`id`, `noEconomico`, `marca`, `anio`, `placas`) VALUES (null, :noEconomico, :marca, :anio, :placas);");
+
+		$Statement -> bindParam(":noEconomico", $Datos["noEconomico"], PDO::PARAM_INT);
+		$Statement -> bindParam(":marca", $Datos["marca"], PDO::PARAM_STR);
+		$Statement -> bindParam(":anio", $Datos["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":placas", $Datos["placas"], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				return "success";
+			} else {
+				return "error";
+			}
+
+		$Statement -> close();
+	}
+
 
 	#Registro Entradas
 
@@ -925,6 +962,24 @@ class Datos extends Conexion {
 		$Statement -> close();
 	}
 
+	public static function mdlUpdtRemolque ($Datos, $Tabla) {
+		$Statement = Conexion::conectar() -> prepare("UPDATE remolques SET noEconomico = :noEconomico, marca = :marca, anio = :anio, placas = :placas WHERE id = :id;");
+
+		$Statement -> bindParam(":id", $Datos["id"], PDO::PARAM_INT);
+		$Statement -> bindParam(":noEconomico", $Datos["noEconomico"], PDO::PARAM_INT);
+		$Statement -> bindParam(":marca", $Datos["marca"], PDO::PARAM_STR);
+		$Statement -> bindParam(":anio", $Datos["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":placas", $Datos["placas"], PDO::PARAM_STR);
+
+			if ($Statement -> execute()) {
+				return "success";
+			} else {
+				return "error";
+			}
+
+		$Statement -> close();
+	}
+
 	#BORRAR USUARIO
 	#-------------------------------------
 	public static function mdlborrarUsuario($datosModel,$tabla){
@@ -1148,6 +1203,19 @@ class Datos extends Conexion {
 		$Statement -> close();
 	}
 
+	public static function mdlBorrarRemolque ($Datos, $Tabla) {
+		$Statement = Conexion::conectar() -> prepare("DELETE FROM $Tabla WHERE id = :id;");
+		$Statement -> bindParam(":id", $Datos, PDO::PARAM_INT);
+
+		if ($Statement -> execute()) {
+			return "success";
+		}	else {
+			return "error";
+		}
+
+		$Statement -> close();
+	}
+
 	#BUSCA UN USUARIO
 	#-------------------------------------
 
@@ -1258,6 +1326,7 @@ class Datos extends Conexion {
 		}
 
 	}
+
 
 
 
