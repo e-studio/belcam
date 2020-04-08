@@ -57,8 +57,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fas fa-file-invoice-dollar"></i> Ventas</a></li>
-                <li><a href=""><i class="far fa-file-alt"></i> Compras</a></li>
+                <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Ventas</a></li>
+                <li><a href="#"><i class="far fa-file-alt"></i> Compras</a></li>
 
               </ul>
             </li>
@@ -128,21 +128,6 @@
 
           </ul>
         </li>
-
-
-        <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-list-alt"></i> <span>Reportes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-list-ol"></i> - </a></li>
-            <li><a href="#"><i class="fa fa-list-ol"></i> - </a></li>
-          </ul>
-        </li> -->
-
 
       </ul>
     </section>
