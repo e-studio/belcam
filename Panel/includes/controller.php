@@ -170,6 +170,14 @@ class MvcController{
 		}
 	}
 
+	public function ctlBuscaRemolques () {
+		$Respuesta = Datos::mdlListaRemolques("remolques");
+
+		foreach($Respuesta as $Row => $Item) {
+			echo "<option value='" . $Item['id'] . "'>" . $Item["noEconomico"] . "</option>";
+		}
+	}
+
 // BUSCA EL NUMERO DE ORDEN EN LA TABLA ORDERS PARA EVITAR DUPLICIDAD
     public function buscaProducto($tabla, $codigo){
 
@@ -483,10 +491,34 @@ class MvcController{
 					    </script>';
 				} else {
 					echo'<script type="text/javascript">
-					    alert("Registro Guardado");
+					    alert("Error al guardar la unidad");
 					    window.location.href="regUnidad.php";
 					    </script>';
 				}
+		}
+	}
+
+	public function ctlRegistroRemolque () {
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$DatosRemolque = array("noEconomico" => $_POST["noEconomico"],
+								   "marca" => $_POST["marca"],
+								   "anio" => $_POST["anio"],
+								   "placas" => $_POST["placas"]
+			);
+
+			$Respuesta = Datos::mdlRegistroRemolque($DatosRemolque, "remolques");
+
+			if ($Respuesta == "success") {
+				echo'<script type="text/javascript">
+					    alert("Registro Guardado");
+					    window.location.href="listaRemolques.php";
+					    </script>';
+			} else {
+				echo'<script type="text/javascript">
+			   	alert("Registro Guardado"); 	
+				window.location.href="regUnidad.php";
+				</script>';
+			}
 		}
 	}
 
@@ -508,6 +540,8 @@ class MvcController{
 		}
 
 	}
+
+
 
 	#ACTUALIZA DE USUARIO
 	#------------------------------------
@@ -893,6 +927,33 @@ class MvcController{
 		}
 	}
 
+	public function ctlUpdtRemolque ($id) {
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			$DatosRemolque = array("id" => $id,
+								   "noEconomico" => $_POST["noEconomico"],
+								   "marca" => $_POST["marca"],
+								   "anio" => $_POST["anio"],
+								   "placas" => $_POST["placas"]
+			);
+
+			$Respuesta = Datos::mdlUpdtRemolque($DatosRemolque, "remolques");
+
+			if ($Respuesta == "success") {
+				echo'<script type="text/javascript">
+					    alert("Registro Guardado");
+					    window.location.href="listaRemolques.php";
+					    </script>';
+			} else {
+				echo'<script type="text/javascript">
+			   	alert("Fallo al actualizar el registro"); 	
+				window.location.href="regRemolque.php";
+				</script>';
+			}
+
+		}
+	}
+
 
 	#BORRAR USUARIO
     #------------------------------------
@@ -1128,6 +1189,25 @@ class MvcController{
 
     	}
 
+    }
+
+    public function borrarRemolque () {
+    	if (isset($_GET['idBorrar'])) {
+
+    		$DatosController = $_GET['idBorrar'];
+    		$Respuesta = Datos::mdlBorrarRemolque($DatosController, "remolques");
+
+    		if ($Respuesta == "success") {
+    			echo "<script type='text/javascript'>
+    				alert('Registro Eliminado');
+    				window.location.href='listaRemolques.php';
+    			</script>";
+    		}
+    		else {
+    			echo "<script tupe='text/javascript'>alert('Error al eliminar el registro');</script>";
+    		}
+
+    	}
     }
 
 	#LISTADO DE TODOS LOS USUARIOS
@@ -1425,6 +1505,25 @@ class MvcController{
 
     		}
 
+    }
+
+    public function listaRemolques () {
+    	$Respuesta = Datos::mdlListaRemolques("remolques");
+    	$Contador = 0;
+    	foreach ($Respuesta as $Row => $Item) {
+    			$Contador++;
+
+    			echo "<tr>
+    					<td>".$Contador."</td>
+    					<td>".$Item["noEconomico"]."</td>
+    					<td>".$Item["marca"]."</td>
+    					<td>".$Item["anio"]."</td>
+						<td>".$Item["placas"]."</td>
+						<td><a href='updtRemolque.php?idEditar=".$Item["id"]."'><button class='btn btn-warning'>Editar</button></a></td>
+						<td><a href='listaRemolques.php?idBorrar=".$Item["id"]."'><button class='btn btn-danger'>Borrar</button></a></td>
+    				</tr>";
+
+    		}
     }
 
 
@@ -1790,7 +1889,7 @@ echo "<script>
 }
 
 
-
+	
 
 
 

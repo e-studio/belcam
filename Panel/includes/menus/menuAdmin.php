@@ -91,24 +91,6 @@
           </a>
           <ul class="treeview-menu">
 
-<<<<<<< HEAD
-            <li><a href="regChofer.php"><i class="fa fa-user-plus"></i> Chofer</a></li>
-            <li><a href="regCliente.php"><i class="fa fa-user-plus"></i> Cliente</a></li>
-            <li><a href="regProveedor.php"><i class="fa fa-user-plus"></i> Proveedor</a></li>
-            <li><a href="regUsuario.php"><i class="fa fa-user-plus"></i> Usuario</a></li>
-            <li><a href="regProducto.php"><i class="fa fa-user-plus"></i> Producto</a></li>
-            <li><a href="regUnidad.php"><i class="fa fa-truck"></i> Unidad</a></li>
-            <li><a href="regRemolque.php"><i class="fas fa-trailer"></i> Remolque</a></li>
-            <li>-</li>
-
-            <li><a href="listaChoferes.php"><i class="fa fa-group"></i> Choferes</a></li>
-            <li><a href="listaClientes.php"><i class="fa fa-group"></i> Clientes</a></li>
-            <li><a href="listaProveedores.php"><i class="fa fa-group"></i> Proveedores</a></li>
-            <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
-            <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
-            <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidades</a></li>
-            <li><a href="listaRemolques.php"><i class="fas fa-trailer"></i> Remolques</a></li>
-=======
             <li class="treeview">
               <a href="#"><i class="fas fa-folder-plus"></i> <span> Agregar</span>
                 <span class="pull-right-container">
@@ -122,6 +104,7 @@
                 <li><a href="regUsuario.php"><i class="fa fa-user-plus"></i> Usuario</a></li>
                 <li><a href="regProducto.php"><i class="fa fa-user-plus"></i> Producto</a></li>
                 <li><a href="regUnidad.php"><i class="fa fa-truck"></i> Unidad</a></li>
+                <li><a href="regRemolque.php"><i class="fas fa-trailer"></i> Remolque</a></li>
                 <li>-</li>
 
               </ul>
@@ -141,10 +124,9 @@
                 <li><a href="listaUsuarios.php"><i class="fa fa-group"></i> Usuarios</a></li>
                 <li><a href="listaProductos.php"><i class="fa fa-group"></i> Productos</a></li>
                 <li><a href="listaUnidades.php"><i class="fa fa-truck"></i> Unidades</a></li>
+                <li><a href="listaRemolques.php"><i class="fas fa-trailer"></i> Remolques</a></li>
                  </ul>
             </li>
-
->>>>>>> bdd71991d6fea88b917de0d92ef17c63d97228b4
           </ul>
         </li>
 

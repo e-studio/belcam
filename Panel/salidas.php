@@ -117,7 +117,8 @@ function opNum(){
                         <select class="form-control" requered name="remolque">
                           <option value="">Seleccione</option>
                           <?php
-
+                            $Remolques = new MvcController();
+                            $Remolques -> ctlBuscaRemolques();
                           ?>
                         </select>
                       </div>
