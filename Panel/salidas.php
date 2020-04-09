@@ -103,34 +103,40 @@ function opNum(){
 
                       <div class="col-xs-3">
                         <label>Unidad</label>
-                        <select class="form-control" requered name="unidad">
+                        <input type="text" required name="unidad" class="form-control">
+
+                        <!-- <select class="form-control" requered name="unidad">
                           <option>Seleccione</option>
                           <?php
-                            $Unidades = new MvcController();
-                            $Unidades -> ctlBuscaUnidades();
+                            //$Unidades = new MvcController();
+                            //$Unidades -> ctlBuscaUnidades();
                           ?>
-                        </select>
+                        </select> -->
                       </div>
 
                       <div class="col-xs-3">
                         <label>Remolque</label>
-                        <select class="form-control" requered name="remolque">
+                        <input type="text" required name="remolque" class="form-control">
+
+                        <!-- <select class="form-control" requered name="remolque">
                           <option value="">Seleccione</option>
                           <?php
-                            $Remolques = new MvcController();
-                            $Remolques -> ctlBuscaRemolques();
+                            //$Remolques = new MvcController();
+                            //$Remolques -> ctlBuscaRemolques();
                           ?>
-                        </select>
+                        </select> -->
                       </div>
                       <div class="col-xs-3">
                         <label>Operador</label>
-                        <select class="form-control" requered name="op">
+                        <input type="text" required name="op" class="form-control">
+
+                        <!-- <select class="form-control" requered name="op">
                           <option>Seleccione</option>
                           <?php
-                            $Operadores = new MvcController();
-                            $Operadores -> ctlOperadores();
+                            //$Operadores = new MvcController();
+                            //$Operadores -> ctlOperadores();
                           ?>
-                        </select>
+                        </select> -->
                       </div>
 
                       <div class="col-xs-3">
@@ -185,7 +191,7 @@ function opNum(){
 
                       <div class="col-xs-3">
                         <label>Costo</label>
-                        <input type="text" readonly="true" id="costo" name="costo" class="form-control">
+                        <input type="text" readonly="true" value="0" id="costo" name="costo" class="form-control">
                       </div>
                     </div>
 

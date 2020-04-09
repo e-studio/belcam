@@ -44,6 +44,7 @@ function obtenerEvento(e) {
 	e.preventDefault();
 
   var datosJson, costoMerma = 0, utTotal=0, kgVenta=0;
+  var costoTotal = parseFloat(document.querySelector("#costo").value);
 
 	var operacion = document.querySelector("#operacionCompra");
   var totalKgs = parseInt(document.querySelector("#kgVenta").value);
@@ -64,7 +65,7 @@ if (isNaN(precioVenta) || precioVenta == 0){
       kgVenta = totalKgs + kilos;
 
       var ventaTotal = (precioVenta * (kgVenta)) - (flete+ maniobra) ;
-      var costoTotal = 0;
+
     	var operacionText = operacion.options[operacion.selectedIndex].text;
       var array = operacionText.split(' - '),
       operacion = array[0], proveedor = array[1], precio = array[3];
@@ -72,13 +73,23 @@ if (isNaN(precioVenta) || precioVenta == 0){
     	if (precioVenta == 0 || isNaN(precioVenta)) precioVenta = 0;
       if (kilos=="" || kilos==0 ||  isNaN(kilos)) kilos = 0;
 
-      console.log(precio);
+
       if (precio > 0 ) cont+=1;
       suma += parseFloat(precio);
       promedio = suma/ cont;
-      costoTotal = promedio * (kgVenta);
-      costoMerma = merma * precioVenta;
 
+
+//-----------------------------------------------------------------------------
+      // revisar esta operacion
+      console.log(costoTotal);
+       costoTotal = costoTotal + (parseFloat(precio)* kilos )
+      // y sustituir por la formula de abajo
+      //costoTotal = promedio * (kgVenta);
+      console.log(costoTotal);
+//-----------------------------------------------------------------------------
+
+
+      costoMerma = merma * precioVenta;
       utTotal = ventaTotal - costoTotal - costoMerma;
 
       document.querySelector("#totalVenta").value = ventaTotal;
