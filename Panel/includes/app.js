@@ -80,12 +80,9 @@ if (isNaN(precioVenta) || precioVenta == 0){
 
 
 //-----------------------------------------------------------------------------
-      // revisar esta operacion
-      console.log(costoTotal);
-       costoTotal = costoTotal + (parseFloat(precio)* kilos )
-      // y sustituir por la formula de abajo
-      //costoTotal = promedio * (kgVenta);
-      console.log(costoTotal);
+// el costo total se va acumulando segun se agregan kg para contemplar operaciones
+// de kg que tienen valor de compra $0
+      costoTotal = costoTotal + (parseFloat(precio)* kilos )
 //-----------------------------------------------------------------------------
 
 
@@ -244,18 +241,34 @@ function buscaProducto(codigo) {
 
 
     function recalcula(){
-    	const kg = document.querySelector('#kgVenta');
-      const precio = document.querySelector('#precio');
-    	const costoTotal = document.querySelector('#costoTotal');
-    	const totalCosto = document.querySelector('#totalCosto');
 
-      // document.querySelector("#totalVenta").value = ventaTotal;
-      // document.querySelector("#kgVenta").value = kgVenta;
-      // document.querySelector("#costoUnitario").value = promedio;
-      // document.querySelector("#costo").value = costoTotal;
-      // document.querySelector("#utViaje").value = utTotal;
-      // document.querySelector("#costoMerma").value = costoMerma;
-      // document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utTotal).format('0,0.00');
+      const precio = parseFloat(document.querySelector('#precioVenta').value);
+      var totalKgs = parseFloat(document.querySelector("#kgVenta").value);
+      const totalVenta = parseFloat(document.querySelector('#totalVenta').value);
+      var costoUnitario = parseFloat(document.querySelector("#costoUnitario").value);
+      const costo = parseFloat(document.querySelector('#costo').value);
+      var merma = parseFloat(document.querySelector("#merma").value);
+      var costoMerma = parseFloat(document.querySelector("#costoMerma").value);
+
+      totalVenta = precio * totalKgs;
+      costoMerma = merma * kgVenta;
+
+
+
+
+
+
+      document.querySelector('#precioVenta').value = 0;
+      document.querySelector("#kgVenta").value=0;
+      document.querySelector('#totalVenta').value=0;
+      document.querySelector("#costoUnitario").value=0;
+      document.querySelector('#costo').value=0;
+      document.querySelector("#merma").value=0;
+      document.querySelector("#costoMerma").value=0;
+
+
+      ventaTitulo
+      utViaje
 
       console.log("totalVenta "+ventaTotal +" kgVenta "+kgVenta+ "costoUnitario" + promedio);
 

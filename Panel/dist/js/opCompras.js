@@ -16,8 +16,8 @@ if (isNaN(maniobra) || maniobra=="") maniobra = 0;
 if (isNaN(anticipo)|| anticipo=="") anticipo = 0;
 if (isNaN(comision) || comision =="") comision = 0;
 
-costo = kgs * precio;
-costoTotal = costo + (comision + flete + maniobra)-anticipo;
+costo = (kgs * precio) + comision;
+costoTotal = (kgs * precio) + (comision + flete + maniobra) - anticipo;
 
   document.querySelector("#costo").value = costo;
   document.querySelector("#totalCompra").value = costoTotal;

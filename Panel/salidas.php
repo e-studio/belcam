@@ -181,7 +181,6 @@ function opNum(){
 
                     <div class="row">
 
-
                       <div class="col-xs-3">
                         <label>Costo Unitario</label>
                         <input type="text" readonly="true" id="costoUnitario" name="costoUnitario" class="form-control">
@@ -215,7 +214,7 @@ function opNum(){
                           <input type="text" readonly="true" id="costoMerma" name="merma" class="form-control" value="0">
                         </div>
                         <div class="col-xs-2">
-                        <label><h4><strong>Utilidad de Venta</strong></h4></label><h2><p align="right"id="ventaTitulo"><span>$</span> 0</p></h2>
+                        <label><h4><strong>Utilidad de Venta</strong></h4></label><h2><p align="right" id="ventaTitulo"><span>$</span> 0</p></h2>
                         <input type="hidden" id="utViaje" name="utViaje" class="form-control">
                       </div>
                     </div>
