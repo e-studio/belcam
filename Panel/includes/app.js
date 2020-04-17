@@ -8,6 +8,7 @@ var objeto = {};
 const btnBorrar = document.querySelector('#borraElemento');
 const row =document.createElement('tr');
 var listaCompras = document.querySelector("#listaCompras");
+var recalcFlag = true;
 
 
 
@@ -20,24 +21,24 @@ tabla.addEventListener('click', borraElemento);
 
 
 //funciones   ---------------------------------------------------------------------------------
-function validarIngreso(){
-  console.log("Entro a la funcion validarIngreso");
+// function validarIngreso(){
+//   console.log("Entro a la funcion validarIngreso");
 
-  var expresion = /^[a-zA-Z0-9]*$/;
+//   var expresion = /^[a-zA-Z0-9]*$/;
 
-  if(!expresion.test($("#usuario").val())){
+//   if(!expresion.test($("#usuario").val())){
 
-    return false;
-  }
+//     return false;
+//   }
 
-  if(!expresion.test($("#pass").val())){
+//   if(!expresion.test($("#pass").val())){
 
-    return false;
-  }
+//     return false;
+//   }
 
-  return true;
+//   return true;
 
-}
+// }
 
 
 function obtenerEvento(e) {
@@ -53,9 +54,11 @@ function obtenerEvento(e) {
   var flete = parseFloat(document.querySelector("#flete").value);
   var maniobra = parseFloat(document.querySelector("#maniobra").value);
   var merma = parseFloat(document.querySelector("#merma").value);
+  var comision = parseFloat(document.querySelector("#comision").value);
+  var costoComision = parseFloat(document.querySelector("#costoComision").value);
 
-if (isNaN(precioVenta) || precioVenta == 0){
-    alert("escriba el Precio de Venta");
+if (isNaN(precioVenta) || precioVenta == 0 || kilos == 0){
+    alert("Revise Precio de Venta y/o Kilos no sea 0");
     document.getElementById("precioVenta").focus();
   }
   else{
@@ -65,25 +68,41 @@ if (isNaN(precioVenta) || precioVenta == 0){
       kgVenta = totalKgs + kilos;
 
       var ventaTotal = (precioVenta * (kgVenta)) - (flete+ maniobra) ;
-
     	var operacionText = operacion.options[operacion.selectedIndex].text;
       var array = operacionText.split(' - '),
-      operacion = array[0], proveedor = array[1], precio = array[3];
+
+      operacion = array[0], proveedor = array[1], kgsDisponibles= array[2], precio = array[3];
+
+      if (kgsDisponibles < kilos) {
+        alert("Solo dispone de " + kgsDisponibles + " kgs ");
+        document.querySelector('#kilos').value = 0;
+        document.querySelector('#kilos').focus();
+        return
+      }
 
     	if (precioVenta == 0 || isNaN(precioVenta)) precioVenta = 0;
       if (kilos=="" || kilos==0 ||  isNaN(kilos)) kilos = 0;
 
 
-      if (precio > 0 ) cont+=1;
+      if (precio > 0 ) {
+        cont+=1;
+        costoComision += (kilos * comision);
+      }
+      else {
+        document.getElementById("precioVenta").setAttribute("disabled", true);
+        document.getElementById("comision").setAttribute("disabled", true);
+        document.getElementById("merma").setAttribute("disabled", true);
+        recalcFlag = false;  // se desactiva la funcion de recalcular porque tengo una merma a favor
+      }
       suma += parseFloat(precio);
       promedio = suma/ cont;
 
 
-//-----------------------------------------------------------------------------
-// el costo total se va acumulando segun se agregan kg para contemplar operaciones
-// de kg que tienen valor de compra $0
-      costoTotal = costoTotal + (parseFloat(precio)* kilos )
-//-----------------------------------------------------------------------------
+      //-----------------------------------------------------------------------------
+      // el costo total se va acumulando segun se agregan kg para contemplar operaciones
+      // de kg que tienen valor de compra $0
+      costoTotal = costoTotal + (parseFloat(precio)* kilos ) +(kilos * comision);
+      //-----------------------------------------------------------------------------
 
 
       costoMerma = merma * precioVenta;
@@ -92,10 +111,13 @@ if (isNaN(precioVenta) || precioVenta == 0){
       document.querySelector("#totalVenta").value = ventaTotal;
       document.querySelector("#kgVenta").value = kgVenta;
       document.querySelector("#costoUnitario").value = promedio;
+      document.querySelector("#costoComision").value = costoComision;
       document.querySelector("#costo").value = costoTotal;
       document.querySelector("#utViaje").value = utTotal;
       document.querySelector("#costoMerma").value = costoMerma;
       document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utTotal).format('0,0.00');
+      document.querySelector('#kilos').value = 0;
+
 
       datos.push({
             "operacion": operacion,
@@ -136,9 +158,9 @@ function borraElemento(e){
 
 }
 
-function mensaje(){
-  alert("Mensaje");
-}
+// function mensaje(){
+//   alert("Mensaje");
+// }
 
 
 
@@ -165,10 +187,11 @@ function buscaProducto(codigo) {
 
 	              	var kilos = numeral(responseArray[i+1]).format('0,0');
                   var precio = numeral(responseArray[i+2]).format('0,0.00');
+
 	              	//console.log(x);
 
 	              	var fila='<tr class="selected" id="fila"><td>'+responseArray[i]+'</td><td>'+ kilos +'</td><td>'+ precio +'</td></tr>';
-					$('#lista-productos').append(fila);
+					        $('#lista-productos').append(fila);
 
 	              }
           	  }
@@ -213,8 +236,11 @@ function buscaProducto(codigo) {
                   var proveedor = responseArray[i+1];
 
 
-                  var kilos = numeral(responseArray[i+2]).format('0,0');
-                  var precio = numeral(responseArray[i+3]).format('0,0.00');
+                  // var kilos = numeral(responseArray[i+2]).format('0,0');
+                  // var precio = numeral(responseArray[i+3]).format('0,0.00');
+
+                  var kilos = responseArray[i+2];
+                  var precio = responseArray[i+3];
                   //console.log(operacion+' - '+ proveedor +' - '+ kilos +' - '+ precio);
 
                   var opcion=`<option value="${operacion}">${operacion} - ${proveedor} - ${kilos} - ${precio}</option>`;
@@ -222,7 +248,7 @@ function buscaProducto(codigo) {
 
                 }
 
-                btnAgregar.disabled = false;
+                //btnAgregar.disabled = false;
 
               }
               else{
@@ -241,38 +267,38 @@ function buscaProducto(codigo) {
 
 
     function recalcula(){
+      if (recalcFlag){
+          const precio = parseFloat(document.querySelector('#precioVenta').value);
+          var totalKgs = parseFloat(document.querySelector("#kgVenta").value);
+          var costoUnitario = parseFloat(document.querySelector("#costoUnitario").value);
+          var comision = parseFloat(document.querySelector("#comision").value);
+          var merma = parseFloat(document.querySelector("#merma").value);
 
-      const precio = parseFloat(document.querySelector('#precioVenta').value);
-      var totalKgs = parseFloat(document.querySelector("#kgVenta").value);
-      const totalVenta = parseFloat(document.querySelector('#totalVenta').value);
-      var costoUnitario = parseFloat(document.querySelector("#costoUnitario").value);
-      const costo = parseFloat(document.querySelector('#costo').value);
-      var merma = parseFloat(document.querySelector("#merma").value);
-      var costoMerma = parseFloat(document.querySelector("#costoMerma").value);
+          if(isNaN(costoUnitario)) costoUnitario=0;
 
-      totalVenta = precio * totalKgs;
-      costoMerma = merma * kgVenta;
+          var venta = precio * totalKgs;
+          var costoMerma = precio * merma;
+          var totComision = comision * totalKgs;
+          var costo = (costoUnitario * totalKgs)+ totComision;
+          var utilidad = venta - costo - costoMerma - totComision;
 
-
-
-
-
-
-      document.querySelector('#precioVenta').value = 0;
-      document.querySelector("#kgVenta").value=0;
-      document.querySelector('#totalVenta').value=0;
-      document.querySelector("#costoUnitario").value=0;
-      document.querySelector('#costo').value=0;
-      document.querySelector("#merma").value=0;
-      document.querySelector("#costoMerma").value=0;
+          //console.log("Venta:"+venta+" costo:"+costo+" costoMerma:"+costoMerma+" comision:"+totComision+" Utilidad:"+utilidad);
 
 
-      ventaTitulo
-      utViaje
+          document.querySelector('#totalVenta').value = venta;
+          document.querySelector('#costo').value = costo;
+          document.querySelector('#costoComision').value = totComision;
+          document.querySelector("#costoMerma").value = costoMerma;
+          document.querySelector("#utViaje").value = utilidad;   //utViaje es utilidad de la venta que se graba en la bd
+          document.querySelector("#ventaTitulo").innerHTML = '$ ' + numeral(utilidad).format('0,0.00');  // total con letras grandes solo de muestra
 
-      console.log("totalVenta "+ventaTotal +" kgVenta "+kgVenta+ "costoUnitario" + promedio);
+      }
 
+    }
 
+    function agregarOn(){  //se manda llamr desde el onblur de kilos del formulario
+      btnAgregar.disabled = false;
+      btnAgregar.focus();
     }
 
 

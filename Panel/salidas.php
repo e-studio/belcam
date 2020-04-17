@@ -186,6 +186,8 @@ function opNum(){
                         <input type="text" readonly="true" id="costoUnitario" name="costoUnitario" class="form-control">
                       </div>
                       <div class="col-xs-3">
+                        <label>Comision</label>
+                        <input type="number" pattern="^\d*(\.\d{0,2})?$" step="0.1" value="0" id="comision" name="comision" class="form-control" onblur="recalcula()">
                       </div>
 
                       <div class="col-xs-3">
@@ -203,10 +205,10 @@ function opNum(){
                     <div class="row">
                         <div class="col-xs-3">
                           <label>Merma en Kg.</label>
-                          <input type="text" id="merma" class="form-control" value="0">
+                          <input type="text" id="merma" class="form-control" value="0" onblur="recalcula()">
                         </div>
                         <div class="col-xs-3">
-                          <p></p>
+                          <input type="hidden" value="0" id="costoComision" name="costoComision" class="form-control" onblur="recalcula()">
                         </div>
 
                         <div class="col-xs-3">
@@ -250,7 +252,7 @@ function opNum(){
                       </div>
 
                       <div class="col-xs-3">
-                        <input type="text" required name="kilos" id="kilos" placeholder="Kilogramos" class="form-control">
+                        <input type="number" required name="kilos" id="kilos" placeholder="Kilogramos" class="form-control" onblur="agregarOn()">
                       </div>
 
                     <div class="col-xs-3">
