@@ -40,10 +40,10 @@
   										<input required type="text" class="form-control" name="noEconomico" placeholder="No. Económico">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="marca" placeholder="Marca">	
+  										<input required type="text" class="form-control" name="marca" placeholder="Marca">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="anio" placeholder="Año">
+  										<input required type="text" class="form-control" name="modelo" placeholder="Modelo">
   									</div>
   									<div class="col-sm-2">
   										<input required type="text" class="form-control" name="placas" placeholder="Placas">
@@ -54,8 +54,10 @@
   								</div>
   								<br>
   								<div class="row">
-  									<div class="col-md-12">
-  										<textarea name="descripcion" class="form-control"></textarea>
+                    <div class="col-sm-1">
+                    </div>
+  									<div class="col-md-6">
+  										<textarea name="descripcion" class="form-control" placeholder="Descripcion"></textarea>
   									</div>
   								</div>
   								<br>
@@ -73,7 +75,7 @@
   					</div>
   				</div>
   			</form>
-  			<?php 
+  			<?php
 
   				$Registro = new MvcController();
   				$Registro -> ctlRegistroUnidad();
@@ -84,7 +86,7 @@
   	<?php
   		include "includes/menus/footer.php";
   	?>
-</div> 
+</div>
 
 
 <!-- jQuery 3 -->

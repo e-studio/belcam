@@ -166,7 +166,7 @@ class MvcController{
 		$Respuesta = Datos::mdlListaUnidades("unidades");
 
 		foreach ($Respuesta as $Row => $Item) {
-			echo "<option value='".$Item['idUnidad']."'>" . $Item['placas'] . "</option>";
+			echo "<option value='".$Item['idUnidad']."'>" . $Item['noEconomico']."-".$Item['marca']. "</option>";
 		}
 	}
 
@@ -174,7 +174,7 @@ class MvcController{
 		$Respuesta = Datos::mdlListaRemolques("remolques");
 
 		foreach($Respuesta as $Row => $Item) {
-			echo "<option value='" . $Item['id'] . "'>" . $Item["noEconomico"] . "</option>";
+			echo "<option value='" . $Item['id'] . "'>" . $Item["noEconomico"]." - ". $Item["marca"]. "</option>";
 		}
 	}
 
@@ -478,7 +478,7 @@ class MvcController{
 
 			$datosUnidad = array("noEconomico" => $_POST["noEconomico"],
 								 "kilometraje" => $_POST["kilometraje"],
-								 "anio" => $_POST["anio"],
+								 "modelo" => $_POST["modelo"],
 								 "marca" => $_POST["marca"],
 								 "placas" => $_POST["placas"],
 								 "descripcion" => $_POST["descripcion"]);
@@ -515,7 +515,7 @@ class MvcController{
 					    </script>';
 			} else {
 				echo'<script type="text/javascript">
-			   	alert("Registro Guardado"); 	
+			   	alert("Registro Guardado");
 				window.location.href="regUnidad.php";
 				</script>';
 			}
@@ -905,7 +905,7 @@ class MvcController{
 			$datosUnidad = array("idUnidad" => $id,
 								 "noEconomico" => $_POST["noEconomico"],
 								 "marca" => $_POST["marca"],
-								 "anio" => $_POST["anio"],
+								 "modelo" => $_POST["modelo"],
 								 "placas" => $_POST["placas"],
 								 "kilometraje" => $_POST["kilometraje"],
 								 "descripcion" => $_POST["descripcion"]);
@@ -946,7 +946,7 @@ class MvcController{
 					    </script>';
 			} else {
 				echo'<script type="text/javascript">
-			   	alert("Fallo al actualizar el registro"); 	
+			   	alert("Fallo al actualizar el registro");
 				window.location.href="regRemolque.php";
 				</script>';
 			}
@@ -1497,7 +1497,7 @@ class MvcController{
     					<td>".$Contador."</td>
     					<td>".$Item["noEconomico"]."</td>
     					<td>".$Item["marca"]."</td>
-    					<td>".$Item["anio"]."</td>
+    					<td>".$Item["modelo"]."</td>
 						<td>".$Item["placas"]."</td>
 						<td>".$Item["kilometraje"]."</td>
 						<td><a href='updtUnidad.php?idEditar=".$Item["idUnidad"]."'><button class='btn btn-warning'>Editar</button></a></td>
@@ -1890,7 +1890,7 @@ echo "<script>
 }
 
 
-	
+
 
 
 

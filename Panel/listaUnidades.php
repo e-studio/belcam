@@ -34,12 +34,12 @@ include_once "includes/crud.php";
 							</div>
 							<div class="box-body">
 								<table class="table table-ordered">
-								
+
 									<tr>
 										<th style="width: 10px;">#</th>
 										<th>no. Economico</th>
 										<th>Marca</th>
-										<th>Año</th>
+										<th>Modelo</th>
 										<th>Placas</th>
 										<th>Kilometraje</th>
 										<th style="width: 40px">Editar</th>
@@ -49,7 +49,7 @@ include_once "includes/crud.php";
 									<?php
 										$Lista = new MvcController();
 										$Lista -> listaUnidades();
-										$Lista -> borrarUnidad();									
+										$Lista -> borrarUnidad();
 									?>
 								</table>
 							</div>
@@ -60,7 +60,7 @@ include_once "includes/crud.php";
 
 		</div>
 
-		<?php 
+		<?php
 			include "includes/menus/footer.php";
 		?>
 
