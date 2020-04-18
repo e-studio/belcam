@@ -40,19 +40,19 @@
   									<div class="col-sm-1">
   									</div>
   									<div class="col-sm-2">
-  										<input type="text" value="<?php echo $Respuesta['kilometraje'];?>" class="form-control" name="kilometros" placeholder="Kilometraje">
+  										<input type="text" value="<?php echo $Respuesta['noEconomico'];?>" class="form-control" name="noEconomico" placeholder="No. Economico">
   									</div>
   									<div class="col-sm-2">
-  										<input type="text" value="<?php echo $Respuesta['anio'];?>" class="form-control" name="anio" placeholder="Año">	
+  										<input type="text" value="<?php echo $Respuesta['marca'];?>" class="form-control" name="marca" placeholder="Marca">	
   									</div>
   									<div class="col-sm-2">
-  										<input type="text" value="<?php echo $Respuesta['marca'];?>" class="form-control" name="marca" placeholder="Marca">
-  									</div>
-  									<div class="col-sm-2">
-  										<input type="text" value="<?php echo $Respuesta['modelo'];?>" class="form-control" name="modelo" placeholder="Modelo">
+  										<input type="text" value="<?php echo $Respuesta['anio'];?>" class="form-control" name="anio" placeholder="Año">
   									</div>
   									<div class="col-sm-2">
   										<input type="text" value="<?php echo $Respuesta['placas'];?>" class="form-control" name="placas" placeholder="Placas">
+  									</div>
+  									<div class="col-sm-2">
+  										<input type="text" value="<?php echo $Respuesta['kilometraje'];?>" class="form-control" name="kilometraje" placeholder="Kilometraje">
   									</div>
   								</div>
   								<br>
@@ -65,7 +65,7 @@
   								<div class="row">
   									<div class="col-md-8"></div>
   									<div class="col-sm-2">
-  										<a class="btn btn-default" href="inicio.php">Cancelar</a>
+  										<a class="btn btn-default" href="listaUnidades.php">Cancelar</a>
   									</div>
   									<div class="col-sm-2">
   										<button type="submit" class="btn btn-primary">Guardar</button>

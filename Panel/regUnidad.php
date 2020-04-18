@@ -37,19 +37,19 @@
   									<div class="col-sm-1">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="kilometros" placeholder="Kilometraje">
+  										<input required type="text" class="form-control" name="noEconomico" placeholder="No. Económico">
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="anio" placeholder="Año">	
+  										<input required type="text" class="form-control" name="marca" placeholder="Marca">	
   									</div>
   									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="marca" placeholder="Marca">
-  									</div>
-  									<div class="col-sm-2">
-  										<input required type="text" class="form-control" name="modelo" placeholder="Modelo">
+  										<input required type="text" class="form-control" name="anio" placeholder="Año">
   									</div>
   									<div class="col-sm-2">
   										<input required type="text" class="form-control" name="placas" placeholder="Placas">
+  									</div>
+  									<div class="col-sm-2">
+  										<input required type="text" class="form-control" name="kilometraje" placeholder="Kilometraje">
   									</div>
   								</div>
   								<br>
@@ -76,7 +76,7 @@
   			<?php 
 
   				$Registro = new MvcController();
-  				$Registro -> ctlRegistroRemolque();
+  				$Registro -> ctlRegistroUnidad();
 
   			?>
   		</section>

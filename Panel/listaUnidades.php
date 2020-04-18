@@ -37,10 +37,11 @@ include_once "includes/crud.php";
 								
 									<tr>
 										<th style="width: 10px;">#</th>
-										<th>Placas</th>
+										<th>no. Economico</th>
 										<th>Marca</th>
-										<th>Modelo</th>
 										<th>Año</th>
+										<th>Placas</th>
+										<th>Kilometraje</th>
 										<th style="width: 40px">Editar</th>
                   						<th style="width: 40px">Borrar</th>
 									</tr>

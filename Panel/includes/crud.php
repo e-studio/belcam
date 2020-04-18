@@ -579,12 +579,14 @@ class Datos extends Conexion {
 
 	public static function mdlRegistroUnidad ($datosModel, $Tabla) {
 
-		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `descripcion`, `kilometraje`, `modelo`, `placas`) VALUES (null, :descripcion, :kilometraje, :modelo, :placas);");
+		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `noEconomico`, `marca`, `anio`, `placas`, `kilometraje`, `descripcion`) VALUES (null, :noEconomico, :marca, :anio, :placas, :kilometraje, :descripcion);");
 
-		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
-		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
-		$Statement -> bindParam(":modelo", $datosModel["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":noEconomico", $datosModel["noEconomico"], PDO::PARAM_STR);
+		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
+		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
 		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
+		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
+		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
 
 			if ($Statement -> execute()) {
 				return "success";
@@ -944,14 +946,14 @@ class Datos extends Conexion {
 
 	public static function mdlActualizaUnidad ($datosModel, $Tabla) {
 
-		$Statement = Conexion::conectar() -> prepare("UPDATE $Tabla SET descripcion = :descripcion, kilometraje = :kilometraje, anio = :anio, marca = :marca, modelo = :modelo, placas = :placas WHERE idUnidad = :idUnidad;");
+		$Statement = Conexion::conectar() -> prepare("UPDATE $Tabla SET noEconomico = :noEconomico, marca = :marca, anio = :anio, placas = :placas, kilometraje = :kilometraje, descripcion = :descripcion WHERE idUnidad = :idUnidad;");
 		$Statement -> bindParam(":idUnidad", $datosModel["idUnidad"], PDO::PARAM_INT);
-		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
-		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
-		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":noEconomico", $datosModel["noEconomico"], PDO::PARAM_STR);
 		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
-		$Statement -> bindParam(":modelo", $datosModel["modelo"], PDO::PARAM_STR);
+		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
 		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
+		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_STR);
+		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
 
 			if ($Statement -> execute()) {
 				return "success";
