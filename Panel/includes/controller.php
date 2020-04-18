@@ -476,12 +476,12 @@ class MvcController{
 	public function ctlRegistroUnidad () {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-			$datosUnidad = array("descripcion" => $_POST["descripcion"],
-								 "kilometraje" => $_POST["kilometros"],
+			$datosUnidad = array("noEconomico" => $_POST["noEconomico"],
+								 "kilometraje" => $_POST["kilometraje"],
 								 "anio" => $_POST["anio"],
 								 "marca" => $_POST["marca"],
-								 "modelo" => $_POST["modelo"],
-								 "placas" => $_POST["placas"]);
+								 "placas" => $_POST["placas"],
+								 "descripcion" => $_POST["descripcion"]);
 
 			$Respuesta = Datos::mdlRegistroUnidad($datosUnidad, "unidades");
 				if ($Respuesta == "success") {
@@ -713,7 +713,7 @@ class MvcController{
 				"codProd" => $_POST["codProd"],
 				"lote" => $_POST["lote"],
 				"unidad" => $_POST["unidad"],
-				"unidad1" => $_POST["unidad1"],
+				"remolque" => $_POST["remolque"],
 				"op" => $_POST["op"],
 				"kg" =>  $_POST["kg"],
 				"um" => $_POST["um"],
@@ -903,12 +903,12 @@ class MvcController{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			$datosUnidad = array("idUnidad" => $id,
-								 "descripcion" => $_POST["descripcion"],
-								 "kilometraje" => $_POST["kilometros"],
-								 "anio" => $_POST["anio"],
+								 "noEconomico" => $_POST["noEconomico"],
 								 "marca" => $_POST["marca"],
-								 "modelo" => $_POST["modelo"],
-								 "placas" => $_POST["placas"]);
+								 "anio" => $_POST["anio"],
+								 "placas" => $_POST["placas"],
+								 "kilometraje" => $_POST["kilometraje"],
+								 "descripcion" => $_POST["descripcion"]);
 
 			$Respuesta = Datos::mdlActualizaUnidad($datosUnidad, "unidades");
 
@@ -1495,10 +1495,11 @@ class MvcController{
 
     			echo "<tr>
     					<td>".$Contador."</td>
-    					<td>".$Item["placas"]."</td>
+    					<td>".$Item["noEconomico"]."</td>
     					<td>".$Item["marca"]."</td>
-    					<td>".$Item["modelo"]."</td>
-						<td>".$Item["anio"]."</td>
+    					<td>".$Item["anio"]."</td>
+						<td>".$Item["placas"]."</td>
+						<td>".$Item["kilometraje"]."</td>
 						<td><a href='updtUnidad.php?idEditar=".$Item["idUnidad"]."'><button class='btn btn-warning'>Editar</button></a></td>
 						<td><a href='listaUnidades.php?idBorrar=".$Item["idUnidad"]."'><button class='btn btn-danger'>Borrar</button></a></td>
     				</tr>";
