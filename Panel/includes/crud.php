@@ -579,11 +579,11 @@ class Datos extends Conexion {
 
 	public static function mdlRegistroUnidad ($datosModel, $Tabla) {
 
-		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `noEconomico`, `marca`, `anio`, `placas`, `kilometraje`, `descripcion`) VALUES (null, :noEconomico, :marca, :anio, :placas, :kilometraje, :descripcion);");
+		$Statement = Conexion::conectar() -> prepare("INSERT INTO $Tabla (`idUnidad`, `noEconomico`, `marca`, `modelo`, `placas`, `kilometraje`, `descripcion`) VALUES (null, :noEconomico, :marca, :modelo, :placas, :kilometraje, :descripcion);");
 
 		$Statement -> bindParam(":noEconomico", $datosModel["noEconomico"], PDO::PARAM_STR);
 		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
-		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":modelo", $datosModel["modelo"], PDO::PARAM_STR);
 		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
 		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_INT);
 		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);
@@ -946,11 +946,11 @@ class Datos extends Conexion {
 
 	public static function mdlActualizaUnidad ($datosModel, $Tabla) {
 
-		$Statement = Conexion::conectar() -> prepare("UPDATE $Tabla SET noEconomico = :noEconomico, marca = :marca, anio = :anio, placas = :placas, kilometraje = :kilometraje, descripcion = :descripcion WHERE idUnidad = :idUnidad;");
+		$Statement = Conexion::conectar() -> prepare("UPDATE $Tabla SET noEconomico = :noEconomico, marca = :marca, modelo = :modelo, placas = :placas, kilometraje = :kilometraje, descripcion = :descripcion WHERE idUnidad = :idUnidad;");
 		$Statement -> bindParam(":idUnidad", $datosModel["idUnidad"], PDO::PARAM_INT);
 		$Statement -> bindParam(":noEconomico", $datosModel["noEconomico"], PDO::PARAM_STR);
 		$Statement -> bindParam(":marca", $datosModel["marca"], PDO::PARAM_STR);
-		$Statement -> bindParam(":anio", $datosModel["anio"], PDO::PARAM_STR);
+		$Statement -> bindParam(":modelo", $datosModel["modelo"], PDO::PARAM_STR);
 		$Statement -> bindParam(":placas", $datosModel["placas"], PDO::PARAM_STR);
 		$Statement -> bindParam(":kilometraje", $datosModel["kilometraje"], PDO::PARAM_STR);
 		$Statement -> bindParam(":descripcion", $datosModel["descripcion"], PDO::PARAM_STR);

@@ -43,10 +43,10 @@
   										<input type="text" value="<?php echo $Respuesta['noEconomico'];?>" class="form-control" name="noEconomico" placeholder="No. Economico">
   									</div>
   									<div class="col-sm-2">
-  										<input type="text" value="<?php echo $Respuesta['marca'];?>" class="form-control" name="marca" placeholder="Marca">	
+  										<input type="text" value="<?php echo $Respuesta['marca'];?>" class="form-control" name="marca" placeholder="Marca">
   									</div>
   									<div class="col-sm-2">
-  										<input type="text" value="<?php echo $Respuesta['anio'];?>" class="form-control" name="anio" placeholder="Año">
+  										<input type="text" value="<?php echo $Respuesta['modelo'];?>" class="form-control" name="modelo" placeholder="Año">
   									</div>
   									<div class="col-sm-2">
   										<input type="text" value="<?php echo $Respuesta['placas'];?>" class="form-control" name="placas" placeholder="Placas">
@@ -85,7 +85,7 @@
   	<?php
   		include "includes/menus/footer.php";
   	?>
-</div> 
+</div>
 
 
 <!-- jQuery 3 -->

@@ -103,39 +103,40 @@ function opNum(){
 
                       <div class="col-xs-3">
                         <label>Unidad</label>
-                      
+                        <input type="text" required name="unidad" class="form-control">
 
-                        <select class="form-control" required name="unidad">
+                        <!-- <select class="form-control" requered name="unidad">
                           <option>Seleccione</option>
                           <?php
-                            $Unidades = new MvcController();
-                            $Unidades -> ctlBuscaUnidades();
+                            //$Unidades = new MvcController();
+                            //$Unidades -> ctlBuscaUnidades();
                           ?>
-                        </select>
+                        </select> -->
                       </div>
 
                       <div class="col-xs-3">
                         <label>Remolque</label>
-                        
-                        <select class="form-control" required name="remolque">
+                        <input type="text" required name="remolque" class="form-control">
+
+                        <!-- <select class="form-control" requered name="remolque">
                           <option value="">Seleccione</option>
                           <?php
-                            $Remolques = new MvcController();
-                            $Remolques -> ctlBuscaRemolques();
+                            //$Remolques = new MvcController();
+                            //$Remolques -> ctlBuscaRemolques();
                           ?>
-                        </select>
+                        </select> -->
                       </div>
                       <div class="col-xs-3">
                         <label>Operador</label>
-                       
+                        <input type="text" required name="op" class="form-control">
 
-                        <select class="form-control" required name="op">
+                        <!-- <select class="form-control" requered name="op">
                           <option>Seleccione</option>
                           <?php
-                            $Operadores = new MvcController();
-                            $Operadores -> ctlOperadores();
+                            //$Operadores = new MvcController();
+                            //$Operadores -> ctlOperadores();
                           ?>
-                        </select>
+                        </select> -->
                       </div>
 
                       <div class="col-xs-3">
@@ -323,10 +324,12 @@ function opNum(){
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <?php 
-    include "includes/menus/footer.php";
-  ?>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0
+    </div>
+    <strong>Copyright &copy; 2019 <a href="http://belcam.com.mx">Productos del Campo Beltr&aacute;n </a>.</strong> Todos los derechos reservados.
+  </footer>
 
 </div>
 <!-- ./wrapper -->
