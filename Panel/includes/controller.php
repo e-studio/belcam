@@ -1528,19 +1528,262 @@ class MvcController{
     }
 
 
-    public function ctlBuscarReportes () {
+    public function ctlRporteCompras() {
     	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    			$Parametros = array("producto" => $_POST["producto"],
-    								"de" => $_POST["de"],
-    								"hasta" => $_POST["hasta"],
-    								"tabla" => "salidas");
+    		$cont = 0;
+    		$kgs = 0;
+    		$costo = 0;
+    		$total = 0;
+    		$region = 'en_US';
+			$currency = 'USD';
+			$formatter = new NumberFormatter($region, NumberFormatter::CURRENCY);
 
-    			$Respuesta = Datos::mdlReportes($Parametros);
 
-    			$_POST["ans"] = $Respuesta;
+			$Parametros = array("producto" => $_POST["producto"],
+								"proveedor" => $_POST["proveedor"],
+								"de" => $_POST["de"],
+								"hasta" => $_POST["hasta"]);
+
+			$Respuesta = Datos::mdlReporteCompras($Parametros);
+
+			$de = date_create($_POST["de"]);
+			$hasta = date_create($_POST["hasta"]);
+
+			echo '<div class="row">
+					<div class="col-md-8">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+									<h3 class="box-title">'.$_POST["proveedor"].' &nbsp;&nbsp;&nbsp;&nbsp; '.date_format($de, 'd-M').'  &nbsp;&nbsp; al &nbsp;&nbsp; '.date_format($hasta, 'd-M').' </h3>
+								</div>
+							<div class="box-body no-padding">
+				              <table class="table table-striped">
+				                <tbody>
+				                <tr>
+				                  <th style="width: 50px">operacion</th>
+				                  <th style="width: 50px">precio</th>
+				                  <th style="width: 50px">lote</th>
+				                  <th style="width: 50px">kgs.</th>
+				                  <th style="width: 50px">total</th>
+				                </tr>';
+				                foreach ($Respuesta as $Row => $Item) {
+									$cont++;
+									$kgs += $Item["kg"];
+									$costo += $Item["costoTotal"];
+									$total += $Item["total"];
+
+									echo '<tr>
+											<td>'.$Item["noOperacion"].'</td>
+											<td>'.$Item["precio"].'</td>
+						                  	<td>'.$Item["lote"].'</td>
+						                  	<td>'.$Item["kg"].'</td>
+						                  	<td>'.$Item["total"].'</td>
+						                  </tr>';
+						    	}
+
+				          echo '</tbody></table>
+				            </div>
+
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h2 >Totales</h2>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Operaciones</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4>'. $cont .'<h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Kilos</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4>'. $kgs .'</h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Total</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4><strong>';
+										$formatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+										echo $formatter->formatCurrency($total, 'USD'), PHP_EOL;
+
+										echo '</strong></h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>';
+
+
+
+
 
     	}
     }
+
+
+
+
+       public function ctlRporteVentas() {
+    	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    		$cont = 0;
+    		$kgs = 0;
+    		$costo = 0;
+    		$total = 0;
+    		$utilidad = 0;
+    		$region = 'en_US';
+			$currency = 'USD';
+			$formatter = new NumberFormatter($region, NumberFormatter::CURRENCY);
+
+
+			$Parametros = array("producto" => $_POST["producto"],
+								"cliente" => $_POST["cliente"],
+								"de" => $_POST["de"],
+								"hasta" => $_POST["hasta"]);
+
+			$Respuesta = Datos::mdlReporteVentas($Parametros);
+
+			$de = date_create($_POST["de"]);
+			$hasta = date_create($_POST["hasta"]);
+
+			echo '<div class="row">
+					<div class="col-md-8">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+									<h3 class="box-title">'.$_POST["cliente"].' &nbsp;&nbsp;&nbsp;&nbsp; '.date_format($de, 'd-M').'  &nbsp;&nbsp; al &nbsp;&nbsp; '.date_format($hasta, 'd-M').' </h3>
+								</div>
+							<div class="box-body no-padding">
+				              <table class="table table-striped">
+				                <tbody>
+				                <tr>
+				                  <th style="width: 50px">operacion</th>
+				                  <th style="width: 30px">precio</th>
+				                  <th style="width: 50px">kgs</th>
+				                  <th style="width: 50px">Costo</th>
+				                  <th style="width: 50px">Total</th>
+				                  <th style="width: 50px">utilidad</th>
+				                </tr>';
+				                foreach ($Respuesta as $Row => $Item) {
+									$cont++;
+									$kgs += $Item["kg"];
+									$costo += $Item["costo"];
+									$total += $Item["total"];
+									$utilidad += $Item["utViaje"];
+
+									echo '<tr>
+											<td>'.$Item["noOperacion"].'</td>
+											<td>'.$Item["precioVenta"].'</td>
+						                  	<td>'.$Item["kg"].'</td>
+						                  	<td>'.$Item["costo"].'</td>
+						                  	<td>'.$Item["total"].'</td>
+						                  	<td>'.$Item["utViaje"].'</td>
+						                  </tr>';
+						    	}
+
+				          echo '</tbody></table>
+				            </div>
+
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h2 >Totales</h2>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Operaciones</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4>'. $cont .'<h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Kilos</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4>'. $kgs .'</h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Costo</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4>';
+										$formatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+										echo $formatter->formatCurrency($costo, 'USD'), PHP_EOL;
+									echo '</h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Total</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4>';
+										echo $formatter->formatCurrency($total, 'USD'), PHP_EOL;
+
+										echo '</h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<h4>Utilidad</h4>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4><strong>';
+										//$formatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+										echo $formatter->formatCurrency($utilidad, 'USD'), PHP_EOL;
+									echo '</strong></h4>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>';
+
+
+
+
+
+    	}
+    }
+
+
+
 
 
 

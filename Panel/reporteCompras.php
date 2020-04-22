@@ -7,6 +7,7 @@
 	}
 	include_once "includes/controller.php";
 	include_once "includes/crud.php";
+	setlocale(LC_ALL,"es_ES");
 ?>
 
 <!DOCTYPE html>
@@ -116,18 +117,6 @@
     $('.sidebar-menu').tree()
   })
 </script>
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
+
 </body>
 </html>

@@ -29,19 +29,19 @@
 				<form role="form" method="POST">
 					<div class="row">
 						<div class="col-md-8">
-							<div class="box box-primary">
+							<div class="box box-success">
 								<div class="box-header with-border">
-									<h3 class="box-title">Reporte de Compras</h3>
+									<h3 class="box-title">Reporte de Ventas</h3>
 								</div>
 								<div class="box-body">
 									<div class="row">
 										<div class="col-md-2">
-											<label>Proveedor</label>
-											<select class="form-control" required id="proveedor" name="proveedor">
+											<label>Cliente</label>
+											<select class="form-control" required id="cliente" name="cliente">
 												<option>Seleccione</option>
 												<?php
 													$Productos = new MvcController();
-													$Productos -> ctlBuscaProveedores('');
+													$Productos -> ctlBuscaClientes('');
 												?>
 											</select>
 										</div>
@@ -87,7 +87,7 @@
 
 				<?php
 					$Buscar = new MvcController();
-					$Buscar -> ctlRporteCompras();
+					$Buscar -> ctlRporteVentas();
 				?>
 
 			</section>

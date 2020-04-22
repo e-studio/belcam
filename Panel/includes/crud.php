@@ -1338,19 +1338,32 @@ class Datos extends Conexion {
 
 	#BUSCA DATOS ESPECIFICOS DE COMPRA PARA GENERAR UN REPORTE
 
-	public static function mdlReportes ($Parametros) {
-		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, fecha, proveedor, productor, precio, kg, costoTotal, total FROM entradas WHERE fecha BETWEEN :de AND :hasta AND codProducto = :codProd");
+	public static function mdlReporteCompras($Parametros) {
+		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, proveedor, productor, lote, precio, kg, costoTotal, total FROM entradas WHERE proveedor = :proveedor AND fecha BETWEEN :de AND :hasta AND codProducto = :codProd");
 
 		$Statement -> bindParam(":de", $Parametros['de'], PDO::PARAM_STR);
 		$Statement -> bindParam(":hasta", $Parametros['hasta'], PDO::PARAM_STR);
 		$Statement -> bindParam(":codProd", $Parametros['producto'], PDO::PARAM_STR);
+		$Statement -> bindParam(":proveedor", $Parametros['proveedor'], PDO::PARAM_STR);
 
-			if ($Statement -> execute()) {
-				$Resultado = $Statement -> fetchAll();
-				return $Resultado;
-			} else {
-				echo "adios";
-			}
+		$Statement -> execute();
+		return $Statement -> fetchAll();
+		$Statement->close();
+	}
+
+
+
+		public static function mdlReporteVentas($Parametros) {
+		$Statement = Conexion::conectar()->prepare("SELECT noOperacion, cliente, precioVenta, kg, costo, total, utViaje FROM salidas WHERE cliente = :cliente AND fecha BETWEEN :de AND :hasta AND codProducto = :codProd");
+
+		$Statement -> bindParam(":de", $Parametros['de'], PDO::PARAM_STR);
+		$Statement -> bindParam(":hasta", $Parametros['hasta'], PDO::PARAM_STR);
+		$Statement -> bindParam(":codProd", $Parametros['producto'], PDO::PARAM_STR);
+		$Statement -> bindParam(":cliente", $Parametros['cliente'], PDO::PARAM_STR);
+
+		$Statement -> execute();
+		return $Statement -> fetchAll();
+		$Statement->close();
 	}
 
 
