@@ -30,8 +30,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Panel
-        <small>Version 1.0</small>
+        Panel de Administración
+        <!-- <small>Version 1.0</small> -->
       </h1>
     </section>
 
@@ -40,13 +40,13 @@
       <!-- Info boxes -->
       <div class="row">
         <div class="col-lg-3 col-xs-6">
-          <div class="col-lg-12 col-xs-6">
-          <!-- small box -->
+          <!-- <div class="col-lg-12 col-xs-6">
+
           <div class="small-box bg-green">
             <div class="inner">
               <h3>
                 <?php
-                $operaciones -> ctlCuentaCompras("salidas");
+                //$operaciones -> ctlCuentaCompras("salidas");
                 ?>
               </h3>
 
@@ -57,15 +57,15 @@
             </div>
             <a href="listaVentas.php" class="small-box-footer">Mas... <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-          </div>
+          </div> -->
 
-          <div class="col-lg-12 col-xs-6">
-          <!-- small box -->
+          <!-- <div class="col-lg-12 col-xs-6">
+
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3>
                 <?php
-                $operaciones -> ctlCuentaCompras("entradas");
+                //$operaciones -> ctlCuentaCompras("entradas");
                 ?>
               </h3>
 
@@ -76,14 +76,14 @@
             </div>
             <a href="listaCompras.php" class="small-box-footer">Mas... <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
+        </div> -->
 
         </div>
         <!-- ./col -->
         <div class="col-lg-1 col-xs-2">
         </div>
 
-        <div class="col-lg-6 col-xs-6">
+        <!-- <div class="col-lg-6 col-xs-6">
           <div class="box">
             <div class="box-body">
               <div class="box-header with-border">
@@ -94,49 +94,49 @@
                   <div class="progress-group">
                     <span class="progress-text">Alfalfa</span>
                     <?php
-                      $inventario -> ctlBuscarInventario("AL");
+                      //$inventario -> ctlBuscarInventario("AL");
                     ?>
                   </div>
-                  <!-- /.progress-group -->
+
                   <div class="progress-group">
                     <span class="progress-text">Avena</span>
                     <?php
-                      $inventario -> ctlBuscarInventario("AV");
+                      //$inventario -> ctlBuscarInventario("AV");
                     ?>
 
                   </div>
-                  <!-- /.progress-group -->
+
                   <div class="progress-group">
                     <span class="progress-text">Rastrojo</span>
                     <?php
-                      $inventario -> ctlBuscarInventario("RA");
+                      //$inventario -> ctlBuscarInventario("RA");
                     ?>
                   </div>
-                  <!-- /.progress-group -->
+
                   <div class="progress-group">
                     <span class="progress-text">Zacate</span>
                     <?php
-                      $inventario -> ctlBuscarInventario("ZA");
+                      //$inventario -> ctlBuscarInventario("ZA");
                     ?>
                   </div>
-                  <!-- /.progress-group -->
+
                 </div>
               </div>
             </div>
           </div>
 
-        </div>
+        </div> -->
 
       </div>
       <!-- /.row -->
 
-      <div class="row">    <!-- Reporte Mensual -->
+      <!-- Reporte Mensual -->
+      <div class="row">
         <div class="col-md-12">
-          <div class="box">
+          <!-- <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Reporte Mensual</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
 
@@ -155,16 +155,11 @@
                   </p>
 
                   <div class="chart">
-                    <!-- Sales Chart Canvas -->
                     <canvas id="graficaCompras" style="height: 180px;"></canvas>
                   </div>
-                  <!-- /.chart-responsive -->
                 </div>
-                <!-- /.col -->
               </div>
-              <!-- /.row -->
             </div>
-            <!-- ./box-body -->
             <div class="box-footer">
               <div class="row">
                 <div class="col-sm-3 col-xs-6">
@@ -173,42 +168,34 @@
                     <h5 class="description-header">$35,210.43</h5>
                     <span class="description-text">TOTAL INGRESOS</span>
                   </div>
-                  <!-- /.description-block -->
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
                     <h5 class="description-header">$10,390.90</h5>
                     <span class="description-text">TOTAL COSTO</span>
                   </div>
-                  <!-- /.description-block -->
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
                     <h5 class="description-header">$24,813.53</h5>
                     <span class="description-text">TOTAL GANANCIA</span>
                   </div>
-                  <!-- /.description-block -->
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block">
-                    <!-- <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
                     <h5 class="description-header">1200</h5>
-                    <span class="description-text">GOAL COMPLETIONS</span> -->
+                    <span class="description-text">GOAL COMPLETIONS</span>
                   </div>
-                  <!-- /.description-block -->
+
                 </div>
               </div>
-              <!-- /.row -->
             </div>
-            <!-- /.box-footer -->
-          </div><!-- /.box -->
-        </div><!-- /.col -->
-      </div><!-- /.row -->
+          </div> -->
+        </div>
+      </div>
 
     </section>
 
