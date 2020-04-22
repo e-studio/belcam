@@ -756,7 +756,7 @@ class Datos extends Conexion {
 	public static function mdlActualizaCompras($datosModel, $tabla){
 
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :remolque, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, anticipo = :anticipo, costoTotal = :costoTotal, total = :totalCompra, formaPago = :formaPago, fecha = :fecha WHERE cons = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET noOperacion = :operacion, proveedor = :proveedor, productor = :productor, codProducto = :codProd, lote = :lote, unidad = :unidad, unidad1 = :unidad1, operador = :op, kg = :kg, um = :um, precio = :precio, calidad = :calidad, origen = :origen, destino = :destino, comision = :comision, flete = :flete, maniobra = :maniobra, anticipo = :anticipo, costoTotal = :costoTotal, total = :totalCompra, formaPago = :formaPago, fecha = :fecha WHERE cons = :id");
 
 		$stmt->bindParam(":id", $datosModel["id"], PDO::PARAM_INT);
 		$stmt->bindParam("operacion" , $_POST["operacion"], PDO::PARAM_STR);
@@ -765,7 +765,7 @@ class Datos extends Conexion {
 		$stmt->bindParam("codProd" , $_POST["codProd"], PDO::PARAM_STR);
 		$stmt->bindParam("lote" , $_POST["lote"], PDO::PARAM_INT);
 		$stmt->bindParam("unidad" , $_POST["unidad"], PDO::PARAM_STR);
-		$stmt->bindParam("remolque" , $_POST["remolque"], PDO::PARAM_STR);
+		$stmt->bindParam("unidad1" , $_POST["unidad1"], PDO::PARAM_STR);
 		$stmt->bindParam("op" , $_POST["op"], PDO::PARAM_INT);
 		$stmt->bindParam("kg" ,  $_POST["kg"], PDO::PARAM_STR);
 		$stmt->bindParam("um" , $_POST["um"], PDO::PARAM_INT);

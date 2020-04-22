@@ -69,36 +69,15 @@
                      <div class="row">
                         <div class="col-xs-2">
                           <label>Unidad</label>
-                          <select class="form-control" required name="unidad">
-                            
-                            <?php
-                              $Unidades = new MvcController();
-                              $Unidades -> ctlUnidades($respuesta["unidad"]);
-                            ?>
-
-                          </select>
+                          <input type="text" value="<?php echo $respuesta["unidad"]; ?>" required name="unidad" class="form-control">
                         </div>
                         <div class="col-xs-2">
                           <label>Remolque</label>
-                          <select class="form-control" required name="remolque">
-                            
-                            <?php
-                              $Remolques = new MvcController();
-                              $Remolques -> ctlRemolques($respuesta["unidad1"]);
-                            ?>
-
-                          </select>
+                          <input type="text" value="<?php echo $respuesta["unidad1"]; ?>" required name="unidad1" class="form-control">
                         </div>
                         <div class="col-xs-2">
-                          <label>Operador</label>
-                          <select class="form-control" required name="op">
-                            
-                            <?php
-                              $Operadores = new MvcController();
-                              $Operadores -> ctlBuscaOperadores($respuesta["operador"]);
-                            ?>
-
-                          </select>
+                          <label>Op</label>
+                          <input type="text" value="<?php echo $respuesta["operador"]; ?>" required name="op" class="form-control">
                         </div>
 
                         <div class="col-xs-3">
