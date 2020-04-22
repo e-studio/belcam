@@ -1666,7 +1666,7 @@ class MvcController{
 
 			echo '<div class="row">
 					<div class="col-md-8">
-						<div class="box box-primary">
+						<div class="box box-success">
 							<div class="box-header with-border">
 									<h3 class="box-title">'.$_POST["cliente"].' &nbsp;&nbsp;&nbsp;&nbsp; '.date_format($de, 'd-M').'  &nbsp;&nbsp; al &nbsp;&nbsp; '.date_format($hasta, 'd-M').' </h3>
 								</div>
@@ -1704,7 +1704,7 @@ class MvcController{
 						</div>
 					</div>
 					<div class="col-md-4">
-						<div class="box box-primary">
+						<div class="box box-success">
 							<div class="box-header with-border">
 								<h2 >Totales</h2>
 							</div>
