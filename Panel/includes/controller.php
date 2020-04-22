@@ -35,7 +35,7 @@ class MvcController{
 		 foreach ($respuesta as $row => $item){
 
 			if ($item["idChofer"] == $chofer ){
-				echo  '<option value="'.$item["idChofer"].'" selected>'.$item["nombre"].' - '.$chofer.'</option>';
+				echo  '<option value="'.$item["idChofer"].'" selected>'.$item["nombre"].'</option>';
 			}
 			else{
 				echo  '<option value="'.$item["idChofer"].'">'.$item["nombre"].'</option>';
