@@ -75,11 +75,24 @@
                      <div class="row">
                         <div class="col-xs-2">
                           <label>Unidad</label>
-                          <input type="text" value="<?php echo $respuesta["unidad"]; ?>" required name="unidad" class="form-control">
+                          <select class="form-control" required name="unidad">
+                            <?php
+                              $Unidades = new MvcController();
+                              $Unidades -> ctlUnidades($respuesta["unidad"]);
+                            ?>
+                          </select>
                         </div>
                         <div class="col-xs-2">
                           <label>Remolque</label>
-                          <input type="text" value="<?php echo $respuesta["unidad1"]; ?>" required name="unidad1" class="form-control">
+                          <select class="form-control" required name="remolque">
+                            <?php 
+                              $Remolques = new MvcController();
+                              echo "||".$respuesta["unidad1"]."||";
+                              echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                              
+                              $Remolques -> ctlRemolques($respuesta["unidad1"]);
+                            ?>
+                          </select>
                         </div>
                         <div class="col-xs-2">
                           <label>Operador</label>

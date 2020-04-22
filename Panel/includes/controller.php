@@ -38,7 +38,7 @@ class MvcController{
 				echo  '<option value="'.$item["idChofer"].'" selected>'.$item["nombre"].' - '.$chofer.'</option>';
 			}
 			else{
-				echo  '<option value="'.$item["idChofer"].'">'.$item["nombre"].'</option>';
+				echo  '<option value="'.$item["idChofer"].'">'.$item["nombre"] . ' - ' . $item["idChofer"].'</option>';
 			}
 		}
 	}
@@ -47,7 +47,7 @@ class MvcController{
 		$Respuesta = Datos::mdlOperadores();
 
 		foreach ($Respuesta as $Row => $Item) {
-			echo "<option value='" . $Item['idChofer'] . "'>" . $Item['nombre'] . "</option>";
+			echo "<option value='" . $Item['idChofer'] . "'>" . $Item['nombre'] . ' - ' . $Item["idChofer"] . "</option>";
 		}
 	}
 
@@ -166,7 +166,24 @@ class MvcController{
 		$Respuesta = Datos::mdlListaUnidades("unidades");
 
 		foreach ($Respuesta as $Row => $Item) {
-			echo "<option value='".$Item['idUnidad']."'>" . $Item['noEconomico']."-".$Item['marca']. "</option>";
+
+			echo "<option value='".$Item['idUnidad']."'>" . $Item['placas'] . ' - ' . $Item["idUnidad"]."</option>";
+		}
+	}
+
+	public function ctlUnidades ($idUnidad) {
+		$Respuesta = Datos::mdlListaUnidades("unidades");
+
+		foreach ($Respuesta as $row => $Item){
+
+			if ($Item["idUnidad"] == $idUnidad ){
+				echo  '<option value="'.$Item["idUnidad"].'" selected>'.$Item["placas"].' - '.$idUnidad.'</option>';
+			}
+			else{
+				echo  '<option value="'.$Item["idUnidad"].'">'.$Item["placas"]. ' - ' .  $Item["idUnidad"]. '</option>';
+			}
+
+
 		}
 	}
 
@@ -174,7 +191,21 @@ class MvcController{
 		$Respuesta = Datos::mdlListaRemolques("remolques");
 
 		foreach($Respuesta as $Row => $Item) {
-			echo "<option value='" . $Item['id'] . "'>" . $Item["noEconomico"]." - ". $Item["marca"]. "</option>";
+			echo "<option value='" . $Item['id'] . "'>" . $Item["noEconomico"] . ' - '. $Item["id"] ."</option>";
+		}
+	}
+
+	public function ctlRemolques ($idRemolque) {
+		$Respuesta = Datos::mdlListaRemolques("remolques");
+
+		foreach ($Respuesta as $row => $Item){
+
+			if ($Item["id"] == $idRemolque ){
+				echo  '<option value="'.$Item["id"].'" selected>'.$Item["placas"].' - '.$idRemolque.'</option>';
+			}
+			else{
+				echo  '<option value="'.$Item["id"].'">'.$Item["placas"]. ' - '. $Item["id"] .'</option>';
+			}
 		}
 	}
 
@@ -654,7 +685,7 @@ class MvcController{
 				"codProd" => $_POST["codProd"],
 				"lote" => $_POST["lote"],
 				"unidad" => $_POST["unidad"],
-				"unidad1" => $_POST["unidad1"],
+				"remolque" => $_POST["remolque"],
 				"op" => $_POST["op"],
 				"kg" =>  $_POST["kg"],
 				"um" => $_POST["um"],
