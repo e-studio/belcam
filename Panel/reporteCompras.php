@@ -60,7 +60,7 @@
 											<div class="row">
 											<div class="col-md-12">
 												<label>De</label>
-												<input type="date" required class="form-control" name="de" id="de">
+												<input type="date" required class="form-control" name="de" id="de" value="<?php echo date('Y-m-d'); ?>">
 											</div>
 											</div>
 										</div>
@@ -68,7 +68,7 @@
 											<div class="row">
 												<div class="col-md-12">
 													<label>Hasta</label>
-													<input type="date" required="" class="form-control" name="hasta" id="hasta">
+													<input type="date" required="" class="form-control" name="hasta" id="hasta" value="<?php echo date('Y-m-d'); ?>">
 												</div>
 											</div>
 										</div>
